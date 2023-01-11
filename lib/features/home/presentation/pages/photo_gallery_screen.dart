@@ -39,12 +39,17 @@ class PhotoGalleryScreen extends StatelessWidget {
                     return Container(
                       margin: EdgeInsets.symmetric(
                         vertical: AppSize.s12.h,
-                        horizontal: AppSize.s12.w,
                       ),
-                      color: ColorManager.grey,
-                      height: AppSize.s220.h,
-                      width: double.infinity,
-                      child: Image.network(state.list[index].url),
+                      height: AppSize.s200.h,
+                      width: AppSize.s200.w,
+                      decoration: BoxDecoration(
+                        color: ColorManager.grey,
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            state.list[index].url,
+                          ),
+                        ),
+                      ),
                     );
                   },
                 ),
