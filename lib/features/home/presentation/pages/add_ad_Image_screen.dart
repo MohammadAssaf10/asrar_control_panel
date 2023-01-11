@@ -67,8 +67,8 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                         horizontal: AppSize.s10.w,
                         vertical: AppSize.s10.h,
                       ),
-                      child: Image.file(
-                        image!,
+                      child: Image.network(
+                        image!.path,
                         width: double.infinity,
                       ),
                     ),

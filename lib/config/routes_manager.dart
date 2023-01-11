@@ -22,12 +22,12 @@ class RouteGenerator {
     switch (settings.name) {
       case Routes.homeRoute:
         return MaterialPageRoute(
-          builder: (_) => HomeScreen(),
+          builder: (_) => const HomeScreen(),
         );
       case Routes.addAnAdvertisementImageRoute:
-        return MaterialPageRoute(builder: (_) => AddAdImageScreen());
+        return MaterialPageRoute(builder: (_) => const AddAdImageScreen());
       case Routes.photoGalleryRoute:
-        return MaterialPageRoute(builder: (_) => PhotoGalleryScreen());
+        return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());
       default:
         return unDefinedRoute();
     }
@@ -37,11 +37,11 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (_) => Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             AppStrings.noRouteFound,
           ),
         ),
-        body: Center(
+        body: const Center(
           child: Text(AppStrings.noRouteFound),
         ),
       ),

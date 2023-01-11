@@ -11,7 +11,6 @@ import 'core/app/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await ScreenUtil.ensureScreenSize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
