@@ -1,9 +1,9 @@
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../repositories/image_repository.dart';
+import '../repositories/file_repository.dart';
 
 class DownloadUrlFileUseCase{
-  final ImageRepository imageRepository;
+  final FileRepository imageRepository;
 
   DownloadUrlFileUseCase(this.imageRepository);
 

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:asrar_control_panel/config/app_localizations.dart';
-import 'package:asrar_control_panel/config/styles_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,10 +9,11 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../config/color_manager.dart';
 import '../../../../config/routes_manager.dart';
 import '../../../../config/strings_manager.dart';
+import '../../../../config/styles_manager.dart';
 import '../../../../config/values_manager.dart';
 import '../../../../core/app/di.dart';
 import '../../../../core/app/functions.dart';
-import '../../domain/repositories/image_repository.dart';
+import '../../domain/repositories/file_repository.dart';
 import '../../domain/use_cases/upload_file.dart';
 import '../manager/photo_gallery_bloc/gallery_bloc.dart';
 import '../widgets/control_panel_button.dart';
@@ -27,6 +27,8 @@ class AddAdImageScreen extends StatefulWidget {
 
 class _AddAdImageScreenState extends State<AddAdImageScreen> {
   final ImagePicker _picker = ImagePicker();
+  final UploadFileUseCase uploadFileUseCase =
+      UploadFileUseCase(instance<FileRepository>());
   File? image;
   XFile? imagePicked;
 
@@ -80,13 +82,12 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                 buttonTitle: AppStrings.uploadImage.tr(context),
                 onTap: (imagePicked != null
                     ? () async {
-                        final isLoaded = await UploadFileUseCase(
-                                instance<ImageRepository>())
-                            .call(image!, imagePicked!.name, "adImages");
+                        final isLoaded = await uploadFileUseCase(
+                            image!, imagePicked!.name, "adImages");
                         isLoaded.fold((failure) {
                           showCustomDialog(context,
                               message: failure.message.tr(context));
-                        },(r) {
+                        }, (r) {
                           showCustomDialog(context,
                               message: AppStrings.imageAddedSuccessfully
                                   .tr(context));
@@ -94,14 +95,14 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                       }
                     : () {
                         showCustomDialog(context,
-                            message:
-                                AppStrings.pleaseSelectImage.tr(context));
+                            message: AppStrings.pleaseSelectImage.tr(context));
                       }),
               ),
               ControlPanelButton(
                   buttonTitle: "عرض الصور",
                   onTap: () {
-                    BlocProvider.of<GalleryBloc>(context).add(GetImageGallery());
+                    BlocProvider.of<GalleryBloc>(context)
+                        .add(GetImageGallery());
                     Navigator.pushNamed(context, Routes.photoGalleryRoute);
                   }),
             ],

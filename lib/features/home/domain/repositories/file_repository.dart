@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import '../../../../core/data/failure.dart';
 import '../entities/file_entities.dart';
 
-abstract class ImageRepository {
+abstract class FileRepository {
   Future<Either<Failure, Unit>> uploadFile(
       File file, String fileName, String filePath);
 

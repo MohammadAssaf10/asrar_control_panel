@@ -1,3 +1,4 @@
+import 'package:asrar_control_panel/features/home/domain/use_cases/get_file.dart';
 import 'package:asrar_control_panel/features/home/presentation/manager/photo_gallery_bloc/gallery_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   const MyApp._internal();
 
   static const MyApp _instance =
-      MyApp._internal(); // singleton or single instance
+  MyApp._internal(); // singleton or single instance
 
   factory MyApp() => _instance; // factory
   @override
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return BlocProvider(
-          create: (context) => instance<GalleryBloc>(),
+          create: (context) => GalleryBloc(getFileUseCase: instance<GetFileUseCase>()),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: "لوحة تحكم تطبيق أسرار",

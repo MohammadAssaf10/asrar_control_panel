@@ -2,6 +2,7 @@ import 'package:asrar_control_panel/features/home/presentation/pages/add_ad_Imag
 import 'package:asrar_control_panel/features/home/presentation/pages/photo_gallery_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../core/app/di.dart';
 import '../features/home/presentation/pages/home_screen.dart';
 import 'strings_manager.dart';
 
@@ -25,6 +26,7 @@ class RouteGenerator {
           builder: (_) => const HomeScreen(),
         );
       case Routes.addAnAdvertisementImageRoute:
+        adImageModule();
         return MaterialPageRoute(builder: (_) => const AddAdImageScreen());
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());

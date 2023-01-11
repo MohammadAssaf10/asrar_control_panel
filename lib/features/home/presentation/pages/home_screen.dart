@@ -18,9 +18,8 @@ class HomeScreen extends StatelessWidget {
         children: [
           ControlPanelButton(
             buttonTitle: AppStrings.addAnAdvertisementImage.tr(context),
-            onTap: () =>
-                Navigator.pushNamed(
-                    context, Routes.addAnAdvertisementImageRoute),
+            onTap: () => Navigator.pushNamed(
+                context, Routes.addAnAdvertisementImageRoute),
           )
         ],
       ),

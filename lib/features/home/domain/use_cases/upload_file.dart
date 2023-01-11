@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:asrar_control_panel/features/home/domain/repositories/image_repository.dart';
+import 'package:asrar_control_panel/features/home/domain/repositories/file_repository.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/data/failure.dart';
 
 class UploadFileUseCase {
-  final ImageRepository imageRepository;
+  final FileRepository imageRepository;
 
   UploadFileUseCase(this.imageRepository);
 
