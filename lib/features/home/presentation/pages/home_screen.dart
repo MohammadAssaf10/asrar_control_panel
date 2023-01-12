@@ -14,13 +14,26 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppStrings.asrarControlPanel.tr(context)),
       ),
-      body: Wrap(
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ControlPanelButton(
-            buttonTitle: AppStrings.addAnAdvertisementImage.tr(context),
-            onTap: () => Navigator.pushNamed(
-                context, Routes.addAnAdvertisementImageRoute),
-          )
+          Column(
+            children: [
+              ControlPanelButton(
+                buttonTitle: AppStrings.addAnAdvertisementImage.tr(context),
+                onTap: () => Navigator.pushNamed(
+                    context, Routes.addAnAdvertisementImageRoute),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              ControlPanelButton(
+                  buttonTitle: "خدمات",
+                  onTap: () =>{}
+              ),
+            ],
+          ),
         ],
       ),
     );

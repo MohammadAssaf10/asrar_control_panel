@@ -1,9 +1,10 @@
+import 'package:asrar_control_panel/features/home/domain/entities/xfile_entities.dart';
+import 'package:asrar_control_panel/features/home/domain/use_cases/select_image_for_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:asrar_control_panel/config/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import '../../../../config/color_manager.dart';
 import '../../../../config/routes_manager.dart';
@@ -25,36 +26,39 @@ class AddAdImageScreen extends StatefulWidget {
 }
 
 class _AddAdImageScreenState extends State<AddAdImageScreen> {
-  final ImagePicker _picker = ImagePicker();
   final UploadFileUseCase uploadFileUseCase =
       UploadFileUseCase(instance<FileRepository>());
-  File? image;
+  final SelectImageForWebUseCase selectImageForWebUseCase =
+      SelectImageForWebUseCase();
   Uint8List webImage = Uint8List(8);
+  late XFileEntities xFileEntities;
+  File? image;
 
-  void selectImage() async {
-    // Pick an image
-    if (!kIsWeb) {
-      XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
-      if (imagePicked != null) {
-        File selected = File(imagePicked.path);
-        setState(() {
-          image = selected;
-        });
-      }
-    } else if (kIsWeb) {
-      XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
-      if (imagePicked != null) {
-        Uint8List selected = await imagePicked.readAsBytes();
-        String selectName = imagePicked.name;
-        setState(() {
-          webImage = selected;
-          image = File(selectName);
-        });
-      }
-    } else {
-      print("\\\\\\\\ Something wrong \\\\\\\\");
-    }
-  }
+
+  // void selectImage() async {
+  //   // Pick an image
+  //   if (!kIsWeb) {
+  //     XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+  //     if (imagePicked != null) {
+  //       File selected = File(imagePicked.path);
+  //       setState(() {
+  //         image = selected;
+  //       });
+  //     }
+  //   } else if (kIsWeb) {
+  //     XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+  //     if (imagePicked != null) {
+  //       Uint8List selected = await imagePicked.readAsBytes();
+  //       String selectName = imagePicked.name;
+  //       setState(() {
+  //         webImage = selected;
+  //         image = File(selectName);
+  //       });
+  //     }
+  //   } else {
+  //     print("\\\\\\\\ Something wrong \\\\\\\\");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -90,14 +94,20 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                     ),
               ControlPanelButton(
                 buttonTitle: AppStrings.selectImage.tr(context),
-                onTap: () => selectImage(),
+                onTap: () async {
+                  xFileEntities = (await selectImageForWebUseCase())!;
+                    setState(() {
+                      webImage = xFileEntities.xFileAsBytes;
+                      image=File(xFileEntities.name);
+                    });
+                },
               ),
               ControlPanelButton(
                 buttonTitle: AppStrings.uploadImage.tr(context),
                 onTap: (image != null
                     ? () async {
-                  showCustomDialog(context);
-                  final isLoaded = await uploadFileUseCase(
+                        showCustomDialog(context);
+                        final isLoaded = await uploadFileUseCase(
                             webImage, image!.path, "adImages");
                         isLoaded.fold((failure) {
                           dismissDialog(context);

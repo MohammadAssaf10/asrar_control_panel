@@ -57,8 +57,7 @@ class PhotoGalleryScreen extends StatelessWidget {
                   if (state.list.isNotEmpty) {
                     return Center(
                       child: SizedBox(
-                        width: AppSize.s250.w,
-                        height: AppSize.s600.h,
+                        width: AppSize.s200.w,
                         child: ListView.builder(
                           itemCount: state.list.length,
                           shrinkWrap: true,
@@ -83,7 +82,6 @@ class PhotoGalleryScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   color: ColorManager.grey,
                                   image: DecorationImage(
-                                    alignment: Alignment.center,
                                     image: NetworkImage(
                                       state.list[index].url,
                                     ),
