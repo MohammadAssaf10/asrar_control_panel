@@ -44,5 +44,9 @@
   "upload_image": "Upload image",
   "image_added_successfully": "Image added successfully",
   "no_internet_error": "Please check your internet connection then try again",
-  "ok": "Ok"
+  "ok": "Ok",
+  "delete_image": "Delete image",
+  "photo_gallery": "Photo gallery",
+  "long_press_on_the_image_to_delete": "Long press on the image to delete",
+  "no_pictures": "No pictures"
 }

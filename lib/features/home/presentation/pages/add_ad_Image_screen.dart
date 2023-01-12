@@ -102,9 +102,11 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                           showCustomDialog(context,
                               message: failure.message.tr(context));
                         }, (r) {
-                          showCustomDialog(context,
-                              message: AppStrings.imageAddedSuccessfully
-                                  .tr(context));
+                          r.whenComplete(() {
+                            showCustomDialog(context,
+                                message: AppStrings.imageAddedSuccessfully
+                                    .tr(context));
+                          });
                         });
                       }
                     : () {
@@ -113,7 +115,7 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                       }),
               ),
               ControlPanelButton(
-                  buttonTitle: "عرض الصور",
+                  buttonTitle: AppStrings.deleteImage.tr(context),
                   onTap: () {
                     BlocProvider.of<GalleryBloc>(context)
                         .add(GetImageGallery());

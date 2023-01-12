@@ -16,14 +16,14 @@ class FileRepositoryImpl implements FileRepository {
       Future.wait(refs.map((ref) => ref.getDownloadURL()).toList());
 
   @override
-  Future<Either<Failure, Unit>> uploadFile(
+  Future<Either<Failure, UploadTask>> uploadFile(
       Uint8List file, String fileName, String filePath) async {
     try {
       final String path = "$filePath/$fileName";
       final Reference storageRef = storage.ref();
       final Reference ref = storageRef.child(path);
-      ref.putData(file);
-      return const Right(unit);
+      final task = ref.putData(file);
+      return Right(task);
     } catch (e) {
       return Left(FirebaseExceptionHandler.handle(e).getFailure());
     }
@@ -48,5 +48,11 @@ class FileRepositoryImpl implements FileRepository {
     } catch (e) {
       return Left(FirebaseExceptionHandler.handle(e).getFailure());
     }
+  }
+
+  @override
+  Future<void> deleteFile(String folderName, String fileName) async{
+    final ref=storage.ref().child("$folderName/$fileName");
+    await ref.delete();
   }
 }

@@ -16,19 +16,25 @@ class ControlPanelButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSize.s10.w,
-        vertical: AppSize.s10.h,
-      ),
-      child: ElevatedButton(
-        onPressed: () => onTap(),
-        child: Text(
-          buttonTitle,
-          textAlign: TextAlign.center,
-          style: getAlmaraiRegularStyle(
-            fontSize: AppSize.s20.sp,
-            color: ColorManager.white,
+    return Center(
+      child: SizedBox(
+        width: AppSize.s150.w,
+        height: AppSize.s60.h,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSize.s10.w,
+            vertical: AppSize.s10.h,
+          ),
+          child: ElevatedButton(
+            onPressed: () => onTap(),
+            child: Text(
+              buttonTitle,
+              textAlign: TextAlign.center,
+              style: getAlmaraiRegularStyle(
+                fontSize: AppSize.s20.sp,
+                color: ColorManager.white,
+              ),
+            ),
           ),
         ),
       ),

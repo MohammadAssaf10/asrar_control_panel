@@ -82,7 +82,6 @@ ThemeData getApplicationTheme() {
     // elevated button
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(Size.fromHeight(AppSize.s50.h)),
         backgroundColor: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.disabled)) {
             return ColorManager.grey;
