@@ -96,13 +96,16 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                 buttonTitle: AppStrings.uploadImage.tr(context),
                 onTap: (image != null
                     ? () async {
-                        final isLoaded = await uploadFileUseCase(
+                  showCustomDialog(context);
+                  final isLoaded = await uploadFileUseCase(
                             webImage, image!.path, "adImages");
                         isLoaded.fold((failure) {
+                          dismissDialog(context);
                           showCustomDialog(context,
                               message: failure.message.tr(context));
                         }, (r) {
                           r.whenComplete(() {
+                            dismissDialog(context);
                             showCustomDialog(context,
                                 message: AppStrings.imageAddedSuccessfully
                                     .tr(context));

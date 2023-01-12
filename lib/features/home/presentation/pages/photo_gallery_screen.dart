@@ -65,11 +65,14 @@ class PhotoGalleryScreen extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               onLongPress: () {
+                                showCustomDialog(context);
                                 deleteFileUseCase(
                                         "adImages", state.list[index].name)
                                     .whenComplete(
-                                  () => showCustomDialog(context,
-                                      message: "تم الحذف"),
+                                  () {
+                                    dismissDialog(context);
+                                    showCustomDialog(context,
+                                      message: "تم الحذف");}
                                 );
                               },
                               child: Container(
