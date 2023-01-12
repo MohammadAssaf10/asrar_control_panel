@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../../../core/data/failure.dart';
 import '../../../../core/data/firebase_exception_handler.dart';
@@ -13,22 +12,17 @@ class FileRepositoryImpl implements FileRepository {
 
   FileRepositoryImpl({required this.storage});
 
-  @override
   Future<List<String>> downloadUrlFile(List<Reference> refs) async =>
       Future.wait(refs.map((ref) => ref.getDownloadURL()).toList());
 
   @override
   Future<Either<Failure, Unit>> uploadFile(
-      File file, String fileName, String filePath) async {
+      Uint8List file, String fileName, String filePath) async {
     try {
       final String path = "$filePath/$fileName";
       final Reference storageRef = storage.ref();
       final Reference ref = storageRef.child(path);
-      // ref.putFile(File(file.path));
-      final fileAsBytes = await file.readAsBytes();
-      ref
-          .putData(fileAsBytes)
-          .whenComplete(() => print("////////Done//////"));
+      ref.putData(file);
       return const Right(unit);
     } catch (e) {
       return Left(FirebaseExceptionHandler.handle(e).getFailure());

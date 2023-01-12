@@ -1,11 +1,10 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:asrar_control_panel/config/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'dart:io';
 import '../../../../config/color_manager.dart';
 import '../../../../config/routes_manager.dart';
 import '../../../../config/strings_manager.dart';
@@ -30,15 +29,30 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
   final UploadFileUseCase uploadFileUseCase =
       UploadFileUseCase(instance<FileRepository>());
   File? image;
-  XFile? imagePicked;
+  Uint8List webImage = Uint8List(8);
 
   void selectImage() async {
     // Pick an image
-    imagePicked = await _picker.pickImage(source: ImageSource.gallery);
-    if (imagePicked != null) {
-      setState(() {
-        image = File(imagePicked!.path);
-      });
+    if (!kIsWeb) {
+      XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+      if (imagePicked != null) {
+        File selected = File(imagePicked.path);
+        setState(() {
+          image = selected;
+        });
+      }
+    } else if (kIsWeb) {
+      XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
+      if (imagePicked != null) {
+        Uint8List selected = await imagePicked.readAsBytes();
+        String selectName = imagePicked.name;
+        setState(() {
+          webImage = selected;
+          image = File(selectName);
+        });
+      }
+    } else {
+      print("\\\\\\\\ Something wrong \\\\\\\\");
     }
   }
 
@@ -69,8 +83,8 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                         horizontal: AppSize.s10.w,
                         vertical: AppSize.s10.h,
                       ),
-                      child: Image.network(
-                        image!.path,
+                      child: Image.memory(
+                        webImage,
                         width: double.infinity,
                       ),
                     ),
@@ -80,10 +94,10 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
               ),
               ControlPanelButton(
                 buttonTitle: AppStrings.uploadImage.tr(context),
-                onTap: (imagePicked != null
+                onTap: (image != null
                     ? () async {
                         final isLoaded = await uploadFileUseCase(
-                            image!, imagePicked!.name, "adImages");
+                            webImage, image!.path, "adImages");
                         isLoaded.fold((failure) {
                           showCustomDialog(context,
                               message: failure.message.tr(context));
