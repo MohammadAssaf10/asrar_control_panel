@@ -15,6 +15,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initAppModule();
+  initAuthenticationModule();
+
   // lock rotate
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
