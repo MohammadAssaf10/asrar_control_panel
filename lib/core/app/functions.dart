@@ -1,4 +1,3 @@
-import 'package:asrar_control_panel/config/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +7,7 @@ import '../../config/color_manager.dart';
 import '../../config/strings_manager.dart';
 import '../../config/styles_manager.dart';
 import '../../config/values_manager.dart';
+import '../../config/app_localizations.dart';
 
 bool isEmailFormatCorrect(String email) {
   return RegExp(
@@ -37,8 +37,12 @@ void showCustomDialog(BuildContext context,
       builder: (_) => Center(
         child: Padding(
           padding: EdgeInsets.all(AppSize.s8.h),
-          child: Card(
-            color: ColorManager.white,
+          child: Container(
+            width: AppSize.s200.w,
+            decoration: BoxDecoration(
+              color: ColorManager.white,
+              borderRadius: BorderRadius.circular(AppSize.s10.r),
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

@@ -31,6 +31,7 @@ class AppStrings {
   static const String verificationCode = "verification_code";
   static const String sendVerificationCode = "send_verification_code";
   static const String newPassword = "new_password";
+  static const String accessToControlPanel = "access to control panel";
   static const String resetEmailSendMessage =
       "we_send_you_an_email_please_check_your_email_address";
 

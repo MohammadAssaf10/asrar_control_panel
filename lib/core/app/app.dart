@@ -1,4 +1,3 @@
-import 'package:asrar_control_panel/features/home/presentation/manager/photo_gallery_bloc/gallery_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,6 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/app_localizations.dart';
 import '../../config/routes_manager.dart';
 import '../../config/theme_manager.dart';
+import '../../features/auth/presentation/bloc/authentication_bloc.dart';
+import '../../features/home/presentation/manager/photo_gallery_bloc/gallery_bloc.dart';
+import '../../language_cubit/language_cubit.dart';
 import 'di.dart';
 import 'language.dart';
 
@@ -25,31 +27,42 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return BlocProvider(
-          create: (context) => instance<GalleryBloc>(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: "لوحة تحكم تطبيق أسرار",
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              AppLocalizations.delegate,
-            ],
-            supportedLocales: const [arabicLocale, englishLocale],
-            locale: arabicLocale,
-            localeResolutionCallback: (deviceLocale, supportedLocales) {
-              for (var locale in supportedLocales) {
-                if (deviceLocale != null &&
-                    deviceLocale.languageCode == locale.languageCode) {
-                  return deviceLocale;
-                }
-              }
-              return supportedLocales.first;
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => instance<GalleryBloc>(),
+            ),
+            BlocProvider<AuthenticationBloc>(create: ((context) => AuthenticationBloc())),
+            BlocProvider<LanguageCubit>(
+              create: (context) => LanguageCubit(),
+            ),
+          ],
+          child: BlocBuilder<LanguageCubit, LanguageState>(
+            builder: (context, state) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: "لوحة تحكم تطبيق أسرار",
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  AppLocalizations.delegate,
+                ],
+                supportedLocales: const [arabicLocale, englishLocale],
+                locale: state.locale,
+                localeResolutionCallback: (deviceLocale, supportedLocales) {
+                  for (var locale in supportedLocales) {
+                    if (deviceLocale != null &&
+                        deviceLocale.languageCode == locale.languageCode) {
+                      return deviceLocale;
+                    }
+                  }
+                  return supportedLocales.first;
+                },
+                theme: getApplicationTheme(),
+                onGenerateRoute: RouteGenerator.getRoute,
+              );
             },
-            theme: getApplicationTheme(),
-            initialRoute: Routes.homeRoute,
-            onGenerateRoute: RouteGenerator.getRoute,
           ),
         );
       },
