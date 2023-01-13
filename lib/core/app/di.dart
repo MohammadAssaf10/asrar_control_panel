@@ -9,8 +9,6 @@ import '../../features/home/domain/repositories/image_repository.dart';
 import '../../features/home/domain/use_cases/get_file.dart';
 import '../../features/home/presentation/manager/photo_gallery_bloc/gallery_bloc.dart';
 
-
-
 final GetIt instance = GetIt.instance;
 
 Future<void> initAppModule() async {
@@ -35,7 +33,6 @@ Future<void> initAppModule() async {
 
 void initAuthenticationModule() {
   if (!GetIt.I.isRegistered<Repository>()) {
-    instance.registerLazySingleton<Repository>(
-        () => RepositoryImp());
+    instance.registerLazySingleton<Repository>(() => RepositoryImp());
   }
 }
