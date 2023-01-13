@@ -42,11 +42,14 @@
   "please_select_image": "Please select image",
   "select_image": "select image",
   "upload_image": "Upload image",
-  "image_added_successfully": "Image added successfully",
+  "added_successfully": "Added successfully",
   "no_internet_error": "Please check your internet connection then try again",
   "ok": "Ok",
   "delete_image": "Delete image",
   "photo_gallery": "Photo gallery",
   "long_press_on_the_image_to_delete": "Long press on the image to delete",
-  "no_pictures": "No pictures"
+  "no_pictures": "No pictures",
+  "services": "Services",
+  "add_services_company": "Add services company",
+  "add": "Add"
 }

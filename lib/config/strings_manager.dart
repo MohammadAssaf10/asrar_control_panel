@@ -53,12 +53,15 @@ class AppStrings {
   static const String pleaseSelectImage = "please_select_image";
   static const String selectImage = "select_image";
   static const String uploadImage = "upload_image";
-  static const String imageAddedSuccessfully = "image_added_successfully";
+  static const String addedSuccessfully = "added_successfully";
   static const String ok = "ok";
   static const String deleteImage = "delete_image";
   static const String photoGallery = "photo_gallery";
   static const String longPressOnTheImageToDelete = "long_press_on_the_image_to_delete";
   static const String noPictures = "no_pictures";
+  static const String services = "services";
+  static const String addServicesCompany = "add_services_company";
+  static const String add = "add";
 
   // exception handler
   static const String success = "success";

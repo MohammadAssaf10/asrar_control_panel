@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
         title: Text(AppStrings.asrarControlPanel.tr(context)),
       ),
       body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Column(
             children: [
@@ -29,8 +29,8 @@ class HomeScreen extends StatelessWidget {
           Column(
             children: [
               ControlPanelButton(
-                  buttonTitle: "خدمات",
-                  onTap: () =>{}
+                buttonTitle: AppStrings.services.tr(context),
+                onTap: () => Navigator.pushNamed(context, Routes.servicesRoute),
               ),
             ],
           ),

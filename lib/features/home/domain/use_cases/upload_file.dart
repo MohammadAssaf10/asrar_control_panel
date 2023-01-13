@@ -11,7 +11,7 @@ class UploadFileUseCase {
   UploadFileUseCase(this.fileRepository);
 
   Future<Either<Failure, UploadTask>> call(
-      Uint8List file, String fileName, String filePath) async {
-    return await fileRepository.uploadFile(file, fileName, filePath);
+      Uint8List file, String fileName, String folderPath) async {
+    return await fileRepository.uploadFile(file, fileName, folderPath);
   }
 }

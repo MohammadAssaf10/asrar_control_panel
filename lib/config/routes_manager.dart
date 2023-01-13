@@ -1,9 +1,10 @@
-import 'package:asrar_control_panel/features/home/presentation/pages/add_ad_Image_screen.dart';
-import 'package:asrar_control_panel/features/home/presentation/pages/photo_gallery_screen.dart';
 import 'package:flutter/material.dart';
 
-import '../core/app/di.dart';
+import '../features/home/presentation/pages/add_ad_Image_screen.dart';
+import '../features/home/presentation/pages/add_services_company_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
+import '../features/home/presentation/pages/photo_gallery_screen.dart';
+import '../features/home/presentation/pages/services_screen.dart';
 import 'strings_manager.dart';
 
 class Routes {
@@ -11,6 +12,8 @@ class Routes {
   static const String homeRoute = "/";
   static const String addAnAdvertisementImageRoute = "/addAnAdvertisementImage";
   static const String photoGalleryRoute = "/photoGallery";
+  static const String servicesRoute = "/services";
+  static const String addServicesCompanyRoute = "/addServicesCompany";
 
   // auth rotes
   static const String loginRoute = '/login';
@@ -26,10 +29,13 @@ class RouteGenerator {
           builder: (_) => const HomeScreen(),
         );
       case Routes.addAnAdvertisementImageRoute:
-        adImageModule();
         return MaterialPageRoute(builder: (_) => const AddAdImageScreen());
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());
+      case Routes.servicesRoute:
+        return MaterialPageRoute(builder: (_) => const ServicesScreen());
+      case Routes.addServicesCompanyRoute:
+        return MaterialPageRoute(builder: (_) => const AddServicesCompanyScreen());
       default:
         return unDefinedRoute();
     }

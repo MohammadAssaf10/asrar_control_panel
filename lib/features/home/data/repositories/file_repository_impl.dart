@@ -17,9 +17,9 @@ class FileRepositoryImpl implements FileRepository {
 
   @override
   Future<Either<Failure, UploadTask>> uploadFile(
-      Uint8List file, String fileName, String filePath) async {
+      Uint8List file, String fileName, String folderPath) async {
     try {
-      final String path = "$filePath/$fileName";
+      final String path = "$folderPath/$fileName";
       final Reference storageRef = storage.ref();
       final Reference ref = storageRef.child(path);
       final task = ref.putData(file);

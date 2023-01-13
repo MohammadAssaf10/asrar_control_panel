@@ -7,7 +7,7 @@ import '../entities/file_entities.dart';
 
 abstract class FileRepository {
   Future<Either<Failure, UploadTask>> uploadFile(
-      Uint8List file, String fileName, String filePath);
+      Uint8List file, String fileName, String folderPath);
 
   Future<Either<Failure, List<FileEntities>>> getFile(String folderName);
   Future<void> deleteFile(String folderName,String fileName);

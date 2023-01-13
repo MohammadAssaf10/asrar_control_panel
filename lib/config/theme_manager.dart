@@ -28,7 +28,7 @@ ThemeData getApplicationTheme() {
     errorColor: ColorManager.error,
     inputDecorationTheme: InputDecorationTheme(
       // hint style
-      hintStyle: getAlmaraiBoldStyle(
+      hintStyle: getAlmaraiRegularStyle(
           color: ColorManager.darkPrimary, fontSize: AppSize.s16.sp),
       labelStyle: getAlmaraiRegularStyle(
           color: ColorManager.darkPrimary, fontSize: AppSize.s16.sp),
