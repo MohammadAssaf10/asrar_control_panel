@@ -106,7 +106,7 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
                         showCustomDialog(context);
                         r.whenComplete(() async {
                           final company = await addCompanyUseCase(
-                              "company", _controller.text);
+                              "company", image!.path, _controller.text);
                           company.fold((l) {
                             dismissDialog(context);
                             showCustomDialog(context, message: l.message);
