@@ -1,3 +1,5 @@
+import 'package:asrar_control_panel/features/home/domain/use_cases/get_file.dart';
+import 'package:asrar_control_panel/features/home/presentation/manager/photo_gallery_bloc/gallery_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
   const MyApp._internal();
 
   static const MyApp _instance =
-      MyApp._internal(); // singleton or single instance
+  MyApp._internal(); // singleton or single instance
 
   factory MyApp() => _instance; // factory
   @override
@@ -29,6 +31,10 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MultiBlocProvider(
           providers: [
+             
+            BlocProvider(
+              create: (context) => GalleryBloc(getFileUseCase: instance<GetFileUseCase>()),
+            ),
             BlocProvider(
               create: (context) => instance<GalleryBloc>(),
             ),

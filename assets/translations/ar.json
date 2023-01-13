@@ -44,7 +44,14 @@
   "please_select_image": "الرجاء اختيار صورة",
   "select_image": "اختيار صورة",
   "upload_image": "رفع الصورة",
-  "image_added_successfully": "تمت إضافة الصورة بنجاح",
+  "added_successfully": "تمت الإضافة بنجاح",
   "no_internet_error": "يرجى التحقق من اتصالك بالإنترنت ثم المحاولة مرة أخرى",
-  "ok": "موافق"
+  "ok": "موافق",
+  "delete_image": "حذف صور",
+  "photo_gallery": "معرض الصور",
+  "long_press_on_the_image_to_delete": "اضغط مطولاً على الصورة للحذف",
+  "no_pictures": "لا يوجد صور",
+  "services": "الخدمات",
+  "add_services_company": "إضافة شركة خدمات",
+  "add": "إضافة"
 }

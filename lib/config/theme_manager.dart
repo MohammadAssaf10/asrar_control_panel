@@ -28,7 +28,7 @@ ThemeData getApplicationTheme() {
     errorColor: ColorManager.error,
     inputDecorationTheme: InputDecorationTheme(
       // hint style
-      hintStyle: getAlmaraiBoldStyle(
+      hintStyle: getAlmaraiRegularStyle(
           color: ColorManager.darkPrimary, fontSize: AppSize.s16.sp),
       labelStyle: getAlmaraiRegularStyle(
           color: ColorManager.darkPrimary, fontSize: AppSize.s16.sp),
@@ -74,7 +74,6 @@ ThemeData getApplicationTheme() {
     // elevated button
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        minimumSize: MaterialStateProperty.all(Size.fromHeight(AppSize.s50.h)),
         backgroundColor: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.disabled)) {
             return ColorManager.grey;
