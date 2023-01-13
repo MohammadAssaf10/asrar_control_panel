@@ -39,6 +39,7 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isTrue = _controller.text.isNotEmpty && image != null;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppStrings.addServicesCompany.tr(context)),
@@ -97,31 +98,41 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
                 },
               ),
               ControlPanelButton(
-                  buttonTitle: AppStrings.add.tr(context),
-                  onTap: () async {
-                    try {
-                      final isUploaded = await uploadFileUseCase(
-                          webImage, image!.path, "company");
-                      isUploaded.fold((failure) {}, (r) async {
-                        showCustomDialog(context);
-                        r.whenComplete(() async {
-                          final company = await addCompanyUseCase(
-                              "company", image!.path, _controller.text);
-                          company.fold((l) {
-                            dismissDialog(context);
-                            showCustomDialog(context, message: l.message);
-                          }, (r) {
-                            dismissDialog(context);
-                            showCustomDialog(context,
-                                message:
-                                    AppStrings.addedSuccessfully.tr(context));
+                buttonTitle: AppStrings.add.tr(context),
+                onTap: (isTrue
+                    ? () async {
+                        try {
+                          final isUploaded = await uploadFileUseCase(
+                              webImage, image!.path, "company");
+                          isUploaded.fold((failure) {}, (r) async {
+                            showCustomDialog(context);
+                            r.whenComplete(() async {
+                              final company = await addCompanyUseCase(
+                                  "company", image!.path, _controller.text);
+                              company.fold((l) {
+                                dismissDialog(context);
+                                showCustomDialog(context, message: l.message);
+                              }, (r) {
+                                dismissDialog(context);
+                                showCustomDialog(context,
+                                    message: AppStrings.addedSuccessfully
+                                        .tr(context));
+                              });
+                            });
                           });
-                        });
-                      });
-                    } catch (e) {
-                      print(e.toString());
-                    }
-                  }),
+                        } catch (e) {
+                          dismissDialog(context);
+                          showCustomDialog(context, message: e.toString());
+                        }
+                      }
+                    : () {
+                        dismissDialog(context);
+                        showCustomDialog(
+                          context,
+                          message: AppStrings.pleaseSelectImage.tr(context),
+                        );
+                      }),
+              ),
             ],
           ),
         ),
