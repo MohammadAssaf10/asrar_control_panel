@@ -4,7 +4,6 @@ import 'package:asrar_control_panel/config/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../config/color_manager.dart';
 import '../../../../config/strings_manager.dart';
 import '../../../../config/styles_manager.dart';
@@ -17,6 +16,7 @@ import '../../domain/use_cases/add_company.dart';
 import '../../domain/use_cases/select_image_for_web.dart';
 import '../../domain/use_cases/upload_file.dart';
 import '../widgets/control_panel_button.dart';
+import '../widgets/input_field.dart';
 
 class AddServicesCompanyScreen extends StatefulWidget {
   const AddServicesCompanyScreen({Key? key}) : super(key: key);
@@ -32,14 +32,13 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
   final UploadFileUseCase uploadFileUseCase =
       UploadFileUseCase(instance<FileRepository>());
   final AddCompanyUseCase addCompanyUseCase = AddCompanyUseCase();
-  final TextEditingController _controller = TextEditingController();
   Uint8List webImage = Uint8List(8);
   late XFileEntities xFileEntities;
   File? image;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    bool isTrue = _controller.text.isNotEmpty && image != null;
     return Scaffold(
       appBar: AppBar(
         title: Text(AppStrings.addServicesCompany.tr(context)),
@@ -72,19 +71,11 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
                         height: AppSize.s250.h,
                       ),
                     ),
-              Container(
-                width: AppSize.s120.w,
-                height: AppSize.s40.h,
-                decoration: BoxDecoration(
-                    color: ColorManager.lightGrey,
-                    borderRadius: BorderRadius.circular(AppSize.s10.r)),
-                child: TextField(
-                  controller: _controller,
-                  textAlign: TextAlign.center,
-                  decoration: const InputDecoration(
-                    hintText: "اسم الشركة",
-                  ),
-                ),
+              InputField(
+                controller: _controller,
+                hintTitle: "اسم الشركة",
+                keyboardType: TextInputType.name,
+                regExp: RegExp('[" "a-zأ-يA-Zا-ي]'),
               ),
               SizedBox(height: AppSize.s20.h),
               ControlPanelButton(
@@ -98,41 +89,36 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
                 },
               ),
               ControlPanelButton(
-                buttonTitle: AppStrings.add.tr(context),
-                onTap: (isTrue
-                    ? () async {
-                        try {
-                          final isUploaded = await uploadFileUseCase(
-                              webImage, image!.path, "company");
-                          isUploaded.fold((failure) {}, (r) async {
-                            showCustomDialog(context);
-                            r.whenComplete(() async {
-                              final company = await addCompanyUseCase(
-                                  "company", image!.path, _controller.text);
-                              company.fold((l) {
-                                dismissDialog(context);
-                                showCustomDialog(context, message: l.message);
-                              }, (r) {
-                                dismissDialog(context);
-                                showCustomDialog(context,
-                                    message: AppStrings.addedSuccessfully
-                                        .tr(context));
-                              });
-                            });
+                  buttonTitle: AppStrings.add.tr(context),
+                  onTap: () async {
+                    try {
+                      final isUploaded = await uploadFileUseCase(
+                          webImage, image!.path, "company");
+                      isUploaded.fold((failure) {
+                        showCustomDialog(context);
+                        showCustomDialog(context,
+                            message: failure.message.tr(context));
+                      }, (task) async {
+                        showCustomDialog(context);
+                        task.whenComplete(() async {
+                          final company = await addCompanyUseCase(
+                              "company", image!.path, _controller.text);
+                          company.fold((failure) {
+                            dismissDialog(context);
+                            showCustomDialog(context, message: failure.message);
+                          }, (r) {
+                            dismissDialog(context);
+                            showCustomDialog(context,
+                                message:
+                                    AppStrings.addedSuccessfully.tr(context));
                           });
-                        } catch (e) {
-                          dismissDialog(context);
-                          showCustomDialog(context, message: e.toString());
-                        }
-                      }
-                    : () {
-                        dismissDialog(context);
-                        showCustomDialog(
-                          context,
-                          message: AppStrings.pleaseSelectImage.tr(context),
-                        );
-                      }),
-              ),
+                        });
+                      });
+                    } catch (e) {
+                      dismissDialog(context);
+                      showCustomDialog(context, message: e.toString());
+                    }
+                  }),
             ],
           ),
         ),
