@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            width: 100,
+            width: 500,
             child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, Routes.loginRoute);
@@ -23,12 +23,28 @@ class SplashScreen extends StatelessWidget {
                 child: const Text('Auth')),
           ),
           SizedBox(
-            width: 100,
+            width: 500,
             child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, Routes.addAnAdvertisementImageRoute);
                 },
                 child: const Text('ad')),
+          ),
+          SizedBox(
+            width: 500,
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.addServicesCompanyRoute);
+                },
+                child: const Text('addServicesCompanyRoute')),
+          ),
+          SizedBox(
+            width: 500,
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.photoGalleryRoute);
+                },
+                child: const Text('photoGalleryRoute')),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
