@@ -15,23 +15,23 @@ class PhotoGalleryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("معرض الصور"),
+        title: const Text("معرض الصور"),
       ),
       body: BlocBuilder<GalleryBloc, GalleryState>(
         builder: (context, state) {
-          if (state is GalleryLoadingState)
-            return Center(
+          if (state is GalleryLoadingState) {
+            return const Center(
               child: CircularProgressIndicator(color: ColorManager.primary),
             );
-          else if (state is GalleryErrorState)
+          } else if (state is GalleryErrorState) {
             return Text(
               state.errorMessage,
               style: getAlmaraiRegularStyle(
                   fontSize: AppSize.s20.sp, color: ColorManager.error),
             );
-          else if (state is GalleryLoadedState) {
+          } else if (state is GalleryLoadedState) {
             if (state.list.isNotEmpty) {
-              return Container(
+              return SizedBox(
                 height: double.infinity,
                 child: ListView.builder(
                   itemCount: state.list.length,
@@ -66,7 +66,7 @@ class PhotoGalleryScreen extends StatelessWidget {
                   },
                 ),
               );
-            } else
+            } else {
               return Center(
                 child: Text(
                   "لا يوجد صور",
@@ -76,8 +76,10 @@ class PhotoGalleryScreen extends StatelessWidget {
                   ),
                 ),
               );
-          } else
-            return SizedBox();
+            }
+          } else {
+            return const SizedBox();
+          }
         },
       ),
     );

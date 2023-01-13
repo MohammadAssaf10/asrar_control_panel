@@ -5,16 +5,13 @@ import 'package:asrar_control_panel/features/home/domain/repositories/image_repo
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../../../core/data/exception_handler.dart';
 import '../../../../core/data/firebase_exception_handler.dart';
-import '../../../../core/network/network_info.dart';
 import '../../domain/entities/file_entities.dart';
 
 class ImageRepositoryImpl implements ImageRepository {
   final FirebaseStorage storage;
-  final NetworkInfo networkInfo;
 
-  ImageRepositoryImpl({required this.storage, required this.networkInfo});
+  ImageRepositoryImpl({required this.storage});
 
   @override
   Future<List<String>> downloadUrlFile(List<Reference> refs) async =>
@@ -23,7 +20,6 @@ class ImageRepositoryImpl implements ImageRepository {
   @override
   Future<Either<Failure, Unit>> uploadFile(
       File file, String fileName, String filePath) async {
-    if (await networkInfo.isConnected) {
       try {
         final String path = "$filePath/$fileName";
         final Reference storageRef = storage.ref();
@@ -33,14 +29,12 @@ class ImageRepositoryImpl implements ImageRepository {
       } catch (e) {
         return Left(FirebaseExceptionHandler.handle(e).getFailure());
       }
-    } else {
-      return Left(DataSourceExceptions.noInternetConnections.getFailure());
-    }
+    
   }
 
   @override
   Future<Either<Failure, List<FileEntities>>> getFile(String folderName) async {
-    if (await networkInfo.isConnected) {
+    
       try {
         final Reference ref = storage.ref(folderName);
         final ListResult result = await ref.listAll();
@@ -59,7 +53,6 @@ class ImageRepositoryImpl implements ImageRepository {
       } catch (e) {
         return Left(FirebaseExceptionHandler.handle(e).getFailure());
       }
-    } else
-      return Left(DataSourceExceptions.noInternetConnections.getFailure());
+    
   }
 }
