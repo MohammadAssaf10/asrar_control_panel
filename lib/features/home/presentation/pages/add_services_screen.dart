@@ -167,22 +167,30 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                     buttonTitle: AppStrings.add.tr(context),
                     onTap: () async {
                       showCustomDialog(context);
-                      final service = await addServiceUseCase(
-                        dropdownValue!,
-                        _servicesNameController.text,
-                        double.parse(_priceController.text),
-                        list,
-                      );
-                      service.fold((l) {
-                        // dismissDialog(context);
-                        showCustomDialog(context, message: l.message);
-                      }, (r) {
-                        // dismissDialog(context);
-                        showCustomDialog(
-                          context,
-                          message: AppStrings.addedSuccessfully.tr(context),
+
+                      try {
+                        final service = await addServiceUseCase(
+                          dropdownValue!,
+                          _servicesNameController.text,
+                          double.parse(_priceController.text),
+                          list,
                         );
-                      });
+                        print('hi bey');
+
+                        service.fold((l) {
+                          // dismissDialog(context);
+                          showCustomDialog(context, message: l.message);
+                        }, (r) {
+                          print('hi bey');
+                          dismissDialog(context);
+                          showCustomDialog(
+                            context,
+                            message: AppStrings.addedSuccessfully.tr(context),
+                          );
+                        });
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                   ),
                 ],

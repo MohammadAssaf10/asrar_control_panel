@@ -22,13 +22,14 @@ class SplashScreen extends StatelessWidget {
                 },
                 child: const Text('Auth')),
           ),
+         
           SizedBox(
             width: 100,
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, Routes.addAnAdvertisementImageRoute);
+                  Navigator.pushNamed(context, Routes.homeRoute);
                 },
-                child: const Text('ad')),
+                child: const Text('home')),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
