@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import '../../../../core/data/failure.dart';
 import '../entities/file_entities.dart';
 
-abstract class FileRepository {
+abstract class StorageFileRepository {
   Future<Either<Failure, UploadTask>> uploadFile(
       Uint8List file, String fileName, String folderPath);
 

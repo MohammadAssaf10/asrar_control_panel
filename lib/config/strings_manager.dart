@@ -61,8 +61,16 @@ class AppStrings {
   static const String longPressOnTheImageToDelete = "long_press_on_the_image_to_delete";
   static const String noPictures = "no_pictures";
   static const String services = "services";
+  static const String companyName = "company_name";
+  static const String servicesName = "services_name";
+  static const String servicesPrice = "services_price";
   static const String addServicesCompany = "add_services_company";
+  static const String addServices = "add_services";
   static const String add = "add";
+  static const String makeASelection = "make_a_selection";
+  static const String requiredDocuments = "required_documents";
+  static const String loading = "loading";
+  static const String noCompanies = "no_companies";
 
   // exception handler
   static const String success = "success";

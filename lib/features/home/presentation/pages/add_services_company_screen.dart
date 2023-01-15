@@ -11,10 +11,11 @@ import '../../../../config/values_manager.dart';
 import '../../../../core/app/di.dart';
 import '../../../../core/app/functions.dart';
 import '../../domain/entities/xfile_entities.dart';
-import '../../domain/repositories/file_repository.dart';
+import '../../domain/repositories/company_repository.dart';
+import '../../domain/repositories/storage_file_repository.dart';
 import '../../domain/use_cases/add_company.dart';
 import '../../domain/use_cases/select_image_for_web.dart';
-import '../../domain/use_cases/upload_file.dart';
+import '../../domain/use_cases/upload_file_to_storage.dart';
 import '../widgets/control_panel_button.dart';
 import '../widgets/input_field.dart';
 
@@ -29,9 +30,10 @@ class AddServicesCompanyScreen extends StatefulWidget {
 class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
   final SelectImageForWebUseCase selectImageForWebUseCase =
       SelectImageForWebUseCase();
-  final UploadFileUseCase uploadFileUseCase =
-      UploadFileUseCase(instance<FileRepository>());
-  final AddCompanyUseCase addCompanyUseCase = AddCompanyUseCase();
+  final UploadFileToStorageUseCase uploadFileUseCase =
+      UploadFileToStorageUseCase(fileRepository:instance<StorageFileRepository>());
+  final AddCompanyUseCase addCompanyUseCase =
+      AddCompanyUseCase(companyRepository: instance<CompanyRepository>());
   Uint8List webImage = Uint8List(8);
   late XFileEntities xFileEntities;
   File? image;
@@ -45,7 +47,7 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
       ),
       body: Center(
         child: Container(
-          width: AppSize.s250.w,
+          width: AppSize.s200.w,
           height: AppSize.s500.h,
           color: ColorManager.white,
           child: Column(
@@ -72,8 +74,15 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
                       ),
                     ),
               InputField(
+                widget: Text(
+                  AppStrings.companyName.tr(context),
+                  style: getAlmaraiRegularStyle(
+                    fontSize: AppSize.s16.sp,
+                    color: ColorManager.primary,
+                  ),
+                ),
                 controller: _controller,
-                hintTitle: "اسم الشركة",
+                hintTitle: AppStrings.companyName.tr(context),
                 keyboardType: TextInputType.name,
                 regExp: RegExp('[" "a-zأ-يA-Zا-ي]'),
               ),

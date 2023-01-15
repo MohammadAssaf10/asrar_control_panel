@@ -8,8 +8,8 @@ import '../../config/app_localizations.dart';
 import '../../config/routes_manager.dart';
 import '../../config/theme_manager.dart';
 import '../../features/auth/presentation/bloc/authentication_bloc.dart';
-import '../../features/home/domain/use_cases/get_file.dart';
-import '../../features/home/presentation/manager/photo_gallery_bloc/gallery_bloc.dart';
+import '../../features/home/domain/use_cases/get_storage_file.dart';
+import '../../features/home/presentation/blocs/photo_gallery_bloc/gallery_bloc.dart';
 import '../../language_cubit/language_cubit.dart';
 import 'di.dart';
 import 'language.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   const MyApp._internal();
 
   static const MyApp _instance =
-  MyApp._internal(); // singleton or single instance
+      MyApp._internal(); // singleton or single instance
 
   factory MyApp() => _instance; // factory
   @override
@@ -39,6 +39,9 @@ class MyApp extends StatelessWidget {
             BlocProvider<LanguageCubit>(
               create: (context) => LanguageCubit(),
             ),
+            BlocProvider(
+                create: ((context) =>
+                    GalleryBloc(getFileUseCase: instance<GetStorageFileUseCase>())))
           ],
           child: BlocBuilder<LanguageCubit, LanguageState>(
             builder: (context, state) {
