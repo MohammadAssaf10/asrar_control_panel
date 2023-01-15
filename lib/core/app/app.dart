@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           providers: [
              
             BlocProvider(
-              create: (context) => GalleryBloc(getFileUseCase: instance<GetFileUseCase>()),
+              create: (context) => GalleryBloc(getFileUseCase: instance<GetStorageFileUseCase>()),
             ),
             BlocProvider<AuthenticationBloc>(create: ((context) => AuthenticationBloc())),
             BlocProvider<LanguageCubit>(
