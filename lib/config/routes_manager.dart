@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../features/home/presentation/pages/add_ad_Image_screen.dart';
 import '../features/home/presentation/pages/add_services_company_screen.dart';
+import '../features/home/presentation/pages/add_services_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
 import '../features/home/presentation/pages/photo_gallery_screen.dart';
 import '../features/home/presentation/pages/services_screen.dart';
@@ -14,6 +15,7 @@ class Routes {
   static const String photoGalleryRoute = "/photoGallery";
   static const String servicesRoute = "/services";
   static const String addServicesCompanyRoute = "/addServicesCompany";
+  static const String addServicesRoute = "/addServices";
 
   // auth rotes
   static const String loginRoute = '/login';
@@ -36,6 +38,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const ServicesScreen());
       case Routes.addServicesCompanyRoute:
         return MaterialPageRoute(builder: (_) => const AddServicesCompanyScreen());
+      case Routes.addServicesRoute:
+        return MaterialPageRoute(builder: (_) => const AddServicesScreen());
       default:
         return unDefinedRoute();
     }

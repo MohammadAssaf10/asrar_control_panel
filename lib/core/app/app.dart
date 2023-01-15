@@ -1,5 +1,4 @@
-import 'package:asrar_control_panel/features/home/domain/use_cases/get_file.dart';
-import 'package:asrar_control_panel/features/home/presentation/manager/photo_gallery_bloc/gallery_bloc.dart';
+import 'package:asrar_control_panel/features/home/domain/use_cases/get_storage_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/app_localizations.dart';
 import '../../config/routes_manager.dart';
 import '../../config/theme_manager.dart';
+import '../../features/home/presentation/blocs/photo_gallery_bloc/gallery_bloc.dart';
 import 'di.dart';
 import 'language.dart';
 
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   const MyApp._internal();
 
   static const MyApp _instance =
-  MyApp._internal(); // singleton or single instance
+      MyApp._internal(); // singleton or single instance
 
   factory MyApp() => _instance; // factory
   @override
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return BlocProvider(
-          create: (context) => GalleryBloc(getFileUseCase: instance<GetFileUseCase>()),
+          create: (context) =>
+              GalleryBloc(getFileUseCase: instance<GetStorageFileUseCase>()),
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
             title: "لوحة تحكم تطبيق أسرار",

@@ -1,6 +1,4 @@
 import 'package:asrar_control_panel/config/app_localizations.dart';
-import 'package:asrar_control_panel/features/home/domain/repositories/file_repository.dart';
-import 'package:asrar_control_panel/features/home/domain/use_cases/delete_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,15 +9,17 @@ import '../../../../config/styles_manager.dart';
 import '../../../../config/values_manager.dart';
 import '../../../../core/app/di.dart';
 import '../../../../core/app/functions.dart';
-import '../manager/photo_gallery_bloc/gallery_bloc.dart';
+import '../../domain/repositories/storage_file_repository.dart';
+import '../../domain/use_cases/delete_storage_file.dart';
+import '../blocs/photo_gallery_bloc/gallery_bloc.dart';
 
 class PhotoGalleryScreen extends StatelessWidget {
   const PhotoGalleryScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final DeleteFileUseCase deleteFileUseCase =
-        DeleteFileUseCase(fileRepository: instance<FileRepository>());
+    final DeleteStorageFileUseCase deleteFileUseCase =
+        DeleteStorageFileUseCase(fileRepository: instance<StorageFileRepository>());
     return Scaffold(
       appBar: AppBar(
         title: Text(AppStrings.photoGallery.tr(context)),

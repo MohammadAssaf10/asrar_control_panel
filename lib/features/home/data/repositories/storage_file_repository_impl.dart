@@ -5,12 +5,12 @@ import 'package:flutter/foundation.dart';
 import '../../../../core/data/failure.dart';
 import '../../../../core/data/firebase_exception_handler.dart';
 import '../../domain/entities/file_entities.dart';
-import '../../domain/repositories/file_repository.dart';
+import '../../domain/repositories/storage_file_repository.dart';
 
-class FileRepositoryImpl implements FileRepository {
+class StorageFileRepositoryImpl implements StorageFileRepository {
   final FirebaseStorage storage;
 
-  FileRepositoryImpl({required this.storage});
+  StorageFileRepositoryImpl({required this.storage});
 
   Future<List<String>> downloadUrlFile(List<Reference> refs) async =>
       Future.wait(refs.map((ref) => ref.getDownloadURL()).toList());
@@ -51,8 +51,8 @@ class FileRepositoryImpl implements FileRepository {
   }
 
   @override
-  Future<void> deleteFile(String folderName, String fileName) async{
-    final ref=storage.ref().child("$folderName/$fileName");
+  Future<void> deleteFile(String folderName, String fileName) async {
+    final ref = storage.ref().child("$folderName/$fileName");
     await ref.delete();
   }
 }

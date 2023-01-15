@@ -51,5 +51,13 @@
   "no_pictures": "لا يوجد صور",
   "services": "الخدمات",
   "add_services_company": "إضافة شركة خدمات",
-  "add": "إضافة"
+  "add_services": "إضافة خدمات",
+  "add": "إضافة",
+  "company_name": "اسم الشركة",
+  "services_name": "اسم الخدمة",
+  "services_price": "السعر",
+  "loading": "جاري التحميل...",
+  "make_a_selection": "قم بالاختيار",
+  "required_documents": "المستندات المطلوبة",
+  "no_companies": "لا توجد شركات"
 }
