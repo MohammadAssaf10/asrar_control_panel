@@ -1,9 +1,9 @@
-import 'package:asrar_control_panel/features/home/domain/use_cases/get_file.dart';
-import 'package:asrar_control_panel/features/home/presentation/manager/photo_gallery_bloc/gallery_bloc.dart';
+import 'package:asrar_control_panel/features/home/domain/use_cases/get_storage_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../features/home/presentation/blocs/photo_gallery_bloc/gallery_bloc.dart';
 
 import '../../config/app_localizations.dart';
 import '../../config/routes_manager.dart';
@@ -30,9 +30,8 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (context) => instance<GalleryBloc>(),
-            ),
+            BlocProvider(create: (context) => GalleryBloc(getFileUseCase: instance<GetFileUseCase>()))
+            ,
             BlocProvider<AuthenticationBloc>(
                 create: ((context) => AuthenticationBloc())),
             BlocProvider<LanguageCubit>(

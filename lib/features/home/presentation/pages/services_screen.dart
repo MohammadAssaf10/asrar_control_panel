@@ -25,7 +25,14 @@ class ServicesScreen extends StatelessWidget {
                       context, Routes.addServicesCompanyRoute))
             ],
           ),
-          Column()
+          Column(
+            children: [
+              ControlPanelButton(
+                  buttonTitle: AppStrings.addServices.tr(context),
+                  onTap: () =>
+                      Navigator.pushNamed(context, Routes.addServicesRoute))
+            ],
+          )
         ],
       ),
     );

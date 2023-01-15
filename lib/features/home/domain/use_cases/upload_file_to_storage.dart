@@ -1,14 +1,14 @@
-import 'package:asrar_control_panel/features/home/domain/repositories/file_repository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../../core/data/failure.dart';
+import '../repositories/storage_file_repository.dart';
 
-class UploadFileUseCase {
-  final FileRepository fileRepository;
+class UploadFileToStorageUseCase {
+  final StorageFileRepository fileRepository;
 
-  UploadFileUseCase(this.fileRepository);
+  UploadFileToStorageUseCase({required this.fileRepository});
 
   Future<Either<Failure, UploadTask>> call(
       Uint8List file, String fileName, String folderPath) async {

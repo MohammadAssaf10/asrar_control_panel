@@ -1,5 +1,3 @@
-import 'package:asrar_control_panel/features/home/domain/entities/xfile_entities.dart';
-import 'package:asrar_control_panel/features/home/domain/use_cases/select_image_for_web.dart';
 import 'package:flutter/foundation.dart';
 import 'package:asrar_control_panel/config/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +11,11 @@ import '../../../../config/styles_manager.dart';
 import '../../../../config/values_manager.dart';
 import '../../../../core/app/di.dart';
 import '../../../../core/app/functions.dart';
-import '../../domain/repositories/file_repository.dart';
-import '../../domain/use_cases/upload_file.dart';
-import '../manager/photo_gallery_bloc/gallery_bloc.dart';
+import '../../domain/entities/xfile_entities.dart';
+import '../../domain/repositories/storage_file_repository.dart';
+import '../../domain/use_cases/select_image_for_web.dart';
+import '../../domain/use_cases/upload_file_to_storage.dart';
+import '../blocs/photo_gallery_bloc/gallery_bloc.dart';
 import '../widgets/control_panel_button.dart';
 
 class AddAdImageScreen extends StatefulWidget {
@@ -26,8 +26,8 @@ class AddAdImageScreen extends StatefulWidget {
 }
 
 class _AddAdImageScreenState extends State<AddAdImageScreen> {
-  final UploadFileUseCase uploadFileUseCase =
-      UploadFileUseCase(instance<FileRepository>());
+  final UploadFileToStorageUseCase uploadFileUseCase =
+      UploadFileToStorageUseCase(fileRepository:instance<StorageFileRepository>());
   final SelectImageForWebUseCase selectImageForWebUseCase =
       SelectImageForWebUseCase();
   Uint8List webImage = Uint8List(8);
