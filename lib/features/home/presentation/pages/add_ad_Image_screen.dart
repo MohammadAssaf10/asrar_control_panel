@@ -89,12 +89,10 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                           showCustomDialog(context,
                               message: failure.message.tr(context));
                         }, (r) {
-                          r.whenComplete(() {
-                            dismissDialog(context);
-                            showCustomDialog(context,
-                                message:
-                                    AppStrings.addedSuccessfully.tr(context));
-                          });
+                          dismissDialog(context);
+                          showCustomDialog(context,
+                              message:
+                                  AppStrings.addedSuccessfully.tr(context));
                         });
                       }
                     : () {
