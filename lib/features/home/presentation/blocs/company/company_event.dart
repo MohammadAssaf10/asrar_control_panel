@@ -23,10 +23,10 @@ class AddCompanyEvent extends CompanyEvent {
   @override
   List<Object?> get props => [xFileEntities, companyName,docName];
 }
-class TestEvent extends CompanyEvent{
+class AddCompanyToStore extends CompanyEvent{
   final String companyName;
   final String docName;
-  const TestEvent({
+  const AddCompanyToStore({
     required this.companyName,
     required this.docName,
   });

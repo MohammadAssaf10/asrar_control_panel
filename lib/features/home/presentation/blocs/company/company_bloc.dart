@@ -33,14 +33,13 @@ class CompanyBloc extends Bloc<CompanyEvent, CompanyState> {
       final uploadImage = await storageFileRepository.uploadFile(
           event.xFileEntities, "company");
       uploadImage.fold((failure) {
-        print("uploadImage------>${failure.message}");
         emit(CompanyErrorState(errorMessage: failure.message));
       }, (r) async {
-        print("uploadImage------>Done");
-        add(TestEvent(companyName: event.companyName, docName: event.docName));
+        add(AddCompanyToStore(
+            companyName: event.companyName, docName: event.docName));
       });
     });
-    on<TestEvent>((event, emit) async {
+    on<AddCompanyToStore>((event, emit) async {
       final company = await companyRepository.addCompany(
           "company", event.companyName, event.docName);
       company.fold(
