@@ -39,7 +39,7 @@ class CompanyBloc extends Bloc<CompanyEvent, CompanyState> {
             companyName: event.companyName, docName: event.docName));
       });
     });
-
+    //123
     on<AddCompanyToStore>((event, emit) async {
       final company = await companyRepository.addCompany(
           "company", event.companyName, event.docName);
