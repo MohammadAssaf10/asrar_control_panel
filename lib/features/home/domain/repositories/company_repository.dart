@@ -5,7 +5,7 @@ import '../entities/company.dart';
 
 abstract class CompanyRepository {
   Future<Either<Failure, Unit>> addCompany(
-      String folderName, String fileName, String docName);
+      String folderName, String companyName,String docName);
 
   Future<Either<Failure, List<CompanyEntities>>> getCompany();
 }

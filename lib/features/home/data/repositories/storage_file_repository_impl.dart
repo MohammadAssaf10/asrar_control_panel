@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 
+import '../../../../core/data/exception_handler.dart';
 import '../../../../core/data/failure.dart';
-import '../../../../core/data/firebase_exception_handler.dart';
 import '../../domain/entities/file_entities.dart';
+import '../../domain/entities/xfile_entities.dart';
 import '../../domain/repositories/storage_file_repository.dart';
 
 class StorageFileRepositoryImpl implements StorageFileRepository {
@@ -17,15 +17,15 @@ class StorageFileRepositoryImpl implements StorageFileRepository {
 
   @override
   Future<Either<Failure, UploadTask>> uploadFile(
-      Uint8List file, String fileName, String folderPath) async {
+      XFileEntities xFileEntities, String folderPath) async {
     try {
-      final String path = "$folderPath/$fileName";
+      final String path = "$folderPath/${xFileEntities.name}";
       final Reference storageRef = storage.ref();
       final Reference ref = storageRef.child(path);
-      final task = ref.putData(file);
+      final task = ref.putData(xFileEntities.xFileAsBytes);
       return Right(task);
     } catch (e) {
-      return Left(FirebaseExceptionHandler.handle(e).getFailure());
+      return Left(ExceptionHandler.handle(e).failure);
     }
   }
 
@@ -46,7 +46,7 @@ class StorageFileRepositoryImpl implements StorageFileRepository {
           .values
           .toList());
     } catch (e) {
-      return Left(FirebaseExceptionHandler.handle(e).getFailure());
+      return Left(ExceptionHandler.handle(e).failure);
     }
   }
 

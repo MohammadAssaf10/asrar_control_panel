@@ -10,10 +10,10 @@ class SelectImageForWebUseCase {
     if (imagePicked != null) {
       Uint8List selected = await imagePicked.readAsBytes();
       String selectedName = imagePicked.name;
-      return XFileEntities(name: selectedName, xFileAsBytes: selected);
+      final XFileEntities xFileEntities =
+          XFileEntities(name: selectedName, xFileAsBytes: selected);
+      return xFileEntities;
     }
-    else {
-      return null;
-    }
+    return null;
   }
 }

@@ -5,7 +5,7 @@ class DeleteStorageFileUseCase {
 
   DeleteStorageFileUseCase({required this.fileRepository});
 
-  Future<void> call(String folderName, String fileName) {
-    return fileRepository.deleteFile(folderName, fileName);
+  Future<void> call(String folderName, String fileName) async{
+    return await fileRepository.deleteFile(folderName, fileName);
   }
 }

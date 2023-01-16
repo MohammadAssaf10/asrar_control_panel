@@ -1,8 +1,10 @@
 import 'package:asrar_control_panel/config/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/routes_manager.dart';
 import '../../../../config/strings_manager.dart';
+import '../blocs/company/company_bloc.dart';
 import '../widgets/control_panel_button.dart';
 
 class ServicesScreen extends StatelessWidget {
@@ -29,8 +31,11 @@ class ServicesScreen extends StatelessWidget {
             children: [
               ControlPanelButton(
                   buttonTitle: AppStrings.addServices.tr(context),
-                  onTap: () =>
-                      Navigator.pushNamed(context, Routes.addServicesRoute))
+                  onTap: () {
+                    BlocProvider.of<CompanyBloc>(context)
+                        .add(GetCompanyEvent());
+                    Navigator.pushNamed(context, Routes.addServicesRoute);
+                  })
             ],
           )
         ],

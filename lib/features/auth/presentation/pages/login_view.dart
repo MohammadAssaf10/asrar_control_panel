@@ -131,7 +131,6 @@ class _LoginFormState extends State<LoginForm> {
                   validateEmail = true;
                   validatePassword = true;
                 });
-
                 if (_key.currentState!.validate()) {
                   BlocProvider.of<AuthenticationBloc>(context).add(
                       LoginButtonPressed(LoginRequest(

@@ -31,3 +31,8 @@ class CompanyLoadedState extends CompanyState {
   @override
   List<Object?> get props => [company];
 }
+
+class CompanyAddedSuccessfully extends CompanyState {
+  @override
+  List<Object?> get props => [];
+}

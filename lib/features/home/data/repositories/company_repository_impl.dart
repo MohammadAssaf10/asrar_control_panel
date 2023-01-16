@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import '../../../../core/data/exception_handler.dart';
 import '../../../../core/data/failure.dart';
-import '../../../../core/data/firebase_exception_handler.dart';
 import '../../domain/entities/company.dart';
 import '../../domain/repositories/company_repository.dart';
 
@@ -14,17 +14,17 @@ class CompanyRepositoryImpl extends CompanyRepository {
 
   @override
   Future<Either<Failure, Unit>> addCompany(
-      String folderName, String fileName, String docName) async {
+      String folderName, String companyName,String docName) async {
     try {
       final Reference storageRef = FirebaseStorage.instance.ref();
       String url =
-          await storageRef.child("$folderName/$fileName").getDownloadURL();
+          await storageRef.child("$folderName/$companyName").getDownloadURL();
       Map<String, dynamic> companyEntities =
           CompanyEntities(name: docName, image: url).toMap();
       db.collection(folderName).doc(docName).set(companyEntities);
       return const Right(unit);
     } catch (e) {
-      return Left(FirebaseExceptionHandler.handle(e).getFailure());
+      return Left(ExceptionHandler.handle(e).failure);
     }
   }
 
@@ -40,7 +40,7 @@ class CompanyRepositoryImpl extends CompanyRepository {
       }
       return Right(company);
     } catch (e) {
-      return Left(FirebaseExceptionHandler.handle(e).getFailure());
+      return Left(ExceptionHandler.handle(e).failure);
     }
   }
 }

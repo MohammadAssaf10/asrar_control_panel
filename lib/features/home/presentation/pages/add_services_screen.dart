@@ -7,13 +7,13 @@ import '../../../../config/color_manager.dart';
 import '../../../../config/strings_manager.dart';
 import '../../../../config/styles_manager.dart';
 import '../../../../config/values_manager.dart';
-import '../../../../core/app/di.dart';
 import '../../../../core/app/functions.dart';
-import '../../domain/use_cases/add_service.dart';
-import '../../domain/use_cases/get_company.dart';
+import '../../domain/entities/service_entities.dart';
 import '../blocs/company/company_bloc.dart';
+import '../blocs/services_bloc/services_bloc.dart';
 import '../widgets/control_panel_button.dart';
 import '../widgets/input_field.dart';
+import '../../../../core/app/extensions.dart';
 
 class AddServicesScreen extends StatefulWidget {
   const AddServicesScreen({Key? key}) : super(key: key);
@@ -29,14 +29,23 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
   final TextEditingController _requiredDocumentsController =
       TextEditingController();
   List<String> list = [];
-  final AddServiceUseCase addServiceUseCase = instance<AddServiceUseCase>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          CompanyBloc(getCompanyUseCase: instance<GetCompanyUseCase>())
-            ..add(GetCompanyEvent()),
+    return BlocListener<ServicesBloc, ServicesState>(
+      listener: (context, state) {
+        if (state is AddedServiceLoadingState) {
+          showCustomDialog(context);
+        } else if (state is AddedServiceErrorState) {
+          print("Error------->${state.errorMessage}");
+          dismissDialog(context);
+          showCustomDialog(context, message: state.errorMessage.tr(context));
+        } else if (state is AddedServiceSuccessfullyState) {
+          dismissDialog(context);
+          showCustomDialog(context,
+              message: AppStrings.addedSuccessfully.tr(context));
+        }
+      },
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -67,7 +76,6 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                       } else if (state is CompanyLoadedState) {
                         if (state.company.isNotEmpty) {
                           return Container(
-                            //pull
                             margin:
                                 EdgeInsets.symmetric(vertical: AppSize.s10.h),
                             height: AppSize.s50.h,
@@ -166,31 +174,19 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                   ),
                   ControlPanelButton(
                     buttonTitle: AppStrings.add.tr(context),
-                    onTap: () async {
-                      showCustomDialog(context);
-
-                      try {
-                        final service = await addServiceUseCase(
-                          dropdownValue!,
-                          _servicesNameController.text,
-                          double.parse(_priceController.text),
-                          list,
+                    onTap: () {
+                      if (list.isNotEmpty &&
+                          _priceController.text.isNotEmpty &&
+                          _servicesNameController.text.isNotEmpty &&
+                          !dropdownValue.nullOrEmpty()) {
+                        final ServiceEntities serviceEntities = ServiceEntities(
+                          companyName: dropdownValue!,
+                          serviceName: _servicesNameController.text,
+                          servicePrice: double.parse(_priceController.text),
+                          requiredDocuments: list,
                         );
-                        print('hi bey');
-
-                        service.fold((l) {
-                          // dismissDialog(context);
-                          showCustomDialog(context, message: l.message);
-                        }, (r) {
-                          print('hi bey');
-                          dismissDialog(context);
-                          showCustomDialog(
-                            context,
-                            message: AppStrings.addedSuccessfully.tr(context),
-                          );
-                        });
-                      } catch (e) {
-                        print(e);
+                        BlocProvider.of<ServicesBloc>(context).add(
+                            AddServicesEvent(serviceEntities: serviceEntities));
                       }
                     },
                   ),

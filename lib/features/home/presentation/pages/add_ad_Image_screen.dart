@@ -27,38 +27,12 @@ class AddAdImageScreen extends StatefulWidget {
 
 class _AddAdImageScreenState extends State<AddAdImageScreen> {
   final UploadFileToStorageUseCase uploadFileUseCase =
-      UploadFileToStorageUseCase(fileRepository:instance<StorageFileRepository>());
+      UploadFileToStorageUseCase(
+          fileRepository: instance<StorageFileRepository>());
   final SelectImageForWebUseCase selectImageForWebUseCase =
       SelectImageForWebUseCase();
   Uint8List webImage = Uint8List(8);
-  late XFileEntities xFileEntities;
   File? image;
-
-
-  // void selectImage() async {
-  //   // Pick an image
-  //   if (!kIsWeb) {
-  //     XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
-  //     if (imagePicked != null) {
-  //       File selected = File(imagePicked.path);
-  //       setState(() {
-  //         image = selected;
-  //       });
-  //     }
-  //   } else if (kIsWeb) {
-  //     XFile? imagePicked = await _picker.pickImage(source: ImageSource.gallery);
-  //     if (imagePicked != null) {
-  //       Uint8List selected = await imagePicked.readAsBytes();
-  //       String selectName = imagePicked.name;
-  //       setState(() {
-  //         webImage = selected;
-  //         image = File(selectName);
-  //       });
-  //     }
-  //   } else {
-  //     print("\\\\\\\\ Something wrong \\\\\\\\");
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,11 +69,12 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
               ControlPanelButton(
                 buttonTitle: AppStrings.selectImage.tr(context),
                 onTap: () async {
-                  xFileEntities = (await selectImageForWebUseCase())!;
-                    setState(() {
-                      webImage = xFileEntities.xFileAsBytes;
-                      image=File(xFileEntities.name);
-                    });
+                  final XFileEntities? xFileEntities =
+                      await selectImageForWebUseCase();
+                  setState(() {
+                    webImage = xFileEntities!.xFileAsBytes;
+                    image = File(xFileEntities.name);
+                  });
                 },
               ),
               ControlPanelButton(
@@ -107,8 +82,10 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                 onTap: (image != null
                     ? () async {
                         showCustomDialog(context);
-                        final isUploaded = await uploadFileUseCase(
-                            webImage, image!.path, "adImages");
+                        final XFileEntities xFileEntities = XFileEntities(
+                            name: image!.path, xFileAsBytes: webImage);
+                        final isUploaded =
+                            await uploadFileUseCase(xFileEntities, "adImages");
                         isUploaded.fold((failure) {
                           dismissDialog(context);
                           showCustomDialog(context,
@@ -117,8 +94,8 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                           r.whenComplete(() {
                             dismissDialog(context);
                             showCustomDialog(context,
-                                message: AppStrings.addedSuccessfully
-                                    .tr(context));
+                                message:
+                                    AppStrings.addedSuccessfully.tr(context));
                           });
                         });
                       }

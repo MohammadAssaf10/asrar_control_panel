@@ -10,6 +10,6 @@ class GetCompanyUseCase {
   const GetCompanyUseCase({required this.companyRepository});
 
   Future<Either<Failure, List<CompanyEntities>>> call() async {
-    return companyRepository.getCompany();
+    return await companyRepository.getCompany();
   }
 }
