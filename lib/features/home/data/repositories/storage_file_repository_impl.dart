@@ -22,7 +22,7 @@ class StorageFileRepositoryImpl implements StorageFileRepository {
       final String path = "$folderPath/${xFileEntities.name}";
       final Reference storageRef = storage.ref();
       final Reference ref = storageRef.child(path);
-      final task = ref.putData(xFileEntities.xFileAsBytes);
+      final UploadTask task = ref.putData(xFileEntities.xFileAsBytes);
       return Right(task);
     } catch (e) {
       return Left(ExceptionHandler.handle(e).failure);

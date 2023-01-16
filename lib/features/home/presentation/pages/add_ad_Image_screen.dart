@@ -14,7 +14,6 @@ import '../../../../core/app/functions.dart';
 import '../../domain/entities/xfile_entities.dart';
 import '../../domain/repositories/storage_file_repository.dart';
 import '../../domain/use_cases/select_image_for_web.dart';
-import '../../domain/use_cases/upload_file_to_storage.dart';
 import '../blocs/photo_gallery_bloc/gallery_bloc.dart';
 import '../widgets/control_panel_button.dart';
 
@@ -26,9 +25,8 @@ class AddAdImageScreen extends StatefulWidget {
 }
 
 class _AddAdImageScreenState extends State<AddAdImageScreen> {
-  final UploadFileToStorageUseCase uploadFileUseCase =
-      UploadFileToStorageUseCase(
-          fileRepository: instance<StorageFileRepository>());
+  final StorageFileRepository storageFileRepository =
+      instance<StorageFileRepository>();
   final SelectImageForWebUseCase selectImageForWebUseCase =
       SelectImageForWebUseCase();
   Uint8List webImage = Uint8List(8);
@@ -84,8 +82,8 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                         showCustomDialog(context);
                         final XFileEntities xFileEntities = XFileEntities(
                             name: image!.path, xFileAsBytes: webImage);
-                        final isUploaded =
-                            await uploadFileUseCase(xFileEntities, "adImages");
+                        final isUploaded = await storageFileRepository
+                            .uploadFile(xFileEntities, "adImages");
                         isUploaded.fold((failure) {
                           dismissDialog(context);
                           showCustomDialog(context,

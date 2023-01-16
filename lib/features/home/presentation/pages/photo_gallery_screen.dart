@@ -10,7 +10,6 @@ import '../../../../config/values_manager.dart';
 import '../../../../core/app/di.dart';
 import '../../../../core/app/functions.dart';
 import '../../domain/repositories/storage_file_repository.dart';
-import '../../domain/use_cases/delete_storage_file.dart';
 import '../blocs/photo_gallery_bloc/gallery_bloc.dart';
 
 class PhotoGalleryScreen extends StatelessWidget {
@@ -18,8 +17,8 @@ class PhotoGalleryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DeleteStorageFileUseCase deleteFileUseCase =
-        DeleteStorageFileUseCase(fileRepository: instance<StorageFileRepository>());
+    final StorageFileRepository storageFileRepository =
+       instance<StorageFileRepository>();
     return Scaffold(
       appBar: AppBar(
         title: Text(AppStrings.photoGallery.tr(context)),
@@ -65,7 +64,7 @@ class PhotoGalleryScreen extends StatelessWidget {
                             return InkWell(
                               onLongPress: () {
                                 showCustomDialog(context);
-                                deleteFileUseCase(
+                                storageFileRepository.deleteFile(
                                         "adImages", state.list[index].name)
                                     .whenComplete(
                                   () {

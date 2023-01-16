@@ -187,6 +187,10 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                         );
                         BlocProvider.of<ServicesBloc>(context).add(
                             AddServicesEvent(serviceEntities: serviceEntities));
+                      } else {
+                        showCustomDialog(context,
+                            message: AppStrings.pleaseEnterAllRequiredData
+                                .tr(context));
                       }
                     },
                   ),

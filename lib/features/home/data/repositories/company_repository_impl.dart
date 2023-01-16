@@ -14,14 +14,16 @@ class CompanyRepositoryImpl extends CompanyRepository {
 
   @override
   Future<Either<Failure, Unit>> addCompany(
-      String folderName, String companyName,String docName) async {
+      String folderName,
+      String companyName,
+    String docName) async {
     try {
       final Reference storageRef = FirebaseStorage.instance.ref();
       String url =
           await storageRef.child("$folderName/$companyName").getDownloadURL();
       Map<String, dynamic> companyEntities =
           CompanyEntities(name: docName, image: url).toMap();
-      db.collection(folderName).doc(docName).set(companyEntities);
+      await db.collection(folderName).doc(docName).set(companyEntities);
       return const Right(unit);
     } catch (e) {
       return Left(ExceptionHandler.handle(e).failure);

@@ -61,5 +61,6 @@
   "loading": "Loading...",
   "make_a_selection": "Make a selection",
   "required_documents": "Required documents",
-  "no_companies": "No companies"
+  "no_companies": "No companies",
+  "please_enter_all_required_data": "Please enter all required data"
 }
