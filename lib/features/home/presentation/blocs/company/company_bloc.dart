@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/app/di.dart';
 import '../../../domain/entities/company.dart';
@@ -36,11 +37,16 @@ class CompanyBloc extends Bloc<CompanyEvent, CompanyState> {
         emit(CompanyErrorState(errorMessage: failure.message));
       }, (r) async {
         print("uploadImage------>Done");
-        final company = await companyRepository.addCompany(
-            "company", event.companyName, event.docName);
-        print("add company------>Done");
-        emit(CompanyAddedSuccessfully());
+        add(TestEvent(companyName: event.companyName, docName: event.docName));
       });
+    });
+    on<TestEvent>((event, emit) async {
+      final company = await companyRepository.addCompany(
+          "company", event.companyName, event.docName);
+      company.fold(
+        (failure) => emit(CompanyErrorState(errorMessage: failure.message)),
+        (r) => emit(CompanyAddedSuccessfully()),
+      );
     });
   }
 }
