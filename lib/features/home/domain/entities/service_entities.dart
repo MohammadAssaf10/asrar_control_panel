@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class ServiceEntities extends Equatable {
   final String companyName;
   final String serviceName;
-  final double servicePrice;
+  final String servicePrice;
   final List<String> requiredDocuments;
 
   const ServiceEntities({
@@ -34,7 +34,7 @@ class ServiceEntities extends Equatable {
     return ServiceEntities(
       companyName: map['companyName'] as String,
       serviceName: map['serviceName'] as String,
-      servicePrice: map['servicePrice'] as double,
+      servicePrice: map['servicePrice'] as String,
       requiredDocuments: map['requiredDocuments'] as List<String>,
     );
   }
