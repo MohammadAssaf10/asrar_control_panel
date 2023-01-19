@@ -23,6 +23,16 @@ class GalleryLoadingState extends GalleryState {
   List<Object?> get props => [];
 }
 
+class UploadImageLoadingState extends GalleryState {
+  @override
+  List<Object?> get props => [];
+}
+
+class DeleteImageLoadingState extends GalleryState {
+  @override
+  List<Object?> get props => [];
+}
+
 class GalleryErrorState extends GalleryState {
   final String errorMessage;
 
@@ -30,4 +40,14 @@ class GalleryErrorState extends GalleryState {
 
   @override
   List<Object?> get props => [errorMessage];
+}
+
+class ImageUploadedSuccessfully extends GalleryState {
+  @override
+  List<Object?> get props => [];
+}
+
+class ImageDeletedSuccessfully extends GalleryState {
+  @override
+  List<Object?> get props => [];
 }

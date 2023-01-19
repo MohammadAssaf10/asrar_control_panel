@@ -45,6 +45,7 @@
   "select_image": "select image",
   "upload_image": "Upload image",
   "added_successfully": "Added successfully",
+  "deleted_successfully": "Deleted successfully",
   "no_internet_error": "Please check your internet connection then try again",
   "ok": "Ok",
   "delete_image": "Delete image",

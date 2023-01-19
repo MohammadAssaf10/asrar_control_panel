@@ -118,7 +118,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                     controller: _servicesNameController,
                     hintTitle: AppStrings.servicesName.tr(context),
                     keyboardType: TextInputType.name,
-                    regExp: RegExp('[" "a-zأ-يA-Zا-ي]'),
+                    regExp: RegExp('[" "a-zآ-يA-Z]'),
                   ),
                   InputField(
                     widget: Text(
@@ -131,7 +131,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                     controller: _priceController,
                     hintTitle: AppStrings.servicesPrice.tr(context),
                     keyboardType: TextInputType.number,
-                    regExp: RegExp('[0-9]'),
+                    regExp: RegExp(r'(^\d*\.?\d*)'),
                   ),
                   ListView.builder(
                       shrinkWrap: true,
@@ -170,7 +170,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                     controller: _requiredDocumentsController,
                     hintTitle: AppStrings.requiredDocuments.tr(context),
                     keyboardType: TextInputType.text,
-                    regExp: RegExp('[" "a-zأ-يA-Zا-ي]'),
+                    regExp: RegExp('[" "a-zآ-يA-Z]'),
                   ),
                   ControlPanelButton(
                     buttonTitle: AppStrings.add.tr(context),
@@ -182,7 +182,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                         final ServiceEntities serviceEntities = ServiceEntities(
                           companyName: dropdownValue!,
                           serviceName: _servicesNameController.text,
-                          servicePrice: double.parse(_priceController.text),
+                          servicePrice: _priceController.text,
                           requiredDocuments: list,
                         );
                         BlocProvider.of<ServicesBloc>(context).add(

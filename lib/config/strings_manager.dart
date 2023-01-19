@@ -57,8 +57,10 @@ class AppStrings {
   static const String addedSuccessfully = "added_successfully";
   static const String ok = "ok";
   static const String deleteImage = "delete_image";
+  static const String deletedSuccessfully = "deleted_successfully";
   static const String photoGallery = "photo_gallery";
-  static const String longPressOnTheImageToDelete = "long_press_on_the_image_to_delete";
+  static const String longPressOnTheImageToDelete =
+      "long_press_on_the_image_to_delete";
   static const String noPictures = "no_pictures";
   static const String services = "services";
   static const String companyName = "company_name";
@@ -71,7 +73,8 @@ class AppStrings {
   static const String requiredDocuments = "required_documents";
   static const String loading = "loading";
   static const String noCompanies = "no_companies";
-  static const String pleaseEnterAllRequiredData = "please_enter_all_required_data";
+  static const String pleaseEnterAllRequiredData =
+      "please_enter_all_required_data";
 
   // exception handler
   static const String success = "success";

@@ -48,6 +48,8 @@
   "no_internet_error": "يرجى التحقق من اتصالك بالإنترنت ثم المحاولة مرة أخرى",
   "ok": "موافق",
   "delete_image": "حذف صور",
+  "deleted_successfully": "تمت الحذف بنجاح",
+
   "photo_gallery": "معرض الصور",
   "long_press_on_the_image_to_delete": "اضغط مطولاً على الصورة للحذف",
   "no_pictures": "لا يوجد صور",
