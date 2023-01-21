@@ -85,8 +85,10 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                               items: state.company
                                   .map<DropdownMenuItem<String>>((company) {
                                 return DropdownMenuItem<String>(
-                                    value: company.name,
-                                    child: Text(company.name));
+                                    value: company.name
+                                        .substring(0, company.name.length - 4),
+                                    child: Text(company.name.substring(
+                                        0, company.name.length - 4)));
                               }).toList(),
                               onChanged: (value) {
                                 setState(() {

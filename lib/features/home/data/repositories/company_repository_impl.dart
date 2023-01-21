@@ -8,21 +8,17 @@ import '../../domain/entities/company.dart';
 import '../../domain/repositories/company_repository.dart';
 
 class CompanyRepositoryImpl extends CompanyRepository {
-  final FirebaseFirestore db;
-
-  CompanyRepositoryImpl({required this.db});
+  final FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   Future<Either<Failure, Unit>> addCompany(
-      String folderName,
-      String companyName,
-    String docName) async {
+      String folderName, String companyName, String docName) async {
     try {
       final Reference storageRef = FirebaseStorage.instance.ref();
       String url =
           await storageRef.child("$folderName/$companyName").getDownloadURL();
       Map<String, dynamic> companyEntities =
-          CompanyEntities(name: docName, image: url).toMap();
+          CompanyEntities(name: companyName, image: url).toMap();
       await db.collection(folderName).doc(docName).set(companyEntities);
       return const Right(unit);
     } catch (e) {
@@ -41,6 +37,28 @@ class CompanyRepositoryImpl extends CompanyRepository {
         company.add(companyEntities);
       }
       return Right(company);
+    } catch (e) {
+      return Left(ExceptionHandler.handle(e).failure);
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteCompany(String companyName) async {
+    try {
+      final String c = companyName.substring(0, companyName.length - 4);
+      final DocumentReference companystore = db.collection("company").doc(c);
+      await companystore.delete();
+      final Reference storageRef = FirebaseStorage.instance.ref();
+      final companyStorage = storageRef.child("company/$companyName");
+      await companyStorage.delete();
+      final services = await db.collection("service").get();
+      for (var service in services.docs) {
+        if (service["companyName"] == c) {
+          final serviceDoc = db.collection("service").doc(service.id);
+          await serviceDoc.delete();
+        }
+      }
+      return const Right(unit);
     } catch (e) {
       return Left(ExceptionHandler.handle(e).failure);
     }

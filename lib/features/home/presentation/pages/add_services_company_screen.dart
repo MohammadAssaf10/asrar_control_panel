@@ -88,7 +88,7 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
                   controller: _controller,
                   hintTitle: AppStrings.companyName.tr(context),
                   keyboardType: TextInputType.name,
-                  regExp: RegExp('[" "a-zأ-يA-Zا-ي]'),
+                  regExp: RegExp('[" "a-zآ-يA-Z]'),
                 ),
                 SizedBox(height: AppSize.s20.h),
                 ControlPanelButton(
@@ -109,9 +109,10 @@ class _AddServicesCompanyScreenState extends State<AddServicesCompanyScreen> {
                         _controller.text.isNotEmpty &&
                         webImage.isNotEmpty) {
                       BlocProvider.of<CompanyBloc>(context).add(AddCompanyEvent(
-                          companyName: image!.path,
-                          docName: _controller.text,
-                          xFileEntities: xFileEntities));
+                        companyName: image!.path,
+                        docName: _controller.text,
+                        xFileEntities: xFileEntities,
+                      ));
                     } else {
                       showCustomDialog(context,
                           message: AppStrings.pleaseEnterAllRequiredData

@@ -22,9 +22,17 @@ class ServicesScreen extends StatelessWidget {
           Column(
             children: [
               ControlPanelButton(
-                  buttonTitle: AppStrings.addServicesCompany.tr(context),
-                  onTap: () => Navigator.pushNamed(
-                      context, Routes.addServicesCompanyRoute))
+                buttonTitle: AppStrings.addServicesCompany.tr(context),
+                onTap: () => Navigator.pushNamed(
+                    context, Routes.addServicesCompanyRoute),
+              ),
+              ControlPanelButton(
+                buttonTitle: "حذف شركة",
+                onTap: () {
+                  Navigator.pushNamed(context, Routes.deleteCompanyRoute);
+                  BlocProvider.of<CompanyBloc>(context).add(GetCompanyEvent());
+                },
+              )
             ],
           ),
           Column(
