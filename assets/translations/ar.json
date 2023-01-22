@@ -9,8 +9,11 @@
   "password": "كلمة المرور",
   "please_enter_email": "الرجاء ادخال البريد الاكتروني",
   "please_enter_password": "الرجاء ادخال كلمة المرور",
+  "idNumber": "رقم الهوية / الاقامة",
+  "nationality": "الجنسية",
   "short_password": "كلمة المرور قصيرة",
   "name": "الاسم",
+  "status": "الحالة",
   "mobile_number": "رقم الجوال",
   "please_enter_name": "الرجاء ادخال الاسم",
   "already_have_account": "لديك حساب بالفعل؟",
@@ -64,5 +67,15 @@
   "make_a_selection": "قم بالاختيار",
   "required_documents": "المستندات المطلوبة",
   "no_companies": "لا توجد شركات",
-  "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة"
+  "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",
+
+  "canWork":  "يستطيع العمل",
+  "employeeManagement": "ادارة الموظفين",
+  "newsManagement": " ادارة الاخبار",
+  "addsManagement": " ادارة الاعلانات",
+  "offersManagement": " ادارة خدمات التوظيف",
+  "companyManagement": " ادارة  الشركات وخدماتها",
+  "coursesManagement": " ادارة الدورات",
+  "technicalSupport": " الدعم الفني "
+
 }

@@ -9,6 +9,9 @@
   "password": "Password",
   "please_enter_email": "Please enter email",
   "please_enter_password": "please enter password",
+  "idNumber": "id number",
+  "nationality": "nationality",
+  "status": "status",
   "short_password": "Short password",
   "name": "Name",
   "mobile_number": "Phone number",
@@ -63,5 +66,16 @@
   "make_a_selection": "Make a selection",
   "required_documents": "Required documents",
   "no_companies": "No companies",
-  "please_enter_all_required_data": "Please enter all required data"
+  "please_enter_all_required_data": "Please enter all required data",
+
+  "canWork": "can work",
+  "employeeManagement": "employee management",
+  "newsManagement": "news management",
+  "addsManagement": "adds management",
+  "offersManagement": "offers management",
+  "companyManagement": "company management",
+  "coursesManagement": "courses management",
+  "technicalSupport": "technical support",
+
+  "to delete": "adds management"
 }

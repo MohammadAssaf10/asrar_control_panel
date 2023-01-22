@@ -47,6 +47,14 @@ class SplashScreen extends StatelessWidget {
                 },
                 child: const Text('photoGalleryRoute')),
           ),
+          SizedBox(
+            width: 500,
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.employeeList);
+                },
+                child: const Text('employee list')),
+          ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
