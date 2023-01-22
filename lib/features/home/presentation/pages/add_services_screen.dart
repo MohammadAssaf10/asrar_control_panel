@@ -37,7 +37,6 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
         if (state is AddedServiceLoadingState) {
           showCustomDialog(context);
         } else if (state is AddedServiceErrorState) {
-          print("Error------->${state.errorMessage}");
           dismissDialog(context);
           showCustomDialog(context, message: state.errorMessage.tr(context));
         } else if (state is AddedServiceSuccessfullyState) {
@@ -85,10 +84,9 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                               items: state.company
                                   .map<DropdownMenuItem<String>>((company) {
                                 return DropdownMenuItem<String>(
-                                    value: company.name
-                                        .substring(0, company.name.length - 4),
-                                    child: Text(company.name.substring(
-                                        0, company.name.length - 4)));
+                                  value: company.name,
+                                  child: Text(company.name),
+                                );
                               }).toList(),
                               onChanged: (value) {
                                 setState(() {
@@ -188,7 +186,9 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                           requiredDocuments: list,
                         );
                         BlocProvider.of<ServicesBloc>(context).add(
-                            AddServicesEvent(serviceEntities: serviceEntities));
+                          AddServicesEvent(serviceEntities: serviceEntities),
+                        );
+                        Navigator.pop(context);
                       } else {
                         showCustomDialog(context,
                             message: AppStrings.pleaseEnterAllRequiredData

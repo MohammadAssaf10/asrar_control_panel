@@ -40,11 +40,13 @@ class DeleteCompanyScreen extends StatelessWidget {
                   ),
                 );
               } else if (state is CompanyErrorState) {
-                return Text(
-                  state.errorMessage,
-                  style: getAlmaraiRegularStyle(
-                    fontSize: AppSize.s20.sp,
-                    color: ColorManager.error,
+                return Center(
+                  child: Text(
+                    state.errorMessage,
+                    style: getAlmaraiRegularStyle(
+                      fontSize: AppSize.s20.sp,
+                      color: ColorManager.error,
+                    ),
                   ),
                 );
               } else if (state is CompanyLoadedState) {
@@ -73,6 +75,8 @@ class DeleteCompanyScreen extends StatelessWidget {
                                   onPressed: () {
                                     BlocProvider.of<CompanyBloc>(context)
                                         .add(DeleteCompany(
+                                      companyFullName:
+                                          state.company[index].fullName,
                                       companyName: state.company[index].name,
                                     ));
                                   },
@@ -82,8 +86,7 @@ class DeleteCompanyScreen extends StatelessWidget {
                                   padding: EdgeInsets.symmetric(
                                       horizontal: AppSize.s10.w),
                                   child: Text(
-                                    state.company[index].name.substring(0,
-                                        state.company[index].name.length - 4),
+                                    state.company[index].name,
                                     style: getAlmaraiRegularStyle(
                                       fontSize: AppSize.s18.sp,
                                       color: ColorManager.white,
@@ -95,7 +98,17 @@ class DeleteCompanyScreen extends StatelessWidget {
                           );
                         }),
                   );
-                } else {}
+                } else {
+                  return Center(
+                    child: Text(
+                      AppStrings.noCompanies.tr(context),
+                      style: getAlmaraiRegularStyle(
+                        fontSize: AppSize.s25.sp,
+                        color: ColorManager.primary,
+                      ),
+                    ),
+                  );
+                }
               }
               return const SizedBox();
             },

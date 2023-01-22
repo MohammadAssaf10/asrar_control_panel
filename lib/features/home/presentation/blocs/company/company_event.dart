@@ -36,8 +36,10 @@ class AddCompanyToStore extends CompanyEvent {
 }
 
 class DeleteCompany extends CompanyEvent {
+  final String companyFullName;
   final String companyName;
-  const DeleteCompany({required this.companyName});
+  const DeleteCompany(
+      {required this.companyFullName, required this.companyName});
   @override
-  List<Object?> get props => [companyName];
+  List<Object?> get props => [companyFullName, companyName];
 }

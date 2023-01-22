@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../../../../core/app/constants.dart';
 import '../../../../../core/app/di.dart';
 import '../../../domain/entities/file_entities.dart';
 import '../../../domain/entities/xfile_entities.dart';
@@ -17,7 +18,9 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
   GalleryBloc() : super(GalleryInitial()) {
     on<GetImageGallery>((event, emit) async {
       emit(GalleryLoadingState());
-      final imageUrl = await storageFileRepository.getFile("adImages");
+      final imageUrl = await storageFileRepository.getFile(
+        FireBaseCollection.adImages,
+      );
       imageUrl.fold((failure) {
         emit(GalleryErrorState(errorMessage: failure.message));
       }, (imageUrlList) {
@@ -35,7 +38,10 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
     });
     on<DeleteImageFromGallery>((event, emit) async {
       emit(DeleteImageLoadingState());
-      await storageFileRepository.deleteFile(event.folderName, event.fileName);
+      await storageFileRepository.deleteFile(
+        event.folderName,
+        event.fileName,
+      );
       emit(ImageDeletedSuccessfully());
     });
   }
