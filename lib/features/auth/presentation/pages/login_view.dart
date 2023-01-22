@@ -131,16 +131,12 @@ class _LoginFormState extends State<LoginForm> {
                   validateEmail = true;
                   validatePassword = true;
                 });
-                BlocProvider.of<AuthenticationBloc>(context).add(
-                    LoginButtonPressed(LoginRequest(
-                        _emailTextEditingController.text,
-                        _passwordTextEditingController.text)));
-                // if (_key.currentState!.validate()) {
-                //   BlocProvider.of<AuthenticationBloc>(context).add(
-                //       LoginButtonPressed(LoginRequest(
-                //           _emailTextEditingController.text,
-                //           _passwordTextEditingController.text)));
-                // }
+                if (_key.currentState!.validate()) {
+                  BlocProvider.of<AuthenticationBloc>(context).add(
+                      LoginButtonPressed(LoginRequest(
+                          _emailTextEditingController.text,
+                          _passwordTextEditingController.text)));
+                }
               },
               text: AppStrings.signIn.tr(context),
             )

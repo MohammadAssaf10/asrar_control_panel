@@ -8,6 +8,8 @@ class AppStrings {
   static const String signUpNow = "sign_up_now";
   static const String forgetYourPassword = "forget_your_password";
   static const String notHaveAccountYet = "not_have_account_yet";
+  static const String idNumber = "idNumber";
+  static const String nationality = "nationality";
   static const String email = "email";
   static const String password = "password";
   static const String pleaseEnterEmail = "please_enter_email";
@@ -54,8 +56,28 @@ class AppStrings {
   static const String pleaseSelectImage = "please_select_image";
   static const String selectImage = "select_image";
   static const String uploadImage = "upload_image";
-  static const String imageAddedSuccessfully = "image_added_successfully";
+  static const String addedSuccessfully = "added_successfully";
   static const String ok = "ok";
+  static const String deleteImage = "delete_image";
+  static const String deletedSuccessfully = "deleted_successfully";
+  static const String photoGallery = "photo_gallery";
+  static const String longPressOnTheImageToDelete =
+      "long_press_on_the_image_to_delete";
+  static const String noPictures = "no_pictures";
+  static const String services = "services";
+  static const String companyName = "company_name";
+  static const String servicesName = "services_name";
+  static const String servicesPrice = "services_price";
+  static const String addServicesCompany = "add_services_company";
+  static const String addServices = "add_services";
+  static const String add = "add";
+  static const String makeASelection = "make_a_selection";
+  static const String requiredDocuments = "required_documents";
+  static const String loading = "loading";
+  static const String noCompanies = "no_companies";
+  static const String status = "status";
+  static const String pleaseEnterAllRequiredData =
+      "please_enter_all_required_data";
 
   // exception handler
   static const String success = "success";
@@ -96,4 +118,14 @@ class AppStrings {
   static const String noDefaultBucket = "no_default_bucket";
   static const String cannotSliceBlob = "cannot_slice_blob";
   static const String serverFileWrongSize = "server_file_wrong_size";
+
+  // employee manager
+  static const String canWork              = "canWork";
+  static const String employeeManagement     = "employeeManagement";
+  static const String newsManagement       = "newsManagement";
+  static const String addsManagement       = "addsManagement";
+  static const String offersManagement       = "offersManagement";
+  static const String companyManagement     = "companyManagement";
+  static const String coursesManagement     = "coursesManagement";
+  static const String technicalSupport       = "technicalSupport";
 }
