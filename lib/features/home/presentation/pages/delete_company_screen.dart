@@ -80,17 +80,6 @@ class DeleteCompanyScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                IconButton(
-                                  onPressed: () {
-                                    BlocProvider.of<CompanyBloc>(context)
-                                        .add(DeleteCompany(
-                                      companyFullName:
-                                          state.company[index].fullName,
-                                      companyName: state.company[index].name,
-                                    ));
-                                  },
-                                  icon: const Icon(Icons.delete),
-                                ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: AppSize.s10.w),
@@ -101,6 +90,17 @@ class DeleteCompanyScreen extends StatelessWidget {
                                       color: ColorManager.white,
                                     ),
                                   ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    BlocProvider.of<CompanyBloc>(context)
+                                        .add(DeleteCompany(
+                                      companyFullName:
+                                          state.company[index].fullName,
+                                      companyName: state.company[index].name,
+                                    ));
+                                  },
+                                  icon: const Icon(Icons.delete),
                                 ),
                               ],
                             ),

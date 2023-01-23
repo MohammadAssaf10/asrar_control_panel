@@ -69,17 +69,6 @@ class DeleteServiceScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            BlocProvider.of<ServicesBloc>(context).add(
-                                DeleteServiceEvent(
-                                    serviceName:
-                                        state.services[index].serviceName,
-                                    companyName:
-                                        state.services[index].companyName));
-                          },
-                          icon: const Icon(Icons.delete),
-                        ),
                         Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: AppSize.s10.w),
@@ -102,6 +91,17 @@ class DeleteServiceScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            BlocProvider.of<ServicesBloc>(context).add(
+                                DeleteServiceEvent(
+                                    serviceName:
+                                        state.services[index].serviceName,
+                                    companyName:
+                                        state.services[index].companyName));
+                          },
+                          icon: const Icon(Icons.delete),
                         ),
                       ],
                     ),
