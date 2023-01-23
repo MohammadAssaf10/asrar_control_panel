@@ -82,10 +82,9 @@
   "save": "save",
   "cancel": "cancel",
 
-  "to delete": "adds management"
+  "to delete": "adds management",
 
   "delete_companies": "Delete companies",
-  "no_Services": "No services",
-  "please_enter_all_required_data": "Please enter all required data"
+  "no_Services": "No services"
 
 }

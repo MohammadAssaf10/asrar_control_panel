@@ -81,10 +81,9 @@
   "technicalSupport": " الدعم الفني ",
 
   "save": "حفظ",
-  "cancel": "الغاء"
+  "cancel": "الغاء",
 
   "delete_companies": "حذف شركة",
-  "no_Services": "لا توجد خدمات",
-  "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة"
+  "no_Services": "لا توجد خدمات"
 
 }
