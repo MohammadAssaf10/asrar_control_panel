@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             ),
           ],
           child: BlocBuilder<LanguageCubit, LanguageState>(
-            builder: (context, state) {
+            builder: (context, state)  {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: "لوحة تحكم تطبيق أسرار",
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
                   return supportedLocales.first;
                 },
                 theme: getApplicationTheme(),
-                onGenerateRoute: RouteGenerator.getRoute,
+                onGenerateRoute:  RouteGenerator.getRoute,
               );
             },
           ),
