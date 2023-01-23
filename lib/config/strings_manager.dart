@@ -73,6 +73,8 @@ class AppStrings {
   static const String requiredDocuments = "required_documents";
   static const String loading = "loading";
   static const String noCompanies = "no_companies";
+  static const String deleteCompanies = "delete_companies";
+  static const String noServices = "no_Services";
   static const String pleaseEnterAllRequiredData =
       "please_enter_all_required_data";
 

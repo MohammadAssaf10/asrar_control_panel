@@ -27,7 +27,7 @@ class ServicesScreen extends StatelessWidget {
                     context, Routes.addServicesCompanyRoute),
               ),
               ControlPanelButton(
-                buttonTitle: "حذف شركة",
+                buttonTitle: AppStrings.deleteCompanies.tr(context),
                 onTap: () {
                   Navigator.pushNamed(context, Routes.deleteCompanyRoute);
                   BlocProvider.of<CompanyBloc>(context).add(GetCompanyEvent());

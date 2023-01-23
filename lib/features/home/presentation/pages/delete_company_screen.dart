@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/color_manager.dart';
+import '../../../../config/routes_manager.dart';
 import '../../../../config/strings_manager.dart';
 import '../../../../config/styles_manager.dart';
 import '../../../../config/values_manager.dart';
 import '../../../../core/app/functions.dart';
 import '../blocs/company/company_bloc.dart';
+import '../blocs/services_bloc/services_bloc.dart';
 
 class DeleteCompanyScreen extends StatelessWidget {
   const DeleteCompanyScreen({super.key});
@@ -28,7 +30,6 @@ class DeleteCompanyScreen extends StatelessWidget {
               showCustomDialog(context,
                   message: AppStrings.deletedSuccessfully.tr(context));
               BlocProvider.of<CompanyBloc>(context).add(GetCompanyEvent());
-              dismissDialog(context);
             }
           },
           child: BlocBuilder<CompanyBloc, CompanyState>(
@@ -51,12 +52,20 @@ class DeleteCompanyScreen extends StatelessWidget {
                 );
               } else if (state is CompanyLoadedState) {
                 if (state.company.isNotEmpty) {
-                  return SizedBox(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.company.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
+                  return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.company.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return InkWell(
+                          onTap: () {
+                            BlocProvider.of<ServicesBloc>(context)
+                                .add(GetServicesEvent(
+                              companyName: state.company[index].name,
+                            ));
+                            Navigator.pushNamed(
+                                context, Routes.deleteServiceRoute);
+                          },
+                          child: Container(
                             height: AppSize.s50.h,
                             margin: EdgeInsets.symmetric(
                               vertical: AppSize.s10.h,
@@ -95,9 +104,9 @@ class DeleteCompanyScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          );
-                        }),
-                  );
+                          ),
+                        );
+                      });
                 } else {
                   return Center(
                     child: Text(

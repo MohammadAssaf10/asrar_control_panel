@@ -13,17 +13,33 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
   final ServiceRepository serviceRepository = instance<ServiceRepository>();
 
   ServicesBloc() : super(ServicesInitial()) {
-    on<AddServicesEvent>(
+    on<AddServiceEvent>(
       (event, emit) async {
-        emit(AddedServiceLoadingState());
+        emit(ServiceLoadingState());
         final service =
             await serviceRepository.addService(event.serviceEntities);
         service.fold(
-          (failure) =>
-              emit(AddedServiceErrorState(errorMessage: failure.message)),
+          (failure) => emit(ServiceErrorState(errorMessage: failure.message)),
           (r) => emit(AddedServiceSuccessfullyState()),
         );
       },
     );
+    on<GetServicesEvent>((event, emit) async {
+      emit(ServiceLoadingState());
+      final services = await serviceRepository.getServices(event.companyName);
+      services.fold(
+          (failure) => emit(ServiceErrorState(errorMessage: failure.message)),
+          (services) => emit(ServicesLoadedState(services: services)));
+    });
+    on<DeleteServiceEvent>((event, emit) async {
+      emit(ServiceDeleteLoadingState());
+      final service = await serviceRepository.deleteService(
+          event.companyName, event.serviceName);
+      service.fold(
+          (failure) =>
+              emit(DeleteServiceErrorState(errorMessage: failure.message)),
+          (r) =>
+              emit(ServiceDeletedSuccessfully(companyName: event.companyName)));
+    });
   }
 }

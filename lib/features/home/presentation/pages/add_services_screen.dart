@@ -34,13 +34,11 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
   Widget build(BuildContext context) {
     return BlocListener<ServicesBloc, ServicesState>(
       listener: (context, state) {
-        if (state is AddedServiceLoadingState) {
+        if (state is ServiceLoadingState) {
           showCustomDialog(context);
-        } else if (state is AddedServiceErrorState) {
-          dismissDialog(context);
+        } else if (state is ServiceErrorState) {
           showCustomDialog(context, message: state.errorMessage.tr(context));
         } else if (state is AddedServiceSuccessfullyState) {
-          dismissDialog(context);
           showCustomDialog(context,
               message: AppStrings.addedSuccessfully.tr(context));
         }
@@ -170,7 +168,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                     controller: _requiredDocumentsController,
                     hintTitle: AppStrings.requiredDocuments.tr(context),
                     keyboardType: TextInputType.text,
-                    regExp: RegExp('[" "a-zآ-يA-Z]'),
+                    regExp: RegExp('[" "a-zآ-يA-Z0-9]'),
                   ),
                   ControlPanelButton(
                     buttonTitle: AppStrings.add.tr(context),
@@ -186,9 +184,8 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                           requiredDocuments: list,
                         );
                         BlocProvider.of<ServicesBloc>(context).add(
-                          AddServicesEvent(serviceEntities: serviceEntities),
-                        );
-                        Navigator.pop(context);
+                          AddServiceEvent(serviceEntities: serviceEntities),
+                        );           
                       } else {
                         showCustomDialog(context,
                             message: AppStrings.pleaseEnterAllRequiredData
