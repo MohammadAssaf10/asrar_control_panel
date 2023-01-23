@@ -9,15 +9,28 @@ class ServicesInitial extends ServicesState {
   List<Object> get props => [];
 }
 
-class AddedServiceLoadingState extends ServicesState {
+class ServiceLoadingState extends ServicesState {
   @override
   List<Object?> get props => [];
 }
 
-class AddedServiceErrorState extends ServicesState {
+class ServiceDeleteLoadingState extends ServicesState {
+  @override
+  List<Object?> get props => [];
+}
+
+class ServiceErrorState extends ServicesState {
   final String errorMessage;
 
-  const AddedServiceErrorState({required this.errorMessage});
+  const ServiceErrorState({required this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class DeleteServiceErrorState extends ServicesState {
+  final String errorMessage;
+  const DeleteServiceErrorState({required this.errorMessage});
 
   @override
   List<Object?> get props => [errorMessage];
@@ -26,4 +39,18 @@ class AddedServiceErrorState extends ServicesState {
 class AddedServiceSuccessfullyState extends ServicesState {
   @override
   List<Object?> get props => [];
+}
+
+class ServicesLoadedState extends ServicesState {
+  final List<ServiceEntities> services;
+
+  const ServicesLoadedState({required this.services});
+  @override
+  List<Object?> get props => [services];
+}
+class ServiceDeletedSuccessfully extends ServicesState {
+  final String companyName;
+  const ServiceDeletedSuccessfully({required this.companyName});
+  @override
+  List<Object?> get props => [companyName];
 }

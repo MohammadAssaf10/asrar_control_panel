@@ -8,6 +8,7 @@ import '../../../../config/color_manager.dart';
 import '../../../../config/strings_manager.dart';
 import '../../../../config/styles_manager.dart';
 import '../../../../config/values_manager.dart';
+import '../../../../core/app/constants.dart';
 import '../blocs/photo_gallery_bloc/gallery_bloc.dart';
 
 class PhotoGalleryScreen extends StatelessWidget {
@@ -73,7 +74,7 @@ class PhotoGalleryScreen extends StatelessWidget {
                                     BlocProvider.of<GalleryBloc>(context).add(
                                         DeleteImageFromGallery(
                                             fileName: state.list[index].name,
-                                            folderName: "adImages"));
+                                            folderName: FireBaseCollection.adImages));
                                   },
                                   child: Container(
                                     margin: EdgeInsets.symmetric(

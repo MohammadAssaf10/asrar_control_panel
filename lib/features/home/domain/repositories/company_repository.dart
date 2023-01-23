@@ -5,7 +5,10 @@ import '../entities/company.dart';
 
 abstract class CompanyRepository {
   Future<Either<Failure, Unit>> addCompany(
-      String folderName, String companyName,String docName);
-
+      String companyFullName, String docName);
+  // companyFullName: Name with subsequent(.jpg or .png)
+  // companyName: Just name without subsequent
+  Future<Either<Failure, Unit>> deleteCompany(
+      String companyFullName, String companyName);
   Future<Either<Failure, List<CompanyEntities>>> getCompany();
 }

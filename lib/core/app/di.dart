@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,8 +26,8 @@ Future<void> initAppModule() async {
       () => StorageFileRepositoryImpl(
             storage: FirebaseStorage.instance,
           ));
-  instance.registerLazySingleton<CompanyRepository>(
-      () => CompanyRepositoryImpl(db: FirebaseFirestore.instance));
+  instance
+      .registerLazySingleton<CompanyRepository>(() => CompanyRepositoryImpl());
 
   // auth pref instance
   instance.registerLazySingleton<AuthPreferences>(
