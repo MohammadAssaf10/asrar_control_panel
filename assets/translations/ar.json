@@ -67,6 +67,7 @@
   "make_a_selection": "قم بالاختيار",
   "required_documents": "المستندات المطلوبة",
   "no_companies": "لا توجد شركات",
+
   "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",
 
   "isRejected":  "محظور",
@@ -81,4 +82,9 @@
 
   "save": "حفظ",
   "cancel": "الغاء"
+
+  "delete_companies": "حذف شركة",
+  "no_Services": "لا توجد خدمات",
+  "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة"
+
 }

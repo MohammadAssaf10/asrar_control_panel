@@ -12,6 +12,8 @@ import '../features/employees_manager/presentation/employee_list/employee_list_v
 import '../features/home/presentation/pages/add_ad_image_screen.dart';
 import '../features/home/presentation/pages/add_services_company_screen.dart';
 import '../features/home/presentation/pages/add_services_screen.dart';
+import '../features/home/presentation/pages/delete_company_screen.dart';
+import '../features/home/presentation/pages/delete_service_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
 import '../features/home/presentation/pages/photo_gallery_screen.dart';
 import '../features/home/presentation/pages/services_screen.dart';
@@ -28,6 +30,8 @@ class Routes {
   static const String servicesRoute = "/services";
   static const String addServicesCompanyRoute = "/addServicesCompany";
   static const String addServicesRoute = "/addServices";
+  static const String deleteCompanyRoute = "/deleteCompany";
+  static const String deleteServiceRoute = "/deleteService";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -80,6 +84,11 @@ class RouteGenerator {
 
       case Routes.servicesRoute:
         return MaterialPageRoute(builder: (_) => const ServicesScreen());
+
+      case Routes.deleteCompanyRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteCompanyScreen());
+      case Routes.deleteServiceRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteServiceScreen());
 
       case Routes.addServicesCompanyRoute:
         return MaterialPageRoute(

@@ -4,7 +4,7 @@ class ServiceEntities extends Equatable {
   final String companyName;
   final String serviceName;
   final String servicePrice;
-  final List<String> requiredDocuments;
+  final List<dynamic> requiredDocuments;
 
   const ServiceEntities({
     required this.companyName,

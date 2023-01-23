@@ -13,11 +13,23 @@ class CompanyLoadingState extends CompanyState {
   @override
   List<Object?> get props => [];
 }
+class CompanyDeleteLoadingState extends CompanyState {
+  @override
+  List<Object?> get props => [];
+}
 
 class CompanyErrorState extends CompanyState {
   final String errorMessage;
 
   const CompanyErrorState({required this.errorMessage});
+
+  @override
+  List<Object?> get props => [errorMessage];
+}
+
+class DeleteCompanyErrorState extends CompanyState {
+  final String errorMessage;
+  const DeleteCompanyErrorState({required this.errorMessage});
 
   @override
   List<Object?> get props => [errorMessage];
@@ -33,6 +45,11 @@ class CompanyLoadedState extends CompanyState {
 }
 
 class CompanyAddedSuccessfully extends CompanyState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CompanyDeletedSuccessfully extends CompanyState {
   @override
   List<Object?> get props => [];
 }

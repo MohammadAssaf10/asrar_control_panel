@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/app/constants.dart';
 import '../../../../../core/app/di.dart';
 import '../../../domain/entities/company.dart';
 import '../../../domain/entities/xfile_entities.dart';
@@ -31,7 +32,7 @@ class CompanyBloc extends Bloc<CompanyEvent, CompanyState> {
     on<AddCompanyEvent>((event, emit) async {
       emit(CompanyLoadingState());
       final uploadImage = await storageFileRepository.uploadFile(
-          event.xFileEntities, "company");
+          event.xFileEntities, FireBaseCollection.companies);
       uploadImage.fold((failure) {
         emit(CompanyErrorState(errorMessage: failure.message));
       }, (r) async {
@@ -39,14 +40,26 @@ class CompanyBloc extends Bloc<CompanyEvent, CompanyState> {
             companyName: event.companyName, docName: event.docName));
       });
     });
-    //123
     on<AddCompanyToStore>((event, emit) async {
       final company = await companyRepository.addCompany(
-          "company", event.companyName, event.docName);
+        event.companyName,
+        event.docName,
+      );
       company.fold(
         (failure) => emit(CompanyErrorState(errorMessage: failure.message)),
         (r) => emit(CompanyAddedSuccessfully()),
       );
+    });
+    on<DeleteCompany>((event, emit) async {
+      emit(CompanyDeleteLoadingState());
+      final company = await companyRepository.deleteCompany(
+        event.companyFullName,
+        event.companyName,
+      );
+      company.fold(
+          (failure) =>
+              emit(DeleteCompanyErrorState(errorMessage: failure.message)),
+          (r) => emit(CompanyDeletedSuccessfully()));
     });
   }
 }

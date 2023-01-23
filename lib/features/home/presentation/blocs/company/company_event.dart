@@ -21,9 +21,10 @@ class AddCompanyEvent extends CompanyEvent {
   });
 
   @override
-  List<Object?> get props => [xFileEntities, companyName,docName];
+  List<Object?> get props => [xFileEntities, companyName, docName];
 }
-class AddCompanyToStore extends CompanyEvent{
+
+class AddCompanyToStore extends CompanyEvent {
   final String companyName;
   final String docName;
   const AddCompanyToStore({
@@ -31,5 +32,14 @@ class AddCompanyToStore extends CompanyEvent{
     required this.docName,
   });
   @override
-  List<Object?> get props => [companyName,docName];
+  List<Object?> get props => [companyName, docName];
+}
+
+class DeleteCompany extends CompanyEvent {
+  final String companyFullName;
+  final String companyName;
+  const DeleteCompany(
+      {required this.companyFullName, required this.companyName});
+  @override
+  List<Object?> get props => [companyFullName, companyName];
 }
