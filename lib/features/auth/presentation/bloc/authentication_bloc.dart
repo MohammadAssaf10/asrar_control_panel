@@ -1,7 +1,10 @@
+
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../core/app/di.dart';
+import '../../../employees_manager/domain/entities/employee.dart';
 import '../../data/data_sources/auth_prefs.dart';
 import '../../data/models/requests.dart';
 import '../../domain/repository/repository.dart';
@@ -13,14 +16,15 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final Repository _repository = instance<Repository>();
   final AuthPreferences _authPreferences = instance<AuthPreferences>();
+
   AuthenticationBloc() : super(AuthenticationInitial()) {
     // login
     on<LoginButtonPressed>((event, emit) async {
       emit(AuthenticationInProgress());
       (await _repository.login(event.loginRequest)).fold((failure) {
         emit(AuthenticationFailed(failure.message));
-      }, (_) {
-        emit(AuthenticationSuccess());
+      }, (employee) {
+        emit(AuthenticationSuccess(employee: employee));
         _authPreferences.setUserLoggedIn();
       });
     });

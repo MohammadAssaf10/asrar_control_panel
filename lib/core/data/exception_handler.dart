@@ -16,12 +16,12 @@ class ExceptionHandler implements Exception {
 
     bool found = false;
 
-    if (exception is FirebaseAuthException) {
+    if (!found && exception is FirebaseAuthException) {
       failure = FirebaseAuthExceptionHandler.handle(exception).getFailure();
       found = true;
     }
 
-    if (exception is FirebaseException) {
+    if (!found && exception is FirebaseException) {
       failure = FirebaseExceptionHandler.handle(exception).getFailure();
       found = true;
     }
