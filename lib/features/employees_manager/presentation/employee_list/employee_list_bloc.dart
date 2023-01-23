@@ -9,8 +9,6 @@ import '../../data/repo/firebase_employee_repo.dart';
 import '../../domain/employees_repo.dart';
 import '../../domain/entities/employee.dart';
 
-
-
 part 'employee_list_event.dart';
 part 'employee_list_state.dart';
 
@@ -23,7 +21,7 @@ class EmployeeListBloc extends Bloc<EmployeeListEvent, EmployeeListState> {
     on<FetchEmployeesList>((event, emit) async {
       emit(state.copyWith(employeeListStatus: Status.loading));
 
-      (await _employeeRepository.getList()).fold(((l) {
+      (await _employeeRepository.getEmployeesList()).fold(((l) {
         emit(state.copyWith(employeeListStatus: Status.failed));
       }), ((employeeList) {
         emit(state.copyWith(
@@ -46,5 +44,16 @@ class EmployeeListBloc extends Bloc<EmployeeListEvent, EmployeeListState> {
         }));
       },
     );
+
+    on<UpdateEmployee>((event, emit) async {
+      emit(state.copyWith(updateEmployeeStatus: Status.loading));
+
+      (await _employeeRepository.updateEmployee(event.employee))
+          .fold(((l) {
+          emit(state.copyWith(updateEmployeeStatus: Status.failed));
+          }), ((r) {
+          emit(state.copyWith(updateEmployeeStatus: Status.success));
+          }));
+    });
   }
 }

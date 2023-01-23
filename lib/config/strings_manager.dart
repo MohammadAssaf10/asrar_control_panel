@@ -120,12 +120,15 @@ class AppStrings {
   static const String serverFileWrongSize = "server_file_wrong_size";
 
   // employee manager
-  static const String canWork              = "canWork";
-  static const String employeeManagement     = "employeeManagement";
-  static const String newsManagement       = "newsManagement";
-  static const String addsManagement       = "addsManagement";
-  static const String offersManagement       = "offersManagement";
-  static const String companyManagement     = "companyManagement";
-  static const String coursesManagement     = "coursesManagement";
-  static const String technicalSupport       = "technicalSupport";
+  static const String isRejected = "isRejected";
+  static const String canWork = "canWork";
+  static const String employeeManagement = "employeeManagement";
+  static const String newsManagement = "newsManagement";
+  static const String addsManagement = "addsManagement";
+  static const String offersManagement = "offersManagement";
+  static const String companyManagement = "companyManagement";
+  static const String coursesManagement = "coursesManagement";
+  static const String technicalSupport = "technicalSupport";
+  static const String save = "save";
+  static const String cancel = "cancel";
 }

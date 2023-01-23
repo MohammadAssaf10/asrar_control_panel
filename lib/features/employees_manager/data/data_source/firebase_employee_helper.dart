@@ -14,11 +14,16 @@ class FireBaseEmployeeHelper {
 
     for (var employee in snapshot.docs) {
       print(employee.data());
-      employeeList.add(
-        Employee.fromMap(employee.data()
-        ));
+      employeeList.add(Employee.fromMap(employee.data()));
     }
 
     return employeeList;
+  }
+
+  Future<void> updateEmployee(Employee employee) async {
+    await _firestore
+        .collection(employeeCollectionPath)
+        .doc(employee.email)
+        .set(employee.toMap());
   }
 }

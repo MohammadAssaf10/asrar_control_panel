@@ -68,6 +68,7 @@
   "no_companies": "No companies",
   "please_enter_all_required_data": "Please enter all required data",
 
+  "isRejected": "isRejected",
   "canWork": "can work",
   "employeeManagement": "employee management",
   "newsManagement": "news management",
@@ -76,6 +77,9 @@
   "companyManagement": "company management",
   "coursesManagement": "courses management",
   "technicalSupport": "technical support",
+
+  "save": "save",
+  "cancel": "cancel",
 
   "to delete": "adds management"
 }

@@ -11,11 +11,24 @@ class FetchEmployeesList extends EmployeeListEvent {}
 
 class FetchEmployeeImages extends EmployeeListEvent {
   final Employee employee;
-  
+
   const FetchEmployeeImages({
     required this.employee,
   });
 
-    @override
+  @override
+  List<Object> get props => [employee];
+}
+
+class UpdateEmployee extends EmployeeListEvent {
+  final Employee employee;
+
+  const UpdateEmployee({
+    required this.employee,
+
+   
+  });
+
+   @override
   List<Object> get props => [employee];
 }

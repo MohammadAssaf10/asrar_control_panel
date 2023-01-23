@@ -10,30 +10,36 @@ class EmployeeListState extends Equatable {
   final Status employeeImageStatus;
   final List<FileEntities> employeeImages;
 
+  final Status updateEmployeeStatus;
+
   const EmployeeListState({
     required this.employeeListStatus,
     required this.employeeList,
     required this.employeeImageStatus,
     required this.employeeImages,
+    required this.updateEmployeeStatus
   });
 
   EmployeeListState.empty()
       : employeeListStatus = Status.init,
         employeeList = [],
         employeeImageStatus = Status.init,
-        employeeImages = [];
+        employeeImages = [],
+        updateEmployeeStatus = Status.init;
 
   EmployeeListState copyWith({
     Status? employeeListStatus,
     List<Employee>? employeeList,
     Status? employeeImageStatus,
     List<FileEntities>? employeeImages,
+    Status? updateEmployeeStatus
   }) {
     return EmployeeListState(
       employeeListStatus: employeeListStatus ?? this.employeeListStatus,
       employeeList: employeeList ?? this.employeeList,
       employeeImageStatus: employeeImageStatus ?? this.employeeImageStatus,
       employeeImages: employeeImages ?? this.employeeImages,
+      updateEmployeeStatus: updateEmployeeStatus ?? this.updateEmployeeStatus,
     );
   }
 
@@ -44,5 +50,5 @@ class EmployeeListState extends Equatable {
 
   @override
   List<Object> get props =>
-      [employeeListStatus, employeeList, employeeImageStatus, employeeImages];
+      [employeeListStatus, employeeList, employeeImageStatus, employeeImages, updateEmployeeStatus];
 }

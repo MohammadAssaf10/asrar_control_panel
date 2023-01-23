@@ -1,8 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'permissions.dart';
-
 
 class Employee {
   String name;
@@ -41,14 +39,14 @@ class Employee {
 
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
-  
+
     result.addAll({'name': name});
     result.addAll({'email': email});
     result.addAll({'phonNumber': phonNumber});
     result.addAll({'idNumber': idNumber});
     result.addAll({'national': national});
     result.addAll({'permissions': permissions.toMap()});
-  
+
     return result;
   }
 
@@ -59,7 +57,7 @@ class Employee {
       phonNumber: map['phonNumber'] ?? '',
       idNumber: map['idNumber'] ?? '',
       national: map['national'] ?? '',
-      permissions: Permissions.fromMap(map),
+      permissions: Permissions.fromMap(map['permissions'] ?? {}),
     );
   }
 
@@ -76,23 +74,23 @@ class Employee {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Employee &&
-      other.name == name &&
-      other.email == email &&
-      other.phonNumber == phonNumber &&
-      other.idNumber == idNumber &&
-      other.national == national &&
-      other.permissions == permissions;
+        other.name == name &&
+        other.email == email &&
+        other.phonNumber == phonNumber &&
+        other.idNumber == idNumber &&
+        other.national == national &&
+        other.permissions == permissions;
   }
 
   @override
   int get hashCode {
     return name.hashCode ^
-      email.hashCode ^
-      phonNumber.hashCode ^
-      idNumber.hashCode ^
-      national.hashCode ^
-      permissions.hashCode;
+        email.hashCode ^
+        phonNumber.hashCode ^
+        idNumber.hashCode ^
+        national.hashCode ^
+        permissions.hashCode;
   }
 }

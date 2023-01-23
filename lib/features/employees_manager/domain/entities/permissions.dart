@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Permissions {
+  bool isRejected;
   bool canWork;
   bool employeeManagement;
   bool newsManagement;
@@ -9,7 +10,9 @@ class Permissions {
   bool companyManagement;
   bool coursesManagement;
   bool technicalSupport;
+
   Permissions({
+    required this.isRejected,
     required this.canWork,
     required this.employeeManagement,
     required this.newsManagement,
@@ -21,6 +24,7 @@ class Permissions {
   });
 
   Permissions copyWith({
+    bool? isRejected,
     bool? canWork,
     bool? employeeManagement,
     bool? newsManagement,
@@ -31,6 +35,7 @@ class Permissions {
     bool? technicalSupport,
   }) {
     return Permissions(
+      isRejected: isRejected ?? this.isRejected,
       canWork: canWork ?? this.canWork,
       employeeManagement: employeeManagement ?? this.employeeManagement,
       newsManagement: newsManagement ?? this.newsManagement,
@@ -45,6 +50,7 @@ class Permissions {
   Map<String, dynamic> toMap() {
     final result = <String, dynamic>{};
   
+    result.addAll({'isRejected': isRejected});
     result.addAll({'canWork': canWork});
     result.addAll({'employeeManagement': employeeManagement});
     result.addAll({'newsManagement': newsManagement});
@@ -59,6 +65,7 @@ class Permissions {
 
   factory Permissions.fromMap(Map<String, dynamic> map) {
     return Permissions(
+      isRejected: map['isRejected'] ?? false,
       canWork: map['canWork'] ?? false,
       employeeManagement: map['employeeManagement'] ?? false,
       newsManagement: map['newsManagement'] ?? false,
@@ -72,11 +79,12 @@ class Permissions {
 
   String toJson() => json.encode(toMap());
 
-  factory Permissions.fromJson(String source) => Permissions.fromMap(json.decode(source));
+  factory Permissions.fromJson(String source) =>
+      Permissions.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Permissions(canWork: $canWork, employeeManagement: $employeeManagement, newsManagement: $newsManagement, addsManagement: $addsManagement, offersManagement: $offersManagement, companyManagement: $companyManagement, coursesManagement: $coursesManagement, technicalSupport: $technicalSupport)';
+    return 'Permissions(isRejected: $isRejected, canWork: $canWork, employeeManagement: $employeeManagement, newsManagement: $newsManagement, addsManagement: $addsManagement, offersManagement: $offersManagement, companyManagement: $companyManagement, coursesManagement: $coursesManagement, technicalSupport: $technicalSupport)';
   }
 
   @override
@@ -84,6 +92,7 @@ class Permissions {
     if (identical(this, other)) return true;
   
     return other is Permissions &&
+      other.isRejected == isRejected &&
       other.canWork == canWork &&
       other.employeeManagement == employeeManagement &&
       other.newsManagement == newsManagement &&
@@ -96,7 +105,8 @@ class Permissions {
 
   @override
   int get hashCode {
-    return canWork.hashCode ^
+    return isRejected.hashCode ^
+      canWork.hashCode ^
       employeeManagement.hashCode ^
       newsManagement.hashCode ^
       addsManagement.hashCode ^

@@ -6,28 +6,27 @@ import '../../domain/employees_repo.dart';
 import '../../domain/entities/employee.dart';
 import '../data_source/firebase_employee_helper.dart';
 
-
-
 class FireBaseEmployeeRepo implements EmployeeRepository {
   final FireBaseEmployeeHelper _fireBaseEmployeeHelper =
       FireBaseEmployeeHelper();
 
   @override
-  Future<Either<Failure, void>> acceptNewEmployee() async {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, List<Employee>>> getList() async {
+  Future<Either<Failure, List<Employee>>> getEmployeesList() async {
     try {
-      return Right(await _fireBaseEmployeeHelper.fetchEmployeeList());
+      final t = await _fireBaseEmployeeHelper.fetchEmployeeList();
+      return Right(t);
     } catch (e) {
       return Left(ExceptionHandler.handle(e).failure);
     }
   }
 
   @override
-  Future<Either<Failure, void>> rejectEmployee() {
-    throw UnimplementedError();
+  Future<Either<Failure, void>> updateEmployee(Employee employee) async {
+    try {
+      await _fireBaseEmployeeHelper.updateEmployee(employee);
+      return const Right(null);
+    } catch (e) {
+      return Left(ExceptionHandler.handle(e).failure);
+    }
   }
 }

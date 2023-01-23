@@ -69,13 +69,16 @@
   "no_companies": "لا توجد شركات",
   "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",
 
-  "canWork":  "يستطيع العمل",
+  "isRejected":  "محظور",
+  "canWork":  "العمل / ايقاف العمل",
   "employeeManagement": "ادارة الموظفين",
   "newsManagement": " ادارة الاخبار",
   "addsManagement": " ادارة الاعلانات",
-  "offersManagement": " ادارة خدمات التوظيف",
-  "companyManagement": " ادارة  الشركات وخدماتها",
+  "offersManagement": " ادارة الوظائف",
+  "companyManagement": " ادارة الخدمات والمستندات ",
   "coursesManagement": " ادارة الدورات",
-  "technicalSupport": " الدعم الفني "
+  "technicalSupport": " الدعم الفني ",
 
+  "save": "حفظ",
+  "cancel": "الغاء"
 }

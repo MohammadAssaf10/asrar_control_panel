@@ -11,6 +11,7 @@ class ColorManager {
 
   static const Color black =  Colors.black;
   static const Color white =  Colors.white;
+  static const Color blue =  Colors.blue;
 
   static const Color error =  Color(0xFFE61F34); // red color
 }

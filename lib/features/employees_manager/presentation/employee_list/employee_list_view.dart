@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +7,9 @@ import '../../../../config/app_localizations.dart';
 import '../../../../config/color_manager.dart';
 import '../../../../config/strings_manager.dart';
 import '../../../../config/values_manager.dart';
+import '../../../../core/app/functions.dart';
 import '../../domain/entities/employee.dart';
+import '../../domain/entities/permissions.dart';
 import 'employee_list_bloc.dart';
 
 class EmployeeListView extends StatelessWidget {
@@ -15,26 +18,40 @@ class EmployeeListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<EmployeeListBloc, EmployeeListState>(
+      body: BlocSelector<EmployeeListBloc, EmployeeListState, Status>(
+        selector: (state) {
+          return state.employeeListStatus;
+        },
         builder: (context, state) {
-          print(state);
-          if (state.employeeListStatus == Status.success) {
-            return Center(
-              child: SizedBox(
-                width: AppSize.s600,
-                child: Card(
-                  child: ListView.builder(
-                      itemCount: state.employeeList.length,
-                      itemBuilder: ((context, index) {
-                        return EmployeeCard(
-                            employee: state.employeeList[index]);
-                      })),
-                ),
-              ),
-            );
+          if (state == Status.loading) {
+            showCustomDialog(context);
           }
 
-          return Container();
+          if (state == Status.success) {
+            dismissDialog(context);
+          }
+          return BlocBuilder<EmployeeListBloc, EmployeeListState>(
+            builder: (context, state) {
+              print(state);
+              if (state.employeeListStatus == Status.success) {
+                return Center(
+                  child: SizedBox(
+                    width: AppSize.s600,
+                    child: Card(
+                      child: ListView.builder(
+                          itemCount: state.employeeList.length,
+                          itemBuilder: ((context, index) {
+                            return EmployeeCard(
+                                employee: state.employeeList[index]);
+                          })),
+                    ),
+                  ),
+                );
+              }
+
+              return Container();
+            },
+          );
         },
       ),
     );
@@ -64,9 +81,7 @@ class EmployeeCard extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(
-                color:
-                    ColorManager.primary),
+            border: Border.all(color: _getCardColor(_employee)),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
@@ -77,14 +92,10 @@ class EmployeeCard extends StatelessWidget {
               children: [
                 Text(
                   'email: ${_employee.email}',
-                  style: const TextStyle(
-                      color
-                          : ColorManager.primary),
+                  style: TextStyle(color: _getCardColor(_employee)),
                 ),
                 Text('name: ${_employee.name}',
-                    style: const TextStyle(
-                        color
-                            : ColorManager.primary)),
+                    style: TextStyle(color: _getCardColor(_employee))),
               ],
             ),
           ),
@@ -92,6 +103,12 @@ class EmployeeCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Color _getCardColor(Employee employee) {
+  if (employee.permissions.isRejected) return ColorManager.error;
+  if (employee.permissions.canWork) return ColorManager.primary;
+  return ColorManager.blue;
 }
 
 class EmployeeDialog extends StatelessWidget {
@@ -145,38 +162,42 @@ class EmployeeDialog extends StatelessWidget {
                         ],
                       ),
                       // ignore: prefer_const_literals_to_create_immutables
-                      PermissionsList(onChange: (v) {}, value: [
-                        true,
-                        true,
-                        true,
-                        true,
-                        true,
-                        true,
-                        true,
-                        true,
-                      ]),
+                      PermissionsList(
+                        onChange: (v) {
+                          // todo check if its work
+                          _employee.permissions = v;
+                          print('\x1B[33m$_employee');
+                          print('\x1B[34m$_employee');
+                        },
+                        permissions: _employee.permissions,
+                      ),
+                      Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                BlocProvider.of<EmployeeListBloc>(blocContext)
+                                    .add(UpdateEmployee(employee: _employee));
+                                Navigator.pop(context);
+                              },
+                              child: Text(AppStrings.save.tr(context)),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text(AppStrings.cancel.tr(context))),
+                          ],
+                        ),
+                      ),
                       if (state.employeeImageStatus == Status.success)
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: state.employeeImages.length,
-                            itemBuilder: ((context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: [
-                                    Text(state.employeeImages[index].name),
-                                    SizedBox(
-                                      height: 10.h,
-                                    ),
-                                    Image.network(
-                                      state.employeeImages[index].url,
-                                      width: 600.w,
-                                      height: 400.h,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }))
+                        EmployeeImages(
+                          state: state,
+                        ),
                     ],
                   ),
                 ),
@@ -189,13 +210,47 @@ class EmployeeDialog extends StatelessWidget {
   }
 }
 
+class EmployeeImages extends StatelessWidget {
+  const EmployeeImages({
+    Key? key,
+    required this.state,
+  }) : super(key: key);
+
+  final EmployeeListState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: state.employeeImages.length,
+        itemBuilder: ((context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text(state.employeeImages[index].name),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Image.network(
+                  state.employeeImages[index].url,
+                  width: 600.w,
+                  height: 400.h,
+                ),
+              ],
+            ),
+          );
+        }));
+  }
+}
+
 /// [value] should have 8 item
 class PermissionsList extends StatefulWidget {
   const PermissionsList(
-      {super.key, required this.onChange, required this.value});
+      {super.key, required this.onChange, required this.permissions});
 
-  final List<bool> value;
-  final Function(List<bool>) onChange;
+  final Permissions permissions;
+  final Function(Permissions) onChange;
 
   @override
   State<PermissionsList> createState() => _PermissionsListState();
@@ -206,110 +261,111 @@ class _PermissionsListState extends State<PermissionsList> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Checkbox(
-                value: widget.value[0],
-                onChanged: ((value) {
-                  setState(() {
-                    widget.value[0] = value!;
-                  });
-                  widget.onChange(widget.value);
-                })),
-            Text(AppStrings.canWork.tr(context)),
-          ],
-        ),
-        Row(
-          children: [
-            Checkbox(
-                value: widget.value[1],
-                onChanged: ((value) {
-                  setState(() {
-                    widget.value[1] = value!;
-                  });
-                  widget.onChange(widget.value);
-                })),
-            Text(AppStrings.employeeManagement.tr(context)),
-          ],
-        ),
-        Row(
-          children: [
-            Checkbox(
-                value: widget.value[5],
-                onChanged: ((value) {
-                  setState(() {
-                    widget.value[5] = value!;
-                  });
-                  widget.onChange(widget.value);
-                })),
-            Text(AppStrings.companyManagement.tr(context)),
-          ],
-        ),
-        Row(
-          children: [
-            Checkbox(
-                value: widget.value[2],
-                onChanged: ((value) {
-                  setState(() {
-                    widget.value[2] = value!;
-                  });
-                  widget.onChange(widget.value);
-                })),
-            Text(AppStrings.newsManagement.tr(context)),
-          ],
-        ),
-        Row(
-          children: [
-            Checkbox(
-                value: widget.value[3],
-                onChanged: ((value) {
-                  setState(() {
-                    widget.value[3] = value!;
-                  });
-                  widget.onChange(widget.value);
-                })),
-            Text(AppStrings.addsManagement.tr(context)),
-          ],
-        ),
-        Row(
-          children: [
-            Checkbox(
-                value: widget.value[4],
-                onChanged: ((value) {
-                  setState(() {
-                    widget.value[4] = value!;
-                  });
-                  widget.onChange(widget.value);
-                })),
-            Text(AppStrings.offersManagement.tr(context)),
-          ],
-        ),
-        Row(
-          children: [
-            Checkbox(
-                value: widget.value[6],
-                onChanged: ((value) {
-                  setState(() {
-                    widget.value[6] = value!;
-                  });
-                  widget.onChange(widget.value);
-                })),
-            Text(AppStrings.coursesManagement.tr(context)),
-          ],
-        ),
-        Row(
-          children: [
-            Checkbox(
-                value: widget.value[7],
-                onChanged: ((value) {
-                  setState(() {
-                    widget.value[7] = value!;
-                  });
-                  widget.onChange(widget.value);
-                })),
-            Text(AppStrings.technicalSupport.tr(context)),
-          ],
-        ),
+        PermissionCheckbox(
+            permission: widget.permissions.isRejected,
+            onChange: (value) {
+              widget.permissions.isRejected = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.isRejected),
+        PermissionCheckbox(
+            permission: widget.permissions.canWork,
+            onChange: (value) {
+              widget.permissions.canWork = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.canWork),
+        PermissionCheckbox(
+            permission: widget.permissions.employeeManagement,
+            onChange: (value) {
+              widget.permissions.employeeManagement = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.employeeManagement),
+        PermissionCheckbox(
+            permission: widget.permissions.companyManagement,
+            onChange: (value) {
+              widget.permissions.companyManagement = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.companyManagement),
+        PermissionCheckbox(
+            permission: widget.permissions.technicalSupport,
+            onChange: (value) {
+              widget.permissions.technicalSupport = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.technicalSupport),
+        PermissionCheckbox(
+            permission: widget.permissions.addsManagement,
+            onChange: (value) {
+              widget.permissions.addsManagement = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.addsManagement),
+        PermissionCheckbox(
+            permission: widget.permissions.newsManagement,
+            onChange: (value) {
+              widget.permissions.newsManagement = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.newsManagement),
+        PermissionCheckbox(
+            permission: widget.permissions.offersManagement,
+            onChange: (value) {
+              widget.permissions.offersManagement = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.offersManagement),
+        PermissionCheckbox(
+            permission: widget.permissions.coursesManagement,
+            onChange: (value) {
+              widget.permissions.coursesManagement = value;
+              widget.onChange(widget.permissions);
+            },
+            permissionName: AppStrings.coursesManagement),
+      ],
+    );
+  }
+}
+
+class PermissionCheckbox extends StatefulWidget {
+  const PermissionCheckbox(
+      {super.key,
+      required this.permission,
+      required this.onChange,
+      required this.permissionName});
+
+  final bool permission;
+  final String permissionName;
+  final Function(bool) onChange;
+
+  @override
+  State<PermissionCheckbox> createState() => _PermissionCheckboxState();
+}
+
+class _PermissionCheckboxState extends State<PermissionCheckbox> {
+  late bool permission;
+
+  @override
+  void initState() {
+    permission = widget.permission;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+            value: permission,
+            onChanged: ((value) {
+              setState(() {
+                permission = value!;
+              });
+              widget.onChange(permission);
+            })),
+        Text(widget.permissionName.tr(context)),
       ],
     );
   }
