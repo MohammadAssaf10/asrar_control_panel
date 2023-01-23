@@ -8,6 +8,8 @@ class AppStrings {
   static const String signUpNow = "sign_up_now";
   static const String forgetYourPassword = "forget_your_password";
   static const String notHaveAccountYet = "not_have_account_yet";
+  static const String idNumber = "idNumber";
+  static const String nationality = "nationality";
   static const String email = "email";
   static const String password = "password";
   static const String pleaseEnterEmail = "please_enter_email";
@@ -73,8 +75,12 @@ class AppStrings {
   static const String requiredDocuments = "required_documents";
   static const String loading = "loading";
   static const String noCompanies = "no_companies";
+
+  static const String status = "status";
+
   static const String deleteCompanies = "delete_companies";
   static const String noServices = "no_Services";
+
   static const String pleaseEnterAllRequiredData =
       "please_enter_all_required_data";
 
@@ -117,4 +123,17 @@ class AppStrings {
   static const String noDefaultBucket = "no_default_bucket";
   static const String cannotSliceBlob = "cannot_slice_blob";
   static const String serverFileWrongSize = "server_file_wrong_size";
+
+  // employee manager
+  static const String isRejected = "isRejected";
+  static const String canWork = "canWork";
+  static const String employeeManagement = "employeeManagement";
+  static const String newsManagement = "newsManagement";
+  static const String addsManagement = "addsManagement";
+  static const String offersManagement = "offersManagement";
+  static const String companyManagement = "companyManagement";
+  static const String coursesManagement = "coursesManagement";
+  static const String technicalSupport = "technicalSupport";
+  static const String save = "save";
+  static const String cancel = "cancel";
 }

@@ -11,17 +11,17 @@ class ExceptionHandler implements Exception {
 
   ExceptionHandler.handle(exception) {
     if (kDebugMode) {
-      print("exception cached: ${exception.runtimeType} ${exception.toString()}");
+      print("\x1B[31m exception cached: ${exception.runtimeType} ${exception.toString()} \x1B[0m");
     }
 
     bool found = false;
 
-    if (exception is FirebaseAuthException) {
+    if (!found && exception is FirebaseAuthException) {
       failure = FirebaseAuthExceptionHandler.handle(exception).getFailure();
       found = true;
     }
 
-    if (exception is FirebaseException) {
+    if (!found && exception is FirebaseException) {
       failure = FirebaseExceptionHandler.handle(exception).getFailure();
       found = true;
     }

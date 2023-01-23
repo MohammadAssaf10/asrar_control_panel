@@ -1,7 +1,15 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: curly_braces_in_flow_control_structures
 
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../core/app/di.dart';
+import '../features/auth/data/data_sources/auth_prefs.dart';
 import '../features/auth/presentation/pages/login_view.dart';
-import '../features/home/presentation/pages/add_ad_Image_screen.dart';
+import '../features/employees_manager/presentation/employee_list/employee_list_bloc.dart';
+import '../features/employees_manager/presentation/employee_list/employee_list_view.dart';
+import '../features/home/presentation/pages/add_ad_image_screen.dart';
 import '../features/home/presentation/pages/add_services_company_screen.dart';
 import '../features/home/presentation/pages/add_services_screen.dart';
 import '../features/home/presentation/pages/delete_company_screen.dart';
@@ -25,42 +33,70 @@ class Routes {
   static const String deleteCompanyRoute = "/deleteCompany";
   static const String deleteServiceRoute = "/deleteService";
 
+  // employee manager routes
+  static const String employeeList = "/employeeList";
+
   // auth rotes
   static const String loginRoute = '/login';
 }
 
 class RouteGenerator {
+  static final AuthPreferences _authPreferences = instance<AuthPreferences>();
+
   static Route getRoute(RouteSettings settings) {
     switch (settings.name) {
+
+      // home route
       case Routes.splashRoute:
         return MaterialPageRoute(
           builder: (_) => const SplashScreen(),
         );
 
       case Routes.homeRoute:
-        return MaterialPageRoute(
-          builder: (_) => const HomeScreen(),
-        );
+        if (_authPreferences.canWork())
+          return MaterialPageRoute(
+            builder: (_) => const HomeScreen(),
+          );
+        continue de;
 
+      // auth rotes
       case Routes.loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginView());
 
+      // employee manager routes
+      case Routes.employeeList:
+      if (_authPreferences.employeeManagement()) 
+          return MaterialPageRoute(
+              builder: (_) => BlocProvider(
+                    create: (context) =>
+                        EmployeeListBloc()..add(FetchEmployeesList()),
+                    child: const EmployeeListView(),
+                  ));
+        
+        continue de;
+
+      //
       case Routes.addAnAdvertisementImageRoute:
         return MaterialPageRoute(builder: (_) => const AddAdImageScreen());
 
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());
+
       case Routes.servicesRoute:
         return MaterialPageRoute(builder: (_) => const ServicesScreen());
+
       case Routes.deleteCompanyRoute:
         return MaterialPageRoute(builder: (_) => const DeleteCompanyScreen());
       case Routes.deleteServiceRoute:
         return MaterialPageRoute(builder: (_) => const DeleteServiceScreen());
+
       case Routes.addServicesCompanyRoute:
         return MaterialPageRoute(
             builder: (_) => const AddServicesCompanyScreen());
+
       case Routes.addServicesRoute:
         return MaterialPageRoute(builder: (_) => const AddServicesScreen());
+      de:
       default:
         return unDefinedRoute();
     }
