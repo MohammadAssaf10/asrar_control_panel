@@ -47,10 +47,11 @@ class RouteGenerator {
 
   static Route getRoute(RouteSettings settings) {
 
-    // check if user logged in 
-    if(_authenticationBloc.state is! AuthenticationSuccess){
-      return MaterialPageRoute(builder: (_) => const LoginView());
-    }
+    // todo: uncomment this after done developing
+    // // check if user logged in 
+    // if(_authenticationBloc.state is! AuthenticationSuccess){
+    //   return MaterialPageRoute(builder: (_) => const LoginView());
+    // }
 
     switch (settings.name) {
 
