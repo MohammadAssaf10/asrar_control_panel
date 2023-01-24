@@ -3,8 +3,8 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/data/data_sources/auth_prefs.dart';
-import '../../features/auth/data/repository/repository_impl.dart';
-import '../../features/auth/domain/repository/repository.dart';
+import '../../features/auth/data/repository/firebase_auth_repository.dart';
+import '../../features/auth/domain/repository/auth_repository.dart';
 
 import '../../features/home/data/repositories/company_repository_impl.dart';
 import '../../features/home/data/repositories/service_repository_impl.dart';
@@ -38,7 +38,8 @@ Future<void> initAppModule() async {
 }
 
 void initAuthenticationModule() {
-  if (!GetIt.I.isRegistered<Repository>()) {
-    instance.registerLazySingleton<Repository>(() => RepositoryImp());
+  if (!GetIt.I.isRegistered<AuthRepository>()) {
+    instance
+        .registerLazySingleton<AuthRepository>(() => FirebaseAuthRepository());
   }
 }

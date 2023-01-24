@@ -1,15 +1,15 @@
-part of 'employee_list_bloc.dart';
+part of 'employee_management_bloc.dart';
 
-abstract class EmployeeListEvent extends Equatable {
-  const EmployeeListEvent();
+abstract class EmployeeManagementEvent extends Equatable {
+  const EmployeeManagementEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class FetchEmployeesList extends EmployeeListEvent {}
+class FetchEmployeesList extends EmployeeManagementEvent {}
 
-class FetchEmployeeImages extends EmployeeListEvent {
+class FetchEmployeeImages extends EmployeeManagementEvent {
   final Employee employee;
 
   const FetchEmployeeImages({
@@ -20,15 +20,13 @@ class FetchEmployeeImages extends EmployeeListEvent {
   List<Object> get props => [employee];
 }
 
-class UpdateEmployee extends EmployeeListEvent {
+class UpdateEmployee extends EmployeeManagementEvent {
   final Employee employee;
 
   const UpdateEmployee({
     required this.employee,
-
-   
   });
 
-   @override
+  @override
   List<Object> get props => [employee];
 }

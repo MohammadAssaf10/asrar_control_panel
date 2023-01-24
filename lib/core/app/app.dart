@@ -40,13 +40,14 @@ class MyApp extends StatelessWidget {
               create: (context) => ServicesBloc(),
             ),
             BlocProvider<AuthenticationBloc>(
-                create: ((context) => AuthenticationBloc())),
+                lazy: false,
+                create: ((context) => AuthenticationBloc.instance..add(AppStarted()))),
             BlocProvider<LanguageCubit>(
               create: (context) => LanguageCubit(),
             ),
           ],
           child: BlocBuilder<LanguageCubit, LanguageState>(
-            builder: (context, state)  {
+            builder: (context, state) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: "لوحة تحكم تطبيق أسرار",
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
                   return supportedLocales.first;
                 },
                 theme: getApplicationTheme(),
-                onGenerateRoute:  RouteGenerator.getRoute,
+                onGenerateRoute: RouteGenerator.getRoute,
               );
             },
           ),

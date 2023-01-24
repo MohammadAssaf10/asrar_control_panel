@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../../employees_manager/domain/entities/employee.dart';
 import '../models/requests.dart';
 
-
-
 const String employeeCollectionPath = 'Employees';
 
 class FirebaseAuthHelper {
@@ -29,18 +27,23 @@ class FirebaseAuthHelper {
     return Employee.fromMap(employeeMap);
   }
 
-  Future<Employee> getEmployee(Employee employee)async {
-
-    final employeeMap = (await _firestore
-            .collection(employeeCollectionPath)
-            .doc(employee.email)
-            .get())
-        .data();
+  Future<Employee> getEmployee(String email) async {
+    final employeeMap =
+        (await _firestore.collection(employeeCollectionPath).doc(email).get())
+            .data();
 
     if (employeeMap == null) {
       throw FirebaseAuthException(code: "auth/user-not-found");
     }
 
     return Employee.fromMap(employeeMap);
+  }
+
+  User? getCurrentUser() {
+    return _firebaseAuth.currentUser;
+  }
+
+  Future<void> logout() async {
+    await _firebaseAuth.signOut();
   }
 }

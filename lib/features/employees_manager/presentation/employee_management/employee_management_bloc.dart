@@ -9,15 +9,16 @@ import '../../data/repo/firebase_employee_repo.dart';
 import '../../domain/employees_repo.dart';
 import '../../domain/entities/employee.dart';
 
-part 'employee_list_event.dart';
-part 'employee_list_state.dart';
+part 'employee_management_event.dart';
+part 'employee_management_state.dart';
 
-class EmployeeListBloc extends Bloc<EmployeeListEvent, EmployeeListState> {
+class EmployeeManagementBloc
+    extends Bloc<EmployeeManagementEvent, EmployeeManagementState> {
   final EmployeeRepository _employeeRepository = FireBaseEmployeeRepo();
   final StorageFileRepository _fileRepository =
       StorageFileRepositoryImpl(storage: FirebaseStorage.instance);
 
-  EmployeeListBloc() : super(EmployeeListState.empty()) {
+  EmployeeManagementBloc() : super(EmployeeManagementState.empty()) {
     on<FetchEmployeesList>((event, emit) async {
       emit(state.copyWith(employeeListStatus: Status.loading));
 
@@ -48,12 +49,11 @@ class EmployeeListBloc extends Bloc<EmployeeListEvent, EmployeeListState> {
     on<UpdateEmployee>((event, emit) async {
       emit(state.copyWith(updateEmployeeStatus: Status.loading));
 
-      (await _employeeRepository.updateEmployee(event.employee))
-          .fold(((l) {
-          emit(state.copyWith(updateEmployeeStatus: Status.failed));
-          }), ((r) {
-          emit(state.copyWith(updateEmployeeStatus: Status.success));
-          }));
+      (await _employeeRepository.updateEmployee(event.employee)).fold(((l) {
+        emit(state.copyWith(updateEmployeeStatus: Status.failed));
+      }), ((r) {
+        emit(state.copyWith(updateEmployeeStatus: Status.success));
+      }));
     });
   }
 }
