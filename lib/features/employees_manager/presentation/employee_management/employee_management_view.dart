@@ -5,16 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../config/values_manager.dart';
 import '../../../../core/app/functions.dart';
 import '../widget/employee_card.dart';
-import 'employee_list_bloc.dart';
+import 'employee_management_bloc.dart';
 
-class EmployeeListView extends StatelessWidget {
-  const EmployeeListView({super.key});
+class EmployeeManagementView extends StatelessWidget {
+  const EmployeeManagementView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: BlocSelector<EmployeeListBloc, EmployeeListState, Status>(
+      body:
+          BlocSelector<EmployeeManagementBloc, EmployeeManagementState, Status>(
         selector: (state) {
           return state.employeeListStatus;
         },
@@ -26,7 +27,7 @@ class EmployeeListView extends StatelessWidget {
           if (state == Status.success) {
             dismissDialog(context);
           }
-          return BlocBuilder<EmployeeListBloc, EmployeeListState>(
+          return BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
             builder: (context, state) {
               print(state);
               if (state.employeeListStatus == Status.success) {
@@ -60,7 +61,7 @@ class EmployeeImages extends StatelessWidget {
     required this.state,
   }) : super(key: key);
 
-  final EmployeeListState state;
+  final EmployeeManagementState state;
 
   @override
   Widget build(BuildContext context) {

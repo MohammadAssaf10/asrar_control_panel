@@ -5,8 +5,9 @@ import '../../../../config/color_manager.dart';
 import '../../../../config/app_localizations.dart';
 import '../../../../config/strings_manager.dart';
 import '../../domain/entities/employee.dart';
-import '../employee_list/employee_list_bloc.dart';
-import '../employee_list/employee_list_view.dart';
+
+import '../employee_management/employee_management_bloc.dart';
+import '../employee_management/employee_management_view.dart';
 import 'permission_list.dart';
 
 class EmployeeDialog extends StatelessWidget {
@@ -25,8 +26,8 @@ class EmployeeDialog extends StatelessWidget {
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: BlocBuilder<EmployeeListBloc, EmployeeListState>(
-            bloc: BlocProvider.of<EmployeeListBloc>(blocContext)
+          child: BlocBuilder<EmployeeManagementBloc, EmployeeManagementState>(
+            bloc: BlocProvider.of<EmployeeManagementBloc>(blocContext)
               ..add(FetchEmployeeImages(employee: _employee)),
             builder: (context, state) {
               return SingleChildScrollView(
@@ -75,7 +76,8 @@ class EmployeeDialog extends StatelessWidget {
                           children: [
                             ElevatedButton(
                               onPressed: () {
-                                BlocProvider.of<EmployeeListBloc>(blocContext)
+                                BlocProvider.of<EmployeeManagementBloc>(
+                                        blocContext)
                                     .add(UpdateEmployee(employee: _employee));
                                 Navigator.pop(context);
                               },

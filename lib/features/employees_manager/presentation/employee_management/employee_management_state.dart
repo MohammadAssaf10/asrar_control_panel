@@ -1,8 +1,8 @@
-part of 'employee_list_bloc.dart';
+part of 'employee_management_bloc.dart';
 
 enum Status { init, loading, failed, success }
 
-class EmployeeListState extends Equatable {
+class EmployeeManagementState extends Equatable {
   // enum
   final Status employeeListStatus;
   final List<Employee> employeeList;
@@ -12,29 +12,27 @@ class EmployeeListState extends Equatable {
 
   final Status updateEmployeeStatus;
 
-  const EmployeeListState({
-    required this.employeeListStatus,
-    required this.employeeList,
-    required this.employeeImageStatus,
-    required this.employeeImages,
-    required this.updateEmployeeStatus
-  });
+  const EmployeeManagementState(
+      {required this.employeeListStatus,
+      required this.employeeList,
+      required this.employeeImageStatus,
+      required this.employeeImages,
+      required this.updateEmployeeStatus});
 
-  EmployeeListState.empty()
+  EmployeeManagementState.empty()
       : employeeListStatus = Status.init,
         employeeList = [],
         employeeImageStatus = Status.init,
         employeeImages = [],
         updateEmployeeStatus = Status.init;
 
-  EmployeeListState copyWith({
-    Status? employeeListStatus,
-    List<Employee>? employeeList,
-    Status? employeeImageStatus,
-    List<FileEntities>? employeeImages,
-    Status? updateEmployeeStatus
-  }) {
-    return EmployeeListState(
+  EmployeeManagementState copyWith(
+      {Status? employeeListStatus,
+      List<Employee>? employeeList,
+      Status? employeeImageStatus,
+      List<FileEntities>? employeeImages,
+      Status? updateEmployeeStatus}) {
+    return EmployeeManagementState(
       employeeListStatus: employeeListStatus ?? this.employeeListStatus,
       employeeList: employeeList ?? this.employeeList,
       employeeImageStatus: employeeImageStatus ?? this.employeeImageStatus,
@@ -49,6 +47,11 @@ class EmployeeListState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [employeeListStatus, employeeList, employeeImageStatus, employeeImages, updateEmployeeStatus];
+  List<Object> get props => [
+        employeeListStatus,
+        employeeList,
+        employeeImageStatus,
+        employeeImages,
+        updateEmployeeStatus
+      ];
 }
