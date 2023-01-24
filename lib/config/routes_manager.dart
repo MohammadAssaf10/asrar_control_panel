@@ -1,11 +1,11 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../core/app/di.dart';
 import '../features/auth/data/data_sources/auth_prefs.dart';
+import '../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../features/auth/presentation/pages/login_view.dart';
 import '../features/employees_manager/presentation/employee_list/employee_list_bloc.dart';
 import '../features/employees_manager/presentation/employee_list/employee_list_view.dart';
@@ -42,8 +42,16 @@ class Routes {
 
 class RouteGenerator {
   static final AuthPreferences _authPreferences = instance<AuthPreferences>();
+  static final AuthenticationBloc _authenticationBloc =
+      AuthenticationBloc.instance;
 
   static Route getRoute(RouteSettings settings) {
+
+    // check if user logged in 
+    if(_authenticationBloc.state is! AuthenticationSuccess){
+      return MaterialPageRoute(builder: (_) => const LoginView());
+    }
+
     switch (settings.name) {
 
       // home route
@@ -61,18 +69,19 @@ class RouteGenerator {
 
       // auth rotes
       case Routes.loginRoute:
+        AuthenticationBloc.instance.add(LogOut());
         return MaterialPageRoute(builder: (_) => const LoginView());
 
       // employee manager routes
       case Routes.employeeList:
-      if (_authPreferences.employeeManagement()) 
+        if (_authPreferences.employeeManagement())
           return MaterialPageRoute(
               builder: (_) => BlocProvider(
                     create: (context) =>
                         EmployeeListBloc()..add(FetchEmployeesList()),
                     child: const EmployeeListView(),
                   ));
-        
+
         continue de;
 
       //
