@@ -69,6 +69,7 @@ class RouteGenerator {
 
       // auth rotes
       case Routes.loginRoute:
+      // todo: delete this line after add a logout button
         AuthenticationBloc.instance.add(LogOut());
         return MaterialPageRoute(builder: (_) => const LoginView());
 
