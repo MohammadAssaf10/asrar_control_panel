@@ -133,6 +133,7 @@ class AppStrings {
   static const String offersManagement = "offersManagement";
   static const String companyManagement = "companyManagement";
   static const String coursesManagement = "coursesManagement";
+  static const String storeManagement = "storeManagement";
   static const String technicalSupport = "technicalSupport";
   static const String save = "save";
   static const String cancel = "cancel";

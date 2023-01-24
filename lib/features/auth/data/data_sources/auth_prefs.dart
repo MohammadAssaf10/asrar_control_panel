@@ -9,6 +9,7 @@ const String kCompanyManagement = "kCompanyManagement";
 const String kCoursesManagement = "kCoursesManagement";
 const String kEmployeeManagement = "kEmployeeManagement";
 const String kNewsManagement = "kNewsManagement";
+const String kStoreManagement = "kStoreManagement";
 const String kOffersManagement = "kOffersManagement";
 const String kIsRejected = "kIsRejected";
 const String kTechnicalSupport = "kTechnicalSupport";
@@ -34,6 +35,8 @@ class AuthPreferences {
     await _sharedPreferences.setBool(
         kOffersManagement, permissions.offersManagement);
     await _sharedPreferences.setBool(
+        kStoreManagement, permissions.storeManagement);
+    await _sharedPreferences.setBool(
         kTechnicalSupport, permissions.technicalSupport);
   }
 
@@ -43,6 +46,12 @@ class AuthPreferences {
 
   bool addsManagement() {
     return (_sharedPreferences.getBool(kAddsManagement) ?? false) &&
+        canWork() &&
+        !isRejected();
+  }
+
+  bool storeManagement() {
+    return (_sharedPreferences.getBool(kStoreManagement) ?? false) &&
         canWork() &&
         !isRejected();
   }

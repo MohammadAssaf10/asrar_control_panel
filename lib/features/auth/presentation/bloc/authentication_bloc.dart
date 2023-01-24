@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../core/app/di.dart' as di;
 import '../../../employees_manager/domain/entities/employee.dart';
+import '../../../employees_manager/domain/entities/permissions.dart';
 import '../../data/data_sources/auth_prefs.dart';
 import '../../data/models/requests.dart';
 import '../../domain/repository/auth_repository.dart';
@@ -47,7 +48,8 @@ class AuthenticationBloc
 
     on<LogOut>((event, emit) async {
       await _authRepository.logout();
-
+      // tuned all permission to false
+      await _authPreferences.setPermission(Permissions.fromMap({}));
       emit(AuthenticationInitial());
     });
   }

@@ -76,7 +76,7 @@ class RouteGenerator {
 
       // employee manager routes
       case Routes.employeeList:
-        if (_authPreferences.employeeManagement())
+        //if (_authPreferences.employeeManagement())
           return MaterialPageRoute(
               builder: (_) => BlocProvider(
                     create: (context) =>

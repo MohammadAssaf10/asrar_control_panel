@@ -25,16 +25,7 @@ class FirebaseAuthRepository implements AuthRepository {
           phonNumber: '',
           idNumber: '',
           national: '',
-          permissions: Permissions(
-              isRejected: false,
-              canWork: true,
-              employeeManagement: true,
-              newsManagement: true,
-              addsManagement: true,
-              offersManagement: true,
-              companyManagement: true,
-              coursesManagement: true,
-              technicalSupport: true)));
+          permissions: Permissions.superAdmin()));
     }
 
     // normal admin
