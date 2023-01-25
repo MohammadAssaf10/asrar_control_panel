@@ -80,8 +80,8 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) =>
-                      EmployeeListBloc()..add(FetchEmployeesList()),
-                  child: const EmployeeListView(),
+                      EmployeeManagementBloc()..add(FetchEmployeesList()),
+                  child: const EmployeeManagementView(),
                 ));
 
       // continue de;
