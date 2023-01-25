@@ -1,6 +1,5 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,11 +52,11 @@ class RouteGenerator {
         );
 
       case Routes.homeRoute:
-        if (_authPreferences.canWork())
-          return MaterialPageRoute(
-            builder: (_) => const HomeScreen(),
-          );
-        continue de;
+        // if (_authPreferences.canWork())
+        return MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+        );
+      // continue de;
 
       // auth rotes
       case Routes.loginRoute:
@@ -65,15 +64,15 @@ class RouteGenerator {
 
       // employee manager routes
       case Routes.employeeList:
-      if (_authPreferences.employeeManagement()) 
-          return MaterialPageRoute(
-              builder: (_) => BlocProvider(
-                    create: (context) =>
-                        EmployeeListBloc()..add(FetchEmployeesList()),
-                    child: const EmployeeListView(),
-                  ));
-        
-        continue de;
+        // if (_authPreferences.employeeManagement())
+        return MaterialPageRoute(
+            builder: (_) => BlocProvider(
+                  create: (context) =>
+                      EmployeeListBloc()..add(FetchEmployeesList()),
+                  child: const EmployeeListView(),
+                ));
+
+      // continue de;
 
       //
       case Routes.addAnAdvertisementImageRoute:
