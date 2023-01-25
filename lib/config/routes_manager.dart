@@ -62,11 +62,11 @@ class RouteGenerator {
         );
 
       case Routes.homeRoute:
-        if (_authPreferences.canWork())
-          return MaterialPageRoute(
-            builder: (_) => const HomeScreen(),
-          );
-        continue de;
+        // if (_authPreferences.canWork())
+        return MaterialPageRoute(
+          builder: (_) => const HomeScreen(),
+        );
+      // continue de;
 
       // auth rotes
       case Routes.loginRoute:
@@ -76,15 +76,15 @@ class RouteGenerator {
 
       // employee manager routes
       case Routes.employeeList:
-        //if (_authPreferences.employeeManagement())
+        // if (_authPreferences.employeeManagement())
         return MaterialPageRoute(
             builder: (_) => BlocProvider(
                   create: (context) =>
-                      EmployeeManagementBloc()..add(FetchEmployeesList()),
-                  child: const EmployeeManagementView(),
+                      EmployeeListBloc()..add(FetchEmployeesList()),
+                  child: const EmployeeListView(),
                 ));
 
-        continue de;
+      // continue de;
 
       //
       case Routes.addAnAdvertisementImageRoute:
