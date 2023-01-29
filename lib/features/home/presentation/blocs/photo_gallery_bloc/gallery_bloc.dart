@@ -16,7 +16,7 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
       instance<StorageFileRepository>();
 
   GalleryBloc() : super(GalleryInitial()) {
-    on<GetImageGallery>((event, emit) async {
+    on<GetImageGalleryEvent>((event, emit) async {
       emit(GalleryLoadingState());
       final imageUrl = await storageFileRepository.getFile(
         FireBaseCollection.adImages,
@@ -27,22 +27,23 @@ class GalleryBloc extends Bloc<GalleryEvent, GalleryState> {
         emit(GalleryLoadedState(list: imageUrlList));
       });
     });
-    on<UploadImageToGallery>((event, emit) async {
+    on<UploadImageToGalleryEvent>((event, emit) async {
       emit(UploadImageLoadingState());
       final uploadImage = await storageFileRepository.uploadFile(
           event.xFileEntities, event.folderName);
-      uploadImage.fold(
-        (failure) => emit(GalleryErrorState(errorMessage: failure.message)),
-        (r) => emit(ImageUploadedSuccessfully()),
-      );
+      uploadImage.fold((failure) {
+        emit(GalleryErrorState(errorMessage: failure.message));
+      }, (r) {
+        emit(ImageUploadedSuccessfullyState());
+      });
     });
-    on<DeleteImageFromGallery>((event, emit) async {
+    on<DeleteImageFromGalleryEvent>((event, emit) async {
       emit(DeleteImageLoadingState());
       await storageFileRepository.deleteFile(
         event.folderName,
         event.fileName,
       );
-      emit(ImageDeletedSuccessfully());
+      emit(ImageDeletedSuccessfullyState());
     });
   }
 }

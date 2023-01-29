@@ -28,7 +28,7 @@ class DeleteServiceScreen extends StatelessWidget {
             showCustomDialog(context,
                 message: AppStrings.deletedSuccessfully.tr(context));
             BlocProvider.of<ServicesBloc>(context).add(
-              GetServicesEvent(companyName: state.companyName),
+              GetServicesListEvent(companyName: state.companyName),
             );
           }
         },
@@ -102,7 +102,7 @@ class DeleteServiceScreen extends StatelessWidget {
                                         state.services[index].companyName));
                           },
                           icon: const Icon(Icons.delete),
-                        ),
+                        ),          
                       ],
                     ),
                   );

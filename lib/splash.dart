@@ -35,7 +35,7 @@ class SplashScreen extends StatelessWidget {
             width: 500,
             child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, Routes.addServicesCompanyRoute);
+                  Navigator.pushNamed(context, Routes.addCompanyRoute);
                 },
                 child: const Text('addServicesCompanyRoute')),
           ),

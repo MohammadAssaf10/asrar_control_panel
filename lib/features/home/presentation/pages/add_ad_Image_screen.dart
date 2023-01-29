@@ -41,7 +41,7 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
         } else if (state is GalleryErrorState) {
           dismissDialog(context);
           showCustomDialog(context, message: state.errorMessage);
-        } else if (state is ImageUploadedSuccessfully) {
+        } else if (state is ImageUploadedSuccessfullyState) {
           dismissDialog(context);
           showCustomDialog(context,
               message: AppStrings.addedSuccessfully.tr(context));
@@ -95,7 +95,7 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                       final XFileEntities xFileEntities = XFileEntities(
                           name: image!.path, xFileAsBytes: webImage);
                       BlocProvider.of<GalleryBloc>(context).add(
-                          UploadImageToGallery(
+                          UploadImageToGalleryEvent(
                               xFileEntities: xFileEntities,
                               folderName: FireBaseCollection.adImages));
                     } else {
@@ -105,11 +105,11 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                   },
                 ),
                 ControlPanelButton(
-                    buttonTitle: AppStrings.deleteImage.tr(context),
+                    buttonTitle: AppStrings.photos.tr(context),
                     onTap: () {
                       Navigator.pushNamed(context, Routes.photoGalleryRoute);
                       BlocProvider.of<GalleryBloc>(context)
-                          .add(GetImageGallery());
+                          .add(GetImageGalleryEvent());
                     }),
               ],
             ),

@@ -8,4 +8,7 @@ class XFileEntities extends Equatable {
 
   @override
   List<Object?> get props => [name, xFileAsBytes];
+
+  @override
+  String toString() => 'XFileEntities(name: $name, xFileAsBytes: $xFileAsBytes)';
 }

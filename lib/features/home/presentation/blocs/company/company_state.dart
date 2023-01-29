@@ -13,6 +13,7 @@ class CompanyLoadingState extends CompanyState {
   @override
   List<Object?> get props => [];
 }
+
 class CompanyDeleteLoadingState extends CompanyState {
   @override
   List<Object?> get props => [];
@@ -50,6 +51,11 @@ class CompanyAddedSuccessfully extends CompanyState {
 }
 
 class CompanyDeletedSuccessfully extends CompanyState {
+  @override
+  List<Object?> get props => [];
+}
+
+class CompanyEditSuccessfully extends CompanyState {
   @override
   List<Object?> get props => [];
 }

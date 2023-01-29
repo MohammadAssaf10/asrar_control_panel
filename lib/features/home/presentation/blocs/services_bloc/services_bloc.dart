@@ -18,28 +18,31 @@ class ServicesBloc extends Bloc<ServicesEvent, ServicesState> {
         emit(ServiceLoadingState());
         final service =
             await serviceRepository.addService(event.serviceEntities);
-        service.fold(
-          (failure) => emit(ServiceErrorState(errorMessage: failure.message)),
-          (r) => emit(AddedServiceSuccessfullyState()),
-        );
+        service.fold((failure) {
+          emit(ServiceErrorState(errorMessage: failure.message));
+        }, (r) {
+          emit(AddedServiceSuccessfullyState());
+        });
       },
     );
-    on<GetServicesEvent>((event, emit) async {
+    on<GetServicesListEvent>((event, emit) async {
       emit(ServiceLoadingState());
       final services = await serviceRepository.getServices(event.companyName);
-      services.fold(
-          (failure) => emit(ServiceErrorState(errorMessage: failure.message)),
-          (services) => emit(ServicesLoadedState(services: services)));
+      services.fold((failure) {
+        emit(ServiceErrorState(errorMessage: failure.message));
+      }, (services) {
+        emit(ServicesLoadedState(services: services));
+      });
     });
     on<DeleteServiceEvent>((event, emit) async {
       emit(ServiceDeleteLoadingState());
       final service = await serviceRepository.deleteService(
           event.companyName, event.serviceName);
-      service.fold(
-          (failure) =>
-              emit(DeleteServiceErrorState(errorMessage: failure.message)),
-          (r) =>
-              emit(ServiceDeletedSuccessfully(companyName: event.companyName)));
+      service.fold((failure) {
+        emit(DeleteServiceErrorState(errorMessage: failure.message));
+      }, (r) {
+        emit(ServiceDeletedSuccessfully(companyName: event.companyName));
+      });
     });
   }
 }

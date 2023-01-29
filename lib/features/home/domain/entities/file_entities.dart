@@ -8,4 +8,7 @@ class FileEntities extends Equatable {
 
   @override
   List<Object?> get props => [name, url];
+
+  @override
+  String toString() => 'FileEntities(name: $name, url: $url)';
 }

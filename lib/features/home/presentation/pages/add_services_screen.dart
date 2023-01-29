@@ -46,7 +46,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            AppStrings.addServices.tr(context),
+            AppStrings.addService.tr(context),
           ),
         ),
         body: Center(
@@ -185,7 +185,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                         );
                         BlocProvider.of<ServicesBloc>(context).add(
                           AddServiceEvent(serviceEntities: serviceEntities),
-                        );           
+                        );
                       } else {
                         showCustomDialog(context,
                             message: AppStrings.pleaseEnterAllRequiredData

@@ -1,11 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class CompanyEntities extends Equatable {
+  final int companyRanking;
   final String fullName; // Name with subsequent(.jpg or .png)
   final String name;
   final String image;
 
   const CompanyEntities({
+    required this.companyRanking,
     required this.fullName,
     required this.image,
     required this.name,
@@ -13,6 +15,7 @@ class CompanyEntities extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
+      'companyRanking': companyRanking,
       'fullName': fullName,
       'name': name,
       'image': image,
@@ -21,12 +24,18 @@ class CompanyEntities extends Equatable {
 
   factory CompanyEntities.fromMap(Map<String, dynamic> map) {
     return CompanyEntities(
-      fullName: map['fullName'] as String,
-      name: map['name'] as String,
-      image: map['image'] as String,
+      companyRanking: map['companyRanking'],
+      fullName: map['fullName'],
+      name: map['name'],
+      image: map['image'],
     );
   }
 
   @override
-  List<Object?> get props => [fullName, image];
+  List<Object?> get props => [companyRanking, fullName, name, image];
+
+  @override
+  String toString() {
+    return 'CompanyEntities(companyRanking: $companyRanking, fullName: $fullName, name: $name, image: $image)';
+  }
 }

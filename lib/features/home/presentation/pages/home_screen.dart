@@ -24,14 +24,20 @@ class HomeScreen extends StatelessWidget {
                 onTap: () => Navigator.pushNamed(
                     context, Routes.addAnAdvertisementImageRoute),
               ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.shop.tr(context),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.shopRoute,
+                ),
+              ),
             ],
           ),
           Column(
             children: [
               ControlPanelButton(
                 buttonTitle: AppStrings.services.tr(context),
-                onTap: () =>
-                    Navigator.pushNamed(context, Routes.servicesRoute),
+                onTap: () => Navigator.pushNamed(context, Routes.servicesRoute,),
               ),
             ],
           ),

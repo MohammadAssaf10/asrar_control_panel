@@ -37,10 +37,10 @@ class PhotoGalleryScreen extends StatelessWidget {
             ),
             BlocConsumer<GalleryBloc, GalleryState>(
               listener: (context, state) {
-                if (state is ImageDeletedSuccessfully) {
+                if (state is ImageDeletedSuccessfullyState) {
                   showCustomDialog(context,
                       message: AppStrings.deletedSuccessfully.tr(context));
-                  BlocProvider.of<GalleryBloc>(context).add(GetImageGallery());
+                  BlocProvider.of<GalleryBloc>(context).add(GetImageGalleryEvent());
                 } else if (state is DeleteImageLoadingState) {
                   showCustomDialog(context);
                 }
@@ -72,7 +72,7 @@ class PhotoGalleryScreen extends StatelessWidget {
                                 return InkWell(
                                   onLongPress: () {
                                     BlocProvider.of<GalleryBloc>(context).add(
-                                        DeleteImageFromGallery(
+                                        DeleteImageFromGalleryEvent(
                                             fileName: state.list[index].name,
                                             folderName: FireBaseCollection.adImages));
                                   },

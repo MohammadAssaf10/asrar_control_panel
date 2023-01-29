@@ -11,4 +11,7 @@ abstract class CompanyRepository {
   Future<Either<Failure, Unit>> deleteCompany(
       String companyFullName, String companyName);
   Future<Either<Failure, List<CompanyEntities>>> getCompany();
+  Future<int> getLastCompanyRanking();
+  Future<Either<Failure, Unit>> updateCompanyRanking(
+      String companyName, int newRanking, int oldRanking);
 }
