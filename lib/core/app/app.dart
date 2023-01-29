@@ -9,6 +9,7 @@ import '../../config/theme_manager.dart';
 import '../../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../../features/home/presentation/blocs/company/company_bloc.dart';
 import '../../features/home/presentation/blocs/photo_gallery_bloc/gallery_bloc.dart';
+import '../../features/home/presentation/blocs/product/bloc/product_bloc.dart';
 import '../../features/home/presentation/blocs/services_bloc/services_bloc.dart';
 import '../../language_cubit/language_cubit.dart';
 import 'language.dart';
@@ -36,12 +37,16 @@ class MyApp extends StatelessWidget {
             BlocProvider<CompanyBloc>(
               create: (context) => CompanyBloc(),
             ),
+            BlocProvider<ProductBloc>(
+              create: (context) => ProductBloc(),
+            ),
             BlocProvider<ServicesBloc>(
               create: (context) => ServicesBloc(),
             ),
             BlocProvider<AuthenticationBloc>(
                 lazy: false,
-                create: ((context) => AuthenticationBloc.instance..add(AppStarted()))),
+                create: ((context) =>
+                    AuthenticationBloc.instance..add(AppStarted()))),
             BlocProvider<LanguageCubit>(
               create: (context) => LanguageCubit(),
             ),

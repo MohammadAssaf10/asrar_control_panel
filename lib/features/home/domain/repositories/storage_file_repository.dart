@@ -5,7 +5,7 @@ import '../entities/file_entities.dart';
 import '../entities/xfile_entities.dart';
 
 abstract class StorageFileRepository {
-  Future<Either<Failure, Unit>> uploadFile(
+  Future<Either<Failure, FileEntities>> uploadFile(
       XFileEntities xFileEntities, String folderPath);
 
   Future<Either<Failure, List<FileEntities>>> getFile(String folderName);

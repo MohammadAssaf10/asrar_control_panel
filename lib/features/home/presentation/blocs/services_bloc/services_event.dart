@@ -25,9 +25,9 @@ class DeleteServiceEvent extends ServicesEvent {
   List<Object?> get props => [serviceName, companyName];
 }
 
-class GetServicesEvent extends ServicesEvent {
+class GetServicesListEvent extends ServicesEvent {
   final String companyName;
-  const GetServicesEvent({required this.companyName});
+  const GetServicesListEvent({required this.companyName});
   @override
   List<Object?> get props => [companyName];
 }

@@ -4,42 +4,45 @@ abstract class CompanyEvent extends Equatable {
   const CompanyEvent();
 }
 
-class GetCompanyEvent extends CompanyEvent {
+class GetCompaniesListEvent extends CompanyEvent {
   @override
   List<Object?> get props => [];
 }
 
 class AddCompanyEvent extends CompanyEvent {
   final XFileEntities xFileEntities;
-  final String companyName;
+  final String companyFullName;
   final String docName;
 
   const AddCompanyEvent({
-    required this.companyName,
+    required this.companyFullName,
     required this.docName,
     required this.xFileEntities,
   });
 
   @override
-  List<Object?> get props => [xFileEntities, companyName, docName];
+  List<Object?> get props => [xFileEntities, companyFullName, docName];
 }
 
-class AddCompanyToStore extends CompanyEvent {
-  final String companyName;
-  final String docName;
-  const AddCompanyToStore({
-    required this.companyName,
-    required this.docName,
-  });
-  @override
-  List<Object?> get props => [companyName, docName];
-}
-
-class DeleteCompany extends CompanyEvent {
+class DeleteCompanyEvent extends CompanyEvent {
   final String companyFullName;
   final String companyName;
-  const DeleteCompany(
+  const DeleteCompanyEvent(
       {required this.companyFullName, required this.companyName});
   @override
   List<Object?> get props => [companyFullName, companyName];
+}
+
+class EditCompanyEvent extends CompanyEvent {
+  final String companyName;
+  final int newRanking;
+  final int oldRanking;
+  const EditCompanyEvent({
+    required this.companyName,
+    required this.newRanking,
+    required this.oldRanking,
+  });
+
+  @override
+  List<Object?> get props => [companyName, newRanking, oldRanking];
 }

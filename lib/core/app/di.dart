@@ -8,8 +8,10 @@ import '../../features/auth/domain/repository/auth_repository.dart';
 
 import '../../features/home/data/repositories/company_repository_impl.dart';
 import '../../features/home/data/repositories/service_repository_impl.dart';
+import '../../features/home/data/repositories/product_repository_impl.dart';
 import '../../features/home/data/repositories/storage_file_repository_impl.dart';
 import '../../features/home/domain/repositories/company_repository.dart';
+import '../../features/home/domain/repositories/product_repository.dart';
 import '../../features/home/domain/repositories/service_repository.dart';
 import '../../features/home/domain/repositories/storage_file_repository.dart';
 
@@ -35,6 +37,8 @@ Future<void> initAppModule() async {
 
   instance
       .registerLazySingleton<ServiceRepository>(() => ServiceRepositoryImpl());
+  instance
+      .registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl());
 }
 
 void initAuthenticationModule() {

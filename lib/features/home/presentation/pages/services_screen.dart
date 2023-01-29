@@ -24,13 +24,13 @@ class ServicesScreen extends StatelessWidget {
               ControlPanelButton(
                 buttonTitle: AppStrings.addServicesCompany.tr(context),
                 onTap: () => Navigator.pushNamed(
-                    context, Routes.addServicesCompanyRoute),
+                    context, Routes.addCompanyRoute),
               ),
               ControlPanelButton(
-                buttonTitle: AppStrings.deleteCompanies.tr(context),
+                buttonTitle: AppStrings.companies.tr(context),
                 onTap: () {
                   Navigator.pushNamed(context, Routes.deleteCompanyRoute);
-                  BlocProvider.of<CompanyBloc>(context).add(GetCompanyEvent());
+                  BlocProvider.of<CompanyBloc>(context).add(GetCompaniesListEvent());
                 },
               )
             ],
@@ -38,12 +38,12 @@ class ServicesScreen extends StatelessWidget {
           Column(
             children: [
               ControlPanelButton(
-                  buttonTitle: AppStrings.addServices.tr(context),
-                  onTap: () {
-                    BlocProvider.of<CompanyBloc>(context)
-                        .add(GetCompanyEvent());
-                    Navigator.pushNamed(context, Routes.addServicesRoute);
-                  })
+                buttonTitle: AppStrings.addService.tr(context),
+                onTap: () {
+                  BlocProvider.of<CompanyBloc>(context).add(GetCompaniesListEvent());
+                  Navigator.pushNamed(context, Routes.addServicesRoute);
+                },
+              ),          
             ],
           )
         ],

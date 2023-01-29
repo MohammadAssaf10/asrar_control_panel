@@ -4,15 +4,15 @@ abstract class GalleryEvent extends Equatable {
   const GalleryEvent();
 }
 
-class GetImageGallery extends GalleryEvent {
+class GetImageGalleryEvent extends GalleryEvent {
   @override
   List<Object?> get props => [];
 }
 
-class UploadImageToGallery extends GalleryEvent {
+class UploadImageToGalleryEvent extends GalleryEvent {
   final XFileEntities xFileEntities;
   final String folderName;
-  const UploadImageToGallery({
+  const UploadImageToGalleryEvent({
     required this.xFileEntities,
     required this.folderName,
   });
@@ -20,10 +20,10 @@ class UploadImageToGallery extends GalleryEvent {
   List<Object?> get props => [xFileEntities, folderName];
 }
 
-class DeleteImageFromGallery extends GalleryEvent {
+class DeleteImageFromGalleryEvent extends GalleryEvent {
   final String folderName;
   final String fileName;
-  const DeleteImageFromGallery({
+  const DeleteImageFromGalleryEvent({
     required this.fileName,
     required this.folderName,
   });

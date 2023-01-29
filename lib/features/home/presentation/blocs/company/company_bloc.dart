@@ -17,49 +17,60 @@ class CompanyBloc extends Bloc<CompanyEvent, CompanyState> {
   final CompanyRepository companyRepository = instance<CompanyRepository>();
   final StorageFileRepository storageFileRepository =
       instance<StorageFileRepository>();
-
   CompanyBloc() : super(CompanyInitial()) {
-    on<GetCompanyEvent>((event, emit) async {
+    on<GetCompaniesListEvent>((event, emit) async {
       emit(CompanyLoadingState());
       final company = await companyRepository.getCompany();
-      company.fold(
-        (failure) => emit(CompanyErrorState(errorMessage: failure.message)),
-        (company) => emit(
+      company.fold((failure) {
+        emit(CompanyErrorState(errorMessage: failure.message));
+      }, (company) {
+        emit(
           CompanyLoadedState(company: company),
-        ),
-      );
+        );
+      });
     });
     on<AddCompanyEvent>((event, emit) async {
       emit(CompanyLoadingState());
       final uploadImage = await storageFileRepository.uploadFile(
           event.xFileEntities, FireBaseCollection.companies);
-      uploadImage.fold((failure) {
+      await uploadImage.fold((failure) {
         emit(CompanyErrorState(errorMessage: failure.message));
       }, (r) async {
-        add(AddCompanyToStore(
-            companyName: event.companyName, docName: event.docName));
+        final company = await companyRepository.addCompany(
+          event.companyFullName,
+          event.docName,
+        );
+        company.fold(
+          (failure) {
+            emit(CompanyErrorState(errorMessage: failure.message));
+          },
+          (r) {
+            emit(CompanyAddedSuccessfully());
+          },
+        );
       });
     });
-    on<AddCompanyToStore>((event, emit) async {
-      final company = await companyRepository.addCompany(
-        event.companyName,
-        event.docName,
-      );
-      company.fold(
-        (failure) => emit(CompanyErrorState(errorMessage: failure.message)),
-        (r) => emit(CompanyAddedSuccessfully()),
-      );
-    });
-    on<DeleteCompany>((event, emit) async {
+    on<DeleteCompanyEvent>((event, emit) async {
       emit(CompanyDeleteLoadingState());
       final company = await companyRepository.deleteCompany(
         event.companyFullName,
         event.companyName,
       );
-      company.fold(
-          (failure) =>
-              emit(DeleteCompanyErrorState(errorMessage: failure.message)),
-          (r) => emit(CompanyDeletedSuccessfully()));
+      company.fold((failure) {
+        emit(DeleteCompanyErrorState(errorMessage: failure.message));
+      }, (r) {
+        emit(CompanyDeletedSuccessfully());
+      });
+    });
+    on<EditCompanyEvent>((event, emit) async {
+      emit(CompanyLoadingState());
+      (await companyRepository.updateCompanyRanking(
+              event.companyName, event.newRanking, event.oldRanking))
+          .fold((failure) {
+        emit(CompanyErrorState(errorMessage: failure.message));
+      }, (r) {
+        emit(CompanyEditSuccessfully());
+      });
     });
   }
 }

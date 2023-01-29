@@ -29,7 +29,7 @@ class DeleteCompanyScreen extends StatelessWidget {
             } else if (state is CompanyDeletedSuccessfully) {
               showCustomDialog(context,
                   message: AppStrings.deletedSuccessfully.tr(context));
-              BlocProvider.of<CompanyBloc>(context).add(GetCompanyEvent());
+              BlocProvider.of<CompanyBloc>(context).add(GetCompaniesListEvent());
             }
           },
           child: BlocBuilder<CompanyBloc, CompanyState>(
@@ -43,7 +43,7 @@ class DeleteCompanyScreen extends StatelessWidget {
               } else if (state is CompanyErrorState) {
                 return Center(
                   child: Text(
-                    state.errorMessage,
+                    state.errorMessage.tr(context),
                     style: getAlmaraiRegularStyle(
                       fontSize: AppSize.s20.sp,
                       color: ColorManager.error,
@@ -59,7 +59,7 @@ class DeleteCompanyScreen extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             BlocProvider.of<ServicesBloc>(context)
-                                .add(GetServicesEvent(
+                                .add(GetServicesListEvent(
                               companyName: state.company[index].name,
                             ));
                             Navigator.pushNamed(
@@ -83,25 +83,54 @@ class DeleteCompanyScreen extends StatelessWidget {
                                 Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: AppSize.s10.w),
-                                  child: Text(
-                                    state.company[index].name,
-                                    style: getAlmaraiRegularStyle(
-                                      fontSize: AppSize.s18.sp,
-                                      color: ColorManager.white,
-                                    ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        state.company[index].name,
+                                        style: getAlmaraiRegularStyle(
+                                          fontSize: AppSize.s18.sp,
+                                          color: ColorManager.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        state.company[index].companyRanking
+                                            .toString(),
+                                        style: getAlmaraiRegularStyle(
+                                          fontSize: AppSize.s18.sp,
+                                          color: ColorManager.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    BlocProvider.of<CompanyBloc>(context)
-                                        .add(DeleteCompany(
-                                      companyFullName:
-                                          state.company[index].fullName,
-                                      companyName: state.company[index].name,
-                                    ));
-                                  },
-                                  icon: const Icon(Icons.delete),
-                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        BlocProvider.of<CompanyBloc>(context)
+                                            .add(DeleteCompanyEvent(
+                                          companyFullName:
+                                              state.company[index].fullName,
+                                          companyName:
+                                              state.company[index].name,
+                                        ));
+                                      },
+                                      icon: const Icon(Icons.delete),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.pushReplacementNamed(context,
+                                            Routes.updateCompanyRankingRouter,
+                                            arguments: state.company[index]);
+                                      },
+                                      icon: const Icon(Icons.edit),
+                                    ),
+                                  ],
+                                )
                               ],
                             ),
                           ),

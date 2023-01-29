@@ -19,7 +19,9 @@ class CompanyRepositoryImpl extends CompanyRepository {
       String url = await storageRef
           .child("${FireBaseCollection.companies}/$companyFullName")
           .getDownloadURL();
+      final int lastCompanyRanking = await getLastCompanyRanking() + 1;
       Map<String, dynamic> companyEntities = CompanyEntities(
+        companyRanking: lastCompanyRanking,
         fullName: companyFullName,
         name: docName,
         image: url,
@@ -41,9 +43,14 @@ class CompanyRepositoryImpl extends CompanyRepository {
       final data = await db.collection(FireBaseCollection.companies).get();
       for (var doc in data.docs) {
         final CompanyEntities companyEntities = CompanyEntities(
-            fullName: doc["fullName"], name: doc["name"], image: doc["image"]);
+          companyRanking: doc["companyRanking"],
+          fullName: doc["fullName"],
+          name: doc["name"],
+          image: doc["image"],
+        );
         company.add(companyEntities);
       }
+      company.sort((a, b) => a.companyRanking.compareTo(b.companyRanking));
       return Right(company);
     } catch (e) {
       return Left(ExceptionHandler.handle(e).failure);
@@ -71,6 +78,43 @@ class CompanyRepositoryImpl extends CompanyRepository {
           await serviceDoc.delete();
         }
       }
+      return const Right(unit);
+    } catch (e) {
+      return Left(ExceptionHandler.handle(e).failure);
+    }
+  }
+
+  @override
+  Future<int> getLastCompanyRanking() async {
+    int lastRanking = 0;
+    final data = await db.collection(FireBaseCollection.companies).get();
+    if (data.size > 0) {
+      for (var doc in data.docs) {
+        if (doc["companyRanking"] > lastRanking) {
+          lastRanking = doc["companyRanking"];
+        }
+      }
+    }
+    return lastRanking;
+  }
+
+  @override
+  Future<Either<Failure, Unit>> updateCompanyRanking(
+      String companyName, int newRanking, int oldRanking) async {
+    try {
+      final data = await db.collection(FireBaseCollection.companies).get();
+      for (var doc in data.docs) {
+        if (doc["companyRanking"] == newRanking) {
+          await db
+          .collection(FireBaseCollection.companies)
+          .doc(doc["name"])
+          .update({"companyRanking": oldRanking});
+        }
+      }
+      await db
+          .collection(FireBaseCollection.companies)
+          .doc(companyName)
+          .update({"companyRanking": newRanking});
       return const Right(unit);
     } catch (e) {
       return Left(ExceptionHandler.handle(e).failure);

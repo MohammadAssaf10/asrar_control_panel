@@ -15,16 +15,19 @@ class StorageFileRepositoryImpl implements StorageFileRepository {
   Future<List<String>> downloadUrlFile(List<Reference> refs) async =>
       Future.wait(refs.map((ref) => ref.getDownloadURL()).toList());
 
+  ///folderName: The folder in which the file is saved
   @override
-  Future<Either<Failure, Unit>> uploadFile(
-      XFileEntities xFileEntities, String folderPath) async {
+  Future<Either<Failure, FileEntities>> uploadFile(
+      XFileEntities xFileEntities, String folderName) async {
     try {
-      final String path = "$folderPath/${xFileEntities.name}";
-      final Reference storageRef = storage.ref();
-      final Reference ref = storageRef.child(path);
-      final UploadTask task = ref.putData(xFileEntities.xFileAsBytes);
+      final String path = "$folderName/${xFileEntities.name}";
+      final Reference storageRef = storage.ref(path);
+      final UploadTask task = storageRef.putData(xFileEntities.xFileAsBytes);
       await task.whenComplete(() {});
-      return const Right(unit);
+      final String fileUrl = await storageRef.getDownloadURL();
+      final FileEntities fileEntities =
+          FileEntities(name: xFileEntities.name, url: fileUrl);
+      return Right(fileEntities);
     } catch (e) {
       return Left(ExceptionHandler.handle(e).failure);
     }

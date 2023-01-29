@@ -42,12 +42,12 @@ class GalleryErrorState extends GalleryState {
   List<Object?> get props => [errorMessage];
 }
 
-class ImageUploadedSuccessfully extends GalleryState {
+class ImageUploadedSuccessfullyState extends GalleryState {
   @override
   List<Object?> get props => [];
 }
 
-class ImageDeletedSuccessfully extends GalleryState {
+class ImageDeletedSuccessfullyState extends GalleryState {
   @override
   List<Object?> get props => [];
 }

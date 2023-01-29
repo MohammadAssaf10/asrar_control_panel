@@ -66,19 +66,28 @@ class AppStrings {
   static const String noPictures = "no_pictures";
   static const String services = "services";
   static const String companyName = "company_name";
+  static const String companyRanking = "company_ranking";
   static const String servicesName = "services_name";
   static const String servicesPrice = "services_price";
   static const String addServicesCompany = "add_services_company";
-  static const String addServices = "add_services";
+  static const String addService = "add_service";
+  static const String addProduct = "add_product";
   static const String add = "add";
   static const String makeASelection = "make_a_selection";
   static const String requiredDocuments = "required_documents";
   static const String loading = "loading";
+  static const String photos = "photos";
   static const String noCompanies = "no_companies";
+  static const String noProducts = "no_products";
+  static const String shop = "shop";
+  static const String productName = "product_name";
+  static const String productPrice = "product_price";
+  static const String products = "products";
 
   static const String status = "status";
 
   static const String deleteCompanies = "delete_companies";
+  static const String companies = "companies";
   static const String noServices = "no_Services";
 
   static const String pleaseEnterAllRequiredData =
