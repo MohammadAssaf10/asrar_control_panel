@@ -106,26 +106,12 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                     },
                   ),
                   InputField(
-                    widget: Text(
-                      AppStrings.servicesName.tr(context),
-                      style: getAlmaraiRegularStyle(
-                        fontSize: AppSize.s16.sp,
-                        color: ColorManager.primary,
-                      ),
-                    ),
                     controller: _servicesNameController,
                     hintTitle: AppStrings.servicesName.tr(context),
                     keyboardType: TextInputType.name,
                     regExp: RegExp('[" "a-zآ-يA-Z]'),
                   ),
                   InputField(
-                    widget: Text(
-                      AppStrings.servicesPrice.tr(context),
-                      style: getAlmaraiRegularStyle(
-                        fontSize: AppSize.s16.sp,
-                        color: ColorManager.primary,
-                      ),
-                    ),
                     controller: _priceController,
                     hintTitle: AppStrings.servicesPrice.tr(context),
                     keyboardType: TextInputType.number,
@@ -145,30 +131,40 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                           ),
                         );
                       }),
-                  InputField(
-                    widget: MaterialButton(
-                      height: double.infinity,
-                      color: ColorManager.primary,
-                      onPressed: () {
-                        if (_requiredDocumentsController.text.isNotEmpty) {
-                          setState(() {
-                            list.add(_requiredDocumentsController.text);
-                            _requiredDocumentsController.clear();
-                          });
-                        }
-                      },
-                      child: Text(
-                        AppStrings.add.tr(context),
-                        style: getAlmaraiRegularStyle(
-                          fontSize: AppSize.s16.sp,
-                          color: ColorManager.white,
+                  SizedBox(
+                    width: AppSize.s120.w,
+                    child: Row(
+                      children: [
+                        MaterialButton(
+                          height: AppSize.s40.h,
+                          color: ColorManager.primary,
+                          onPressed: () {
+                            if (_requiredDocumentsController.text.isNotEmpty) {
+                              setState(() {
+                                list.add(_requiredDocumentsController.text);
+                                _requiredDocumentsController.clear();
+                              });
+                            }
+                          },
+                          child: Text(
+                            AppStrings.add.tr(context),
+                            style: getAlmaraiRegularStyle(
+                              fontSize: AppSize.s16.sp,
+                              color: ColorManager.white,
+                            ),
+                          ),
                         ),
-                      ),
+                        Expanded(
+                          flex: 2,
+                          child: InputField(
+                            controller: _requiredDocumentsController,
+                            hintTitle: AppStrings.requiredDocuments.tr(context),
+                            keyboardType: TextInputType.text,
+                            regExp: RegExp('[" "a-zآ-يA-Z0-9]'),
+                          ),
+                        ),
+                      ],
                     ),
-                    controller: _requiredDocumentsController,
-                    hintTitle: AppStrings.requiredDocuments.tr(context),
-                    keyboardType: TextInputType.text,
-                    regExp: RegExp('[" "a-zآ-يA-Z0-9]'),
                   ),
                   ControlPanelButton(
                     buttonTitle: AppStrings.add.tr(context),

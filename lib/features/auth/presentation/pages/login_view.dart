@@ -99,7 +99,7 @@ class _LoginFormState extends State<LoginForm> {
                       return null;
                     },
                   ),
-                  SizedBox(height: AppSize.s15.h),
+                  SizedBox(height: AppSize.s20.h),
                   TextFrom(
                     onTap: () {
                       setState(() {

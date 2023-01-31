@@ -20,8 +20,7 @@ class AddCompanyScreen extends StatefulWidget {
   const AddCompanyScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddCompanyScreen> createState() =>
-      _AddCompanyScreenState();
+  State<AddCompanyScreen> createState() => _AddCompanyScreenState();
 }
 
 class _AddCompanyScreenState extends State<AddCompanyScreen> {
@@ -80,13 +79,6 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                             ),
                           ),
                     InputField(
-                      widget: Text(
-                        AppStrings.companyName.tr(context),
-                        style: getAlmaraiRegularStyle(
-                          fontSize: AppSize.s16.sp,
-                          color: ColorManager.primary,
-                        ),
-                      ),
                       controller: _controller,
                       hintTitle: AppStrings.companyName.tr(context),
                       keyboardType: TextInputType.name,
@@ -110,7 +102,8 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                             _controller.text != "" &&
                             _controller.text.isNotEmpty &&
                             webImage.isNotEmpty) {
-                          BlocProvider.of<CompanyBloc>(context).add(AddCompanyEvent(
+                          BlocProvider.of<CompanyBloc>(context)
+                              .add(AddCompanyEvent(
                             companyFullName: image!.path,
                             docName: _controller.text,
                             xFileEntities: xFileEntities,

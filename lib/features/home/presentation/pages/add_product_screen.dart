@@ -83,26 +83,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             ),
                           ),
                     InputField(
-                      widget: Text(
-                        AppStrings.productName.tr(context),
-                        style: getAlmaraiRegularStyle(
-                          fontSize: AppSize.s16.sp,
-                          color: ColorManager.primary,
-                        ),
-                      ),
                       controller: _productNameController,
                       hintTitle: AppStrings.productName.tr(context),
                       keyboardType: TextInputType.name,
                       regExp: RegExp('[" "a-zآ-يA-Z]'),
                     ),
                     InputField(
-                      widget: Text(
-                        AppStrings.productPrice.tr(context),
-                        style: getAlmaraiRegularStyle(
-                          fontSize: AppSize.s16.sp,
-                          color: ColorManager.primary,
-                        ),
-                      ),
                       controller: _priceController,
                       hintTitle: AppStrings.productPrice.tr(context),
                       keyboardType: TextInputType.number,

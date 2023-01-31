@@ -56,7 +56,7 @@ class ProductScreen extends StatelessWidget {
                       itemCount: state.productsList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          height: AppSize.s60.h,
+                          height: AppSize.s75.h,
                           margin: EdgeInsets.symmetric(
                             vertical: AppSize.s10.h,
                             horizontal: AppSize.s120.w,
@@ -69,49 +69,76 @@ class ProductScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Image.network(
-                                state.productsList[index].productImageUrl,
-                                fit: BoxFit.fill,
-                                width: AppSize.s40.w,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: AppSize.s10.w),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      state.productsList[index].productName,
-                                      style: getAlmaraiRegularStyle(
-                                        fontSize: AppSize.s18.sp,
-                                        color: ColorManager.white,
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(AppSize.s20.r),
+                                    image: DecorationImage(
+                                      
+                                      fit: BoxFit.fill,
+                                      image: NetworkImage(
+                                        state.productsList[index]
+                                            .productImageUrl,
                                       ),
                                     ),
-                                    Text(
-                                      state.productsList[index].productPrice,
-                                      style: getAlmaraiRegularStyle(
-                                        fontSize: AppSize.s18.sp,
-                                        color: ColorManager.white,
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: ColorManager.grey,
+                                        offset: Offset(0, 1),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
+                                  // child: Image.network(
+                                  //   state.productsList[index].productImageUrl,
+                                  //   fit: BoxFit.fill,
+                                  // ),
                                 ),
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      BlocProvider.of<ProductBloc>(context).add(
-                                        DeleteProductEvent(
-                                            productEntities:
-                                                state.productsList[index]),
-                                      );
-                                    },
-                                    icon: const Icon(Icons.delete),
+                              Expanded(
+                                flex: 3,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: AppSize.s10.w),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    textBaseline: TextBaseline.alphabetic,
+                                    children: [
+                                      Text(
+                                        state.productsList[index].productName,
+                                        style: getAlmaraiRegularStyle(
+                                          fontSize: AppSize.s18.sp,
+                                          color: ColorManager.white,
+                                        ),
+                                        maxLines: 2,
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                      Text(
+                                        state.productsList[index].productPrice,
+                                        style: getAlmaraiRegularStyle(
+                                          fontSize: AppSize.s18.sp,
+                                          color: ColorManager.white,
+                                        ),
+                                        maxLines: 1,
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  BlocProvider.of<ProductBloc>(context).add(
+                                    DeleteProductEvent(
+                                        productEntities:
+                                            state.productsList[index]),
+                                  );
+                                },
+                                icon: const Icon(Icons.delete),
                               )
                             ],
                           ),

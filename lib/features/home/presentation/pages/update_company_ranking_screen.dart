@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/color_manager.dart';
 import '../../../../config/strings_manager.dart';
-import '../../../../config/styles_manager.dart';
 import '../../../../config/values_manager.dart';
 import '../../../../core/app/functions.dart';
 import '../../domain/entities/company.dart';
@@ -42,13 +41,6 @@ class UpdateCompanyRankingScreen extends StatelessWidget {
             child: Column(
               children: [
                 InputField(
-                  widget: Text(
-                    AppStrings.companyRanking.tr(context),
-                    style: getAlmaraiRegularStyle(
-                      fontSize: AppSize.s16.sp,
-                      color: ColorManager.primary,
-                    ),
-                  ),
                   controller: companyRankingController,
                   hintTitle: AppStrings.companyRanking.tr(context),
                   keyboardType: TextInputType.number,
@@ -58,7 +50,8 @@ class UpdateCompanyRankingScreen extends StatelessWidget {
                   buttonTitle: AppStrings.save.tr(context),
                   onTap: () {
                     if (companyRankingController.text.isNotEmpty) {
-                      BlocProvider.of<CompanyBloc>(context).add(EditCompanyEvent(
+                      BlocProvider.of<CompanyBloc>(context)
+                          .add(EditCompanyEvent(
                         companyName: company.name,
                         newRanking: int.parse(companyRankingController.text),
                         oldRanking: company.companyRanking,
