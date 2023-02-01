@@ -10,14 +10,10 @@ import '../../domain/repositories/news_repository.dart';
 class NewsRepositoryImpl extends NewsRepository {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   Future<int> getLastNewsId() async {
-    int newsId = 0;
+    int newsId = 1;
     final data = await db.collection(FireBaseCollection.news).get();
     if (data.size > 0) {
-      for (var doc in data.docs) {
-        if (doc["newsId"] > newsId) {
-          newsId = doc["newsId"];
-        }
-      }
+      newsId=data.size+1;
     }
     return newsId;
   }
@@ -30,7 +26,6 @@ class NewsRepositoryImpl extends NewsRepository {
     try {
       final int lastNewsId = await getLastNewsId();
       final Map<String, dynamic> newsEntities = NewsEntities(
-        newsId: lastNewsId,
         newsTitle: news.newsTitle,
         newsContent: news.newsContent,
         newsImageName: news.newsImageName,
@@ -38,7 +33,7 @@ class NewsRepositoryImpl extends NewsRepository {
       ).toMap();
       await db
           .collection(FireBaseCollection.news)
-          .doc(news.newsId.toString())
+          .doc(lastNewsId.toString())
           .set(newsEntities);
       return const Right(unit);
     } catch (e) {
