@@ -111,6 +111,7 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
                             _newsContentController.text.isNotEmpty &&
                             _newsTitileController.text.isNotEmpty) {
                           final NewsEntities news = NewsEntities(
+                            newsId: 0,
                             newsTitle: _newsTitileController.text,
                             newsContent: _newsContentController.text,
                             newsImageName: image!.path,

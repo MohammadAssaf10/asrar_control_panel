@@ -26,6 +26,7 @@ class NewsRepositoryImpl extends NewsRepository {
     try {
       final int lastNewsId = await getLastNewsId();
       final Map<String, dynamic> newsEntities = NewsEntities(
+        newsId: lastNewsId,
         newsTitle: news.newsTitle,
         newsContent: news.newsContent,
         newsImageName: news.newsImageName,
