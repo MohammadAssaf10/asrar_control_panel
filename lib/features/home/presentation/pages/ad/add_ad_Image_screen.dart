@@ -7,17 +7,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:asrar_control_panel/config/app_localizations.dart';
 
-import '../../../../config/color_manager.dart';
-import '../../../../config/routes_manager.dart';
-import '../../../../config/strings_manager.dart';
-import '../../../../config/styles_manager.dart';
-import '../../../../config/values_manager.dart';
-import '../../../../core/app/constants.dart';
-import '../../../../core/app/functions.dart';
-import '../../domain/entities/xfile_entities.dart';
-import '../../domain/use_cases/select_image_for_web.dart';
-import '../blocs/photo_gallery_bloc/gallery_bloc.dart';
-import '../widgets/control_panel_button.dart';
+import '../../../../../config/color_manager.dart';
+import '../../../../../config/routes_manager.dart';
+import '../../../../../config/strings_manager.dart';
+import '../../../../../config/styles_manager.dart';
+import '../../../../../config/values_manager.dart';
+import '../../../../../core/app/constants.dart';
+import '../../../../../core/app/functions.dart';
+import '../../../domain/entities/xfile_entities.dart';
+import '../../../domain/use_cases/select_image_for_web.dart';
+import '../../blocs/photo_gallery_bloc/gallery_bloc.dart';
+import '../../widgets/control_panel_button.dart';
 
 class AddAdImageScreen extends StatefulWidget {
   const AddAdImageScreen({Key? key}) : super(key: key);

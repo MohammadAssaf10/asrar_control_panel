@@ -7,22 +7,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // import '../features/auth/data/data_sources/auth_prefs.dart';
 import '../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../features/auth/presentation/pages/login_view.dart';
-
 import '../features/employees_manager/presentation/employee_management/employee_management_bloc.dart';
 import '../features/employees_manager/presentation/employee_management/employee_management_view.dart';
 import '../features/home/domain/entities/company.dart';
-import '../features/home/presentation/pages/add_ad_image_screen.dart';
-import '../features/home/presentation/pages/add_company_screen.dart';
-import '../features/home/presentation/pages/add_product_screen.dart';
-import '../features/home/presentation/pages/add_services_screen.dart';
-import '../features/home/presentation/pages/delete_company_screen.dart';
-import '../features/home/presentation/pages/delete_service_screen.dart';
+import '../features/home/presentation/pages/ad/add_ad_Image_screen.dart';
+import '../features/home/presentation/pages/ad/photo_gallery_screen.dart';
+import '../features/home/presentation/pages/company/add_company_screen.dart';
+import '../features/home/presentation/pages/company/delete_company_screen.dart';
+import '../features/home/presentation/pages/company/update_company_ranking_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
-import '../features/home/presentation/pages/photo_gallery_screen.dart';
-import '../features/home/presentation/pages/products_screen.dart';
-import '../features/home/presentation/pages/services_screen.dart';
-import '../features/home/presentation/pages/shop_screen.dart';
-import '../features/home/presentation/pages/update_company_ranking_screen.dart';
+import '../features/home/presentation/pages/news/add_news_screen.dart';
+import '../features/home/presentation/pages/news/news_screen.dart';
+import '../features/home/presentation/pages/service/add_services_screen.dart';
+import '../features/home/presentation/pages/service/delete_service_screen.dart';
+import '../features/home/presentation/pages/service/services_screen.dart';
+import '../features/home/presentation/pages/shop/add_product_screen.dart';
+import '../features/home/presentation/pages/shop/products_screen.dart';
+import '../features/home/presentation/pages/shop/shop_screen.dart';
 import '../splash.dart';
 import 'strings_manager.dart';
 
@@ -42,6 +43,8 @@ class Routes {
   static const String addProductRoute = "/addProduct";
   static const String productsRoute = "/products";
   static const String updateCompanyRankingRouter = "/updateCompanyRanking";
+  static const String newsRouter = "/news";
+  static const String addNewsRouter = "/addNews";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -104,6 +107,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddProductScreen());
       case Routes.productsRoute:
         return MaterialPageRoute(builder: (_) => const ProductScreen());
+      case Routes.newsRouter:
+        return MaterialPageRoute(builder: (_) => const NewsScreen());
+      case Routes.addNewsRouter:
+        return MaterialPageRoute(builder: (_) => const AddNewsScreen());
 
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());
@@ -119,7 +126,8 @@ class RouteGenerator {
         {
           final arg = settings.arguments as CompanyEntities;
           return MaterialPageRoute(
-              builder: (_) => UpdateCompanyRankingScreen(arg));
+            builder: (_) => UpdateCompanyRankingScreen(arg),
+          );
         }
       case Routes.addCompanyRoute:
         return MaterialPageRoute(builder: (_) => const AddCompanyScreen());

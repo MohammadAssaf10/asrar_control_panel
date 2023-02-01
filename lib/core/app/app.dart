@@ -8,6 +8,7 @@ import '../../config/routes_manager.dart';
 import '../../config/theme_manager.dart';
 import '../../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../../features/home/presentation/blocs/company/company_bloc.dart';
+import '../../features/home/presentation/blocs/news_bloc/news_bloc.dart';
 import '../../features/home/presentation/blocs/photo_gallery_bloc/gallery_bloc.dart';
 import '../../features/home/presentation/blocs/product/bloc/product_bloc.dart';
 import '../../features/home/presentation/blocs/services_bloc/services_bloc.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<ProductBloc>(
               create: (context) => ProductBloc(),
+            ),
+            BlocProvider<NewsBloc>(
+              create: (context) => NewsBloc(),
             ),
             BlocProvider<ServicesBloc>(
               create: (context) => ServicesBloc(),

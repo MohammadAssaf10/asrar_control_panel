@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/color_manager.dart';
-import '../../../../config/strings_manager.dart';
-import '../../../../config/styles_manager.dart';
-import '../../../../config/values_manager.dart';
-import '../../../../core/app/functions.dart';
-import '../blocs/product/bloc/product_bloc.dart';
+import '../../../../../config/color_manager.dart';
+import '../../../../../config/strings_manager.dart';
+import '../../../../../config/styles_manager.dart';
+import '../../../../../config/values_manager.dart';
+import '../../../../../core/app/functions.dart';
+import '../../blocs/product/bloc/product_bloc.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key});
@@ -39,7 +39,7 @@ class ProductScreen extends StatelessWidget {
                     color: ColorManager.primary,
                   ),
                 );
-              } else if (state is ProductErrorState) {
+              } else if (state is GetProductErrorState) {
                 return Center(
                   child: Text(
                     state.errorMessage.tr(context),
@@ -76,7 +76,6 @@ class ProductScreen extends StatelessWidget {
                                     borderRadius:
                                         BorderRadius.circular(AppSize.s20.r),
                                     image: DecorationImage(
-                                      
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
                                         state.productsList[index]
@@ -90,10 +89,6 @@ class ProductScreen extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  // child: Image.network(
-                                  //   state.productsList[index].productImageUrl,
-                                  //   fit: BoxFit.fill,
-                                  // ),
                                 ),
                               ),
                               Expanded(
@@ -134,8 +129,9 @@ class ProductScreen extends StatelessWidget {
                                 onPressed: () {
                                   BlocProvider.of<ProductBloc>(context).add(
                                     DeleteProductEvent(
-                                        productEntities:
-                                            state.productsList[index]),
+                                      productEntities:
+                                          state.productsList[index],
+                                    ),
                                   );
                                 },
                                 icon: const Icon(Icons.delete),

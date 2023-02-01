@@ -49,28 +49,36 @@ ThemeData getApplicationTheme() {
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: ColorManager.grey),
         borderRadius: BorderRadius.all(
-          Radius.circular(AppSize.s16.r),
+          Radius.circular(
+            AppSize.s10.r,
+          ),
         ),
       ),
       // focused border style
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: ColorManager.primary),
         borderRadius: BorderRadius.all(
-          Radius.circular(AppSize.s16.r),
+          Radius.circular(
+            AppSize.s10.r,
+          ),
         ),
       ),
       // error border style
       errorBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: ColorManager.error),
         borderRadius: BorderRadius.all(
-          Radius.circular(AppSize.s16.r),
+          Radius.circular(
+            AppSize.s10.r,
+          ),
         ),
       ),
       // focused error border style
       focusedErrorBorder: OutlineInputBorder(
         borderSide: const BorderSide(color: ColorManager.error),
         borderRadius: BorderRadius.all(
-          Radius.circular(AppSize.s16.r),
+          Radius.circular(
+            AppSize.s10.r,
+          ),
         ),
       ),
     ),
@@ -147,7 +155,7 @@ ThemeData getApplicationTheme() {
             (states) => const BorderSide(color: ColorManager.primary)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppSize.s20.r),
+            borderRadius: BorderRadius.circular(AppSize.s10.r),
           ),
         ),
       ),

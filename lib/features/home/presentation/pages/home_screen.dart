@@ -37,7 +37,17 @@ class HomeScreen extends StatelessWidget {
             children: [
               ControlPanelButton(
                 buttonTitle: AppStrings.services.tr(context),
-                onTap: () => Navigator.pushNamed(context, Routes.servicesRoute,),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.servicesRoute,
+                ),
+              ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.news.tr(context),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.newsRouter,
+                ),
               ),
             ],
           ),

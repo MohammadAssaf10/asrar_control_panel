@@ -72,6 +72,7 @@ class AppStrings {
   static const String addServicesCompany = "add_services_company";
   static const String addService = "add_service";
   static const String addProduct = "add_product";
+  static const String addNews = "add_news";
   static const String add = "add";
   static const String makeASelection = "make_a_selection";
   static const String requiredDocuments = "required_documents";
@@ -83,6 +84,9 @@ class AppStrings {
   static const String productName = "product_name";
   static const String productPrice = "product_price";
   static const String products = "products";
+  static const String news = "news";
+  static const String newsTitile = "news_title";
+  static const String newsContent = "news_content";
 
   static const String status = "status";
 

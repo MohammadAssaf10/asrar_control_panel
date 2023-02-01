@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/color_manager.dart';
-import '../../../../config/strings_manager.dart';
-import '../../../../config/styles_manager.dart';
-import '../../../../config/values_manager.dart';
-import '../../../../core/app/functions.dart';
-import '../blocs/services_bloc/services_bloc.dart';
+import '../../../../../config/color_manager.dart';
+import '../../../../../config/strings_manager.dart';
+import '../../../../../config/styles_manager.dart';
+import '../../../../../config/values_manager.dart';
+import '../../../../../core/app/functions.dart';
+import '../../blocs/services_bloc/services_bloc.dart';
 
 class DeleteServiceScreen extends StatelessWidget {
   const DeleteServiceScreen({super.key});

@@ -76,6 +76,10 @@
   "products": "المنتجات",
   "product_name": "اسم المنتج",
   "product_price": "سعر المنتج",
+  "news": "الأخبار",
+  "add_news": "إضافة خبر",
+  "news_title": "عنوان الخبر",
+  "news_content": "محتوى الخبر",
 
   "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",
 

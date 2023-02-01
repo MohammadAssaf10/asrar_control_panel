@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/color_manager.dart';
-import '../../../../config/strings_manager.dart';
-import '../../../../config/values_manager.dart';
-import '../../../../core/app/functions.dart';
-import '../../domain/entities/company.dart';
-import '../blocs/company/company_bloc.dart';
-import '../widgets/control_panel_button.dart';
-import '../widgets/input_field.dart';
+import '../../../../../config/color_manager.dart';
+import '../../../../../config/strings_manager.dart';
+import '../../../../../config/values_manager.dart';
+import '../../../../../core/app/functions.dart';
+import '../../../domain/entities/company.dart';
+import '../../blocs/company/company_bloc.dart';
+import '../../widgets/control_panel_button.dart';
+import '../../widgets/input_field.dart';
 
 class UpdateCompanyRankingScreen extends StatelessWidget {
   const UpdateCompanyRankingScreen(this.company, {super.key});
@@ -43,8 +43,8 @@ class UpdateCompanyRankingScreen extends StatelessWidget {
                 InputField(
                   controller: companyRankingController,
                   hintTitle: AppStrings.companyRanking.tr(context),
-                  keyboardType: TextInputType.number,
-                  regExp: RegExp(r'(^\d*\.?\d*)'),
+                  regExp: getNumberInputFormat(),
+                  height: AppSize.s40.h,
                 ),
                 ControlPanelButton(
                   buttonTitle: AppStrings.save.tr(context),

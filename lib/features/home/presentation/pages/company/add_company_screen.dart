@@ -5,52 +5,49 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../../config/color_manager.dart';
+import '../../../../../config/strings_manager.dart';
+import '../../../../../config/styles_manager.dart';
+import '../../../../../config/values_manager.dart';
+import '../../../../../core/app/functions.dart';
+import '../../../domain/entities/xfile_entities.dart';
+import '../../../domain/use_cases/select_image_for_web.dart';
+import '../../blocs/company/company_bloc.dart';
+import '../../widgets/control_panel_button.dart';
+import '../../widgets/input_field.dart';
 
-import '../../../../config/color_manager.dart';
-import '../../../../config/strings_manager.dart';
-import '../../../../config/styles_manager.dart';
-import '../../../../config/values_manager.dart';
-import '../../../../core/app/functions.dart';
-import '../../domain/entities/product_entities.dart';
-import '../../domain/entities/xfile_entities.dart';
-import '../blocs/product/bloc/product_bloc.dart';
-import '../widgets/control_panel_button.dart';
-import '../../domain/use_cases/select_image_for_web.dart';
-import '../widgets/input_field.dart';
-
-class AddProductScreen extends StatefulWidget {
-  const AddProductScreen({super.key});
+class AddCompanyScreen extends StatefulWidget {
+  const AddCompanyScreen({Key? key}) : super(key: key);
 
   @override
-  State<AddProductScreen> createState() => _AddProductScreenState();
+  State<AddCompanyScreen> createState() => _AddCompanyScreenState();
 }
 
-class _AddProductScreenState extends State<AddProductScreen> {
-  File? image;
+class _AddCompanyScreenState extends State<AddCompanyScreen> {
   final SelectImageForWebUseCase selectImageForWebUseCase =
       SelectImageForWebUseCase();
-
   Uint8List webImage = Uint8List(8);
   late XFileEntities xFileEntities;
-
-  final TextEditingController _priceController = TextEditingController();
-  final TextEditingController _productNameController = TextEditingController();
+  File? image;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProductBloc, ProductState>(
+    return BlocListener<CompanyBloc, CompanyState>(
       listener: (context, state) {
-        if (state is ProductLoadingState) {
+        if (state is CompanyLoadingState) {
           showCustomDialog(context);
-        } else if (state is ProductErrorState) {
-          showCustomDialog(context, message: state.errorMessage.tr(context));
-        } else if (state is ProductAddedSuccessfullyState) {
+        } else if (state is CompanyErrorState) {
+          showCustomDialog(context, message: state.errorMessage);
+        } else if (state is CompanyAddedSuccessfully) {
           showCustomDialog(context,
               message: AppStrings.addedSuccessfully.tr(context));
         }
       },
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text(AppStrings.addServicesCompany.tr(context)),
+        ),
         body: Center(
           child: Container(
             width: AppSize.s200.w,
@@ -60,7 +57,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     image == null
                         ? Padding(
@@ -83,17 +79,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             ),
                           ),
                     InputField(
-                      controller: _productNameController,
-                      hintTitle: AppStrings.productName.tr(context),
-                      keyboardType: TextInputType.name,
-                      regExp: RegExp('[" "a-zآ-يA-Z]'),
+                      controller: _controller,
+                      hintTitle: AppStrings.companyName.tr(context),
+                      regExp: getTextWithNumberInputFormat(),
+                      height: AppSize.s50.h,
                     ),
-                    InputField(
-                      controller: _priceController,
-                      hintTitle: AppStrings.productPrice.tr(context),
-                      keyboardType: TextInputType.number,
-                      regExp: RegExp(r'(^\d*\.?\d*)'),
-                    ),
+                    SizedBox(height: AppSize.s20.h),
                     ControlPanelButton(
                       buttonTitle: AppStrings.selectImage.tr(context),
                       onTap: () async {
@@ -108,24 +99,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       buttonTitle: AppStrings.add.tr(context),
                       onTap: () {
                         if (image != null &&
-                            _priceController.text.isNotEmpty &&
-                            _productNameController.text.isNotEmpty) {
-                          final ProductEntities productEntities =
-                              ProductEntities(
-                            productName: _productNameController.text,
-                            productPrice: _priceController.text,
-                            productImageUrl: "",
-                            productImageName: image!.path,
-                          );
-                          BlocProvider.of<ProductBloc>(context)
-                              .add(AddProductEvent(
-                            productEntities: productEntities,
+                            _controller.text != "" &&
+                            _controller.text.isNotEmpty &&
+                            webImage.isNotEmpty) {
+                          BlocProvider.of<CompanyBloc>(context)
+                              .add(AddCompanyEvent(
+                            companyFullName: image!.path,
+                            docName: _controller.text,
                             xFileEntities: xFileEntities,
                           ));
+                        } else {
+                          showCustomDialog(context,
+                              message: AppStrings.pleaseEnterAllRequiredData
+                                  .tr(context));
                         }
-                        showCustomDialog(context,
-                            message: AppStrings.pleaseEnterAllRequiredData
-                                .tr(context));
                       },
                     ),
                   ],

@@ -72,9 +72,13 @@
   "no_products": "No products",
   "shop": "Shop",
   "add_product": "Add product",
+  "add_news": "Add news",
   "products": "Products",
   "product_name": "Product name",
   "product_price": "Product pice",
+  "news": "News",
+  "news_title": "News title",
+  "news_content": "News content",
   
   "please_enter_all_required_data": "Please enter all required data",
 

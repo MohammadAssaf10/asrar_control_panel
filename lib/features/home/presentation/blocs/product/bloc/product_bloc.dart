@@ -34,14 +34,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<GetProductsListEvent>((event, emit) async {
       emit(ProductLoadingState());
       (await productRepository.getProductsList()).fold((failure) {
-        emit(ProductErrorState(errorMessage: failure.message));
+        emit(GetProductErrorState(errorMessage: failure.message));
       }, (productsList) {
         emit(ProductsLoadedState(productsList: productsList));
       });
     });
     on<DeleteProductEvent>((event, emit) async {
       emit(DeleteProductLoadingState());
-
       (await productRepository.deleteProduct(event.productEntities)).fold(
           (failure) {
         emit(ProductErrorState(errorMessage: failure.message));

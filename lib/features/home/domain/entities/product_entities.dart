@@ -12,8 +12,12 @@ class ProductEntities extends Equatable {
     required this.productPrice,
   });
   @override
-  List<Object> get props =>
-      [productName, productImageUrl, productPrice, productImageName];
+  List<Object> get props => [
+        productName,
+        productImageUrl,
+        productPrice,
+        productImageName,
+      ];
 
   Map<String, dynamic> toMap() {
     return {
