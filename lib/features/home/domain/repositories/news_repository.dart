@@ -8,4 +8,8 @@ abstract class NewsRepository {
     NewsEntities news,
     String newsImageUrl,
   );
+  Future<Either<Failure, List<NewsEntities>>> getNewsList();
+  Future<Either<Failure, Unit>> deleteNews(
+    NewsEntities news,
+  );
 }

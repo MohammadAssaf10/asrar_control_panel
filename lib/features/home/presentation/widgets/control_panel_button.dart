@@ -18,7 +18,7 @@ class ControlPanelButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: AppSize.s140.w,
+        width: AppSize.s130.w,
         height: AppSize.s60.h,
         child: Padding(
           padding: EdgeInsets.symmetric(
