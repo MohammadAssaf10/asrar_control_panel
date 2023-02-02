@@ -17,6 +17,7 @@ import '../features/home/presentation/pages/company/delete_company_screen.dart';
 import '../features/home/presentation/pages/company/update_company_ranking_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
 import '../features/home/presentation/pages/news/add_news_screen.dart';
+import '../features/home/presentation/pages/news/delete_news_screen.dart';
 import '../features/home/presentation/pages/news/news_screen.dart';
 import '../features/home/presentation/pages/service/add_services_screen.dart';
 import '../features/home/presentation/pages/service/delete_service_screen.dart';
@@ -45,6 +46,7 @@ class Routes {
   static const String updateCompanyRankingRouter = "/updateCompanyRanking";
   static const String newsRouter = "/news";
   static const String addNewsRouter = "/addNews";
+  static const String deleteNewsRouter = "/deleteNews";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -111,6 +113,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const NewsScreen());
       case Routes.addNewsRouter:
         return MaterialPageRoute(builder: (_) => const AddNewsScreen());
+      case Routes.deleteNewsRouter:
+        return MaterialPageRoute(builder: (_) => const DeleteNewsScreen());
 
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());

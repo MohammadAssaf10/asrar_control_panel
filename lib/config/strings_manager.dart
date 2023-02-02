@@ -80,6 +80,7 @@ class AppStrings {
   static const String photos = "photos";
   static const String noCompanies = "no_companies";
   static const String noProducts = "no_products";
+  static const String noNews = "no_news";
   static const String shop = "shop";
   static const String productName = "product_name";
   static const String productPrice = "product_price";

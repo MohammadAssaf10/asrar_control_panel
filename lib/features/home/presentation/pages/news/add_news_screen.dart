@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:asrar_control_panel/config/app_localizations.dart';
 import 'package:asrar_control_panel/features/home/domain/entities/news_entities.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -112,6 +113,7 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
                             _newsTitileController.text.isNotEmpty) {
                           final NewsEntities news = NewsEntities(
                             newsId: 0,
+                            timestamp: Timestamp.now(),
                             newsTitle: _newsTitileController.text,
                             newsContent: _newsContentController.text,
                             newsImageName: image!.path,

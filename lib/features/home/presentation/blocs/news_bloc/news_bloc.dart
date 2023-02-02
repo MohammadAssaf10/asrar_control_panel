@@ -31,5 +31,21 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         });
       });
     });
+    on<DeleteNewsEvent>((event, emit) async {
+      emit(DeleteNewsLoadingState());
+      (await newsRepository.deleteNews(event.news)).fold((failure) {
+        emit(NewsErrorState(errorMessage: failure.message));
+      }, (r) {
+        emit(NewsDeletedSuccessfullyState());
+      });
+    });
+    on<GetNewsListEvent>((event, emit) async {
+      emit(NewsLoadingState());
+      (await newsRepository.getNewsList()).fold((failure) {
+        emit(GetNewsErrorState(errorMessage: failure.message));
+      }, (newsList) {
+        emit(NewsLoadedState(newsList: newsList));
+      });
+    });
   }
 }

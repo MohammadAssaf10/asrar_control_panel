@@ -8,38 +8,38 @@ import '../../../../../config/strings_manager.dart';
 import '../../../../../config/styles_manager.dart';
 import '../../../../../config/values_manager.dart';
 import '../../../../../core/app/functions.dart';
-import '../../blocs/product/bloc/product_bloc.dart';
+import '../../blocs/news_bloc/news_bloc.dart';
 
-class ProductScreen extends StatelessWidget {
-  const ProductScreen({super.key});
+class DeleteNewsScreen extends StatelessWidget {
+  const DeleteNewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
-        child: BlocListener<ProductBloc, ProductState>(
+        child: BlocListener<NewsBloc, NewsState>(
           listener: (context, state) {
-            if (state is DeleteProductLoadingState) {
+            if (state is DeleteNewsLoadingState) {
               showCustomDialog(context);
-            } else if (state is ProductErrorState) {
+            } else if (state is NewsErrorState) {
               showCustomDialog(context, message: state.errorMessage);
-              BlocProvider.of<ProductBloc>(context).add(GetProductsListEvent());
-            } else if (state is ProductDeletedSuccessfullyState) {
+              BlocProvider.of<NewsBloc>(context).add(GetNewsListEvent());
+            } else if (state is NewsDeletedSuccessfullyState) {
               showCustomDialog(context,
                   message: AppStrings.deletedSuccessfully.tr(context));
-              BlocProvider.of<ProductBloc>(context).add(GetProductsListEvent());
+              BlocProvider.of<NewsBloc>(context).add(GetNewsListEvent());
             }
           },
-          child: BlocBuilder<ProductBloc, ProductState>(
+          child: BlocBuilder<NewsBloc, NewsState>(
             builder: (context, state) {
-              if (state is ProductLoadingState) {
+              if (state is NewsLoadingState) {
                 return const Center(
                   child: CircularProgressIndicator(
                     color: ColorManager.primary,
                   ),
                 );
-              } else if (state is GetProductErrorState) {
+              } else if (state is GetNewsErrorState) {
                 return Center(
                   child: Text(
                     state.errorMessage.tr(context),
@@ -49,14 +49,14 @@ class ProductScreen extends StatelessWidget {
                     ),
                   ),
                 );
-              } else if (state is ProductsLoadedState) {
-                if (state.productsList.isNotEmpty) {
+              } else if (state is NewsLoadedState) {
+                if (state.newsList.isNotEmpty) {
                   return ListView.builder(
                       shrinkWrap: true,
-                      itemCount: state.productsList.length,
+                      itemCount: state.newsList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                          height: AppSize.s75.h,
+                          height: AppSize.s80.h,
                           margin: EdgeInsets.symmetric(
                             vertical: AppSize.s10.h,
                             horizontal: AppSize.s120.w,
@@ -78,8 +78,7 @@ class ProductScreen extends StatelessWidget {
                                     image: DecorationImage(
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
-                                        state.productsList[index]
-                                            .productImageUrl,
+                                        state.newsList[index].newsImageUrl,
                                       ),
                                     ),
                                     boxShadow: const [
@@ -104,19 +103,21 @@ class ProductScreen extends StatelessWidget {
                                     textBaseline: TextBaseline.alphabetic,
                                     children: [
                                       Text(
-                                        state.productsList[index].productName,
+                                        state.newsList[index].newsTitle,
                                         style: getAlmaraiRegularStyle(
                                           fontSize: AppSize.s18.sp,
                                           color: ColorManager.white,
                                         ),
-                                        maxLines: 2,
+                                        maxLines: 3,
                                         softWrap: true,
                                         overflow: TextOverflow.visible,
                                       ),
                                       Text(
-                                        state.productsList[index].productPrice,
+                                        state.newsList[index].timestamp
+                                            .toDate()
+                                            .toString(),
                                         style: getAlmaraiRegularStyle(
-                                          fontSize: AppSize.s18.sp,
+                                          fontSize: AppSize.s15.sp,
                                           color: ColorManager.white,
                                         ),
                                         maxLines: 1,
@@ -129,10 +130,9 @@ class ProductScreen extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  BlocProvider.of<ProductBloc>(context).add(
-                                    DeleteProductEvent(
-                                      productEntities:
-                                          state.productsList[index],
+                                  BlocProvider.of<NewsBloc>(context).add(
+                                    DeleteNewsEvent(
+                                      news: state.newsList[index],
                                     ),
                                   );
                                 },
@@ -145,7 +145,7 @@ class ProductScreen extends StatelessWidget {
                 } else {
                   return Center(
                     child: Text(
-                      AppStrings.noProducts.tr(context),
+                      AppStrings.noNews.tr(context),
                       style: getAlmaraiRegularStyle(
                         fontSize: AppSize.s25.sp,
                         color: ColorManager.primary,
