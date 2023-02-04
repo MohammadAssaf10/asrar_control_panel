@@ -31,6 +31,15 @@ class HomeScreen extends StatelessWidget {
                   Routes.shopRoute,
                 ),
               ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.courses.tr(context),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.coursesRoute,
+                  );
+                },
+              ),
             ],
           ),
           Column(
@@ -46,7 +55,7 @@ class HomeScreen extends StatelessWidget {
                 buttonTitle: AppStrings.news.tr(context),
                 onTap: () => Navigator.pushNamed(
                   context,
-                  Routes.newsRouter,
+                  Routes.newsRoute,
                 ),
               ),
             ],

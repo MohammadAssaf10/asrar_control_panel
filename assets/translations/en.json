@@ -78,8 +78,13 @@
   "product_price": "Product pice",
   "news": "News",
   "news_title": "News title",
+  "course_title": "Course title",
   "news_content": "News content",
+  "course_content": "Course content",
+  "course_price": "Course price",
   "no_news": "No news",
+  "courses": "Courses",
+  "add_course": "Add course",
   
   "please_enter_all_required_data": "Please enter all required data",
 

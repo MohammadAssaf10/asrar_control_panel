@@ -8,38 +8,38 @@ import '../../../../../config/strings_manager.dart';
 import '../../../../../config/styles_manager.dart';
 import '../../../../../config/values_manager.dart';
 import '../../../../../core/app/functions.dart';
-import '../../blocs/news_bloc/news_bloc.dart';
+import '../../blocs/course_bloc/course_bloc.dart';
 
-class DeleteNewsScreen extends StatelessWidget {
-  const DeleteNewsScreen({super.key});
+class DeleteCoursesScreen extends StatelessWidget {
+  const DeleteCoursesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
-        child: BlocListener<NewsBloc, NewsState>(
+        child: BlocListener<CourseBloc, CourseState>(
           listener: (context, state) {
-            if (state is DeleteNewsLoadingState) {
+            if (state is DeleteCourseLoadingState) {
               showCustomDialog(context);
-            } else if (state is NewsErrorState) {
+            } else if (state is CourseErrorState) {
               showCustomDialog(context, message: state.errorMessage);
-              BlocProvider.of<NewsBloc>(context).add(GetNewsListEvent());
-            } else if (state is NewsDeletedSuccessfullyState) {
+              BlocProvider.of<CourseBloc>(context).add(GetCourseListEvent());
+            } else if (state is CourseDeletedSuccessfullyState) {
               showCustomDialog(context,
                   message: AppStrings.deletedSuccessfully.tr(context));
-              BlocProvider.of<NewsBloc>(context).add(GetNewsListEvent());
+              BlocProvider.of<CourseBloc>(context).add(GetCourseListEvent());
             }
           },
-          child: BlocBuilder<NewsBloc, NewsState>(
+          child: BlocBuilder<CourseBloc, CourseState>(
             builder: (context, state) {
-              if (state is NewsLoadingState) {
+              if (state is CourseLoadingState) {
                 return const Center(
                   child: CircularProgressIndicator(
                     color: ColorManager.primary,
                   ),
                 );
-              } else if (state is GetNewsErrorState) {
+              } else if (state is GetCourseErrorState) {
                 return Center(
                   child: Text(
                     state.errorMessage.tr(context),
@@ -49,11 +49,11 @@ class DeleteNewsScreen extends StatelessWidget {
                     ),
                   ),
                 );
-              } else if (state is NewsLoadedState) {
-                if (state.newsList.isNotEmpty) {
+              } else if (state is CourseLoadedState) {
+                if (state.coursesList.isNotEmpty) {
                   return ListView.builder(
                       shrinkWrap: true,
-                      itemCount: state.newsList.length,
+                      itemCount: state.coursesList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           height: AppSize.s80.h,
@@ -78,7 +78,7 @@ class DeleteNewsScreen extends StatelessWidget {
                                     image: DecorationImage(
                                       fit: BoxFit.fill,
                                       image: NetworkImage(
-                                        state.newsList[index].newsImageUrl,
+                                        state.coursesList[index].courseImageUrl,
                                       ),
                                     ),
                                     boxShadow: const [
@@ -97,26 +97,39 @@ class DeleteNewsScreen extends StatelessWidget {
                                     horizontal: AppSize.s5.w,
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     textBaseline: TextBaseline.alphabetic,
                                     children: [
                                       Text(
-                                        state.newsList[index].newsTitle,
+                                        state.coursesList[index].courseTitile,
                                         style: getAlmaraiRegularStyle(
                                           fontSize: AppSize.s18.sp,
                                           color: ColorManager.white,
                                         ),
-                                        maxLines: 3,
+                                        maxLines: 2,
                                         softWrap: true,
                                         overflow: TextOverflow.visible,
                                       ),
                                       Text(
-                                        state.newsList[index].timestamp
+                                        state.coursesList[index].coursePrice
+                                                .startsWith("0")
+                                            ? "مجاناً"
+                                            : state
+                                                .coursesList[index].coursePrice,
+                                        style: getAlmaraiRegularStyle(
+                                          fontSize: AppSize.s16.sp,
+                                          color: ColorManager.white,
+                                        ),
+                                        maxLines: 1,
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
+                                      ),
+                                      Text(
+                                        state.coursesList[index].timestamp
                                             .toDate()
                                             .toString(),
                                         style: getAlmaraiRegularStyle(
-                                          fontSize: AppSize.s15.sp,
+                                          fontSize: AppSize.s16.sp,
                                           color: ColorManager.white,
                                         ),
                                         maxLines: 1,
@@ -129,9 +142,9 @@ class DeleteNewsScreen extends StatelessWidget {
                               ),
                               IconButton(
                                 onPressed: () {
-                                  BlocProvider.of<NewsBloc>(context).add(
-                                    DeleteNewsEvent(
-                                      news: state.newsList[index],
+                                  BlocProvider.of<CourseBloc>(context).add(
+                                    DeleteCourseEvent(
+                                      course: state.coursesList[index],
                                     ),
                                   );
                                 },

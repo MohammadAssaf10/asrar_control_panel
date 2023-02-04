@@ -15,6 +15,9 @@ import '../features/home/presentation/pages/ad/photo_gallery_screen.dart';
 import '../features/home/presentation/pages/company/add_company_screen.dart';
 import '../features/home/presentation/pages/company/delete_company_screen.dart';
 import '../features/home/presentation/pages/company/update_company_ranking_screen.dart';
+import '../features/home/presentation/pages/courses/add_courses_screen.dart';
+import '../features/home/presentation/pages/courses/courses_screen.dart';
+import '../features/home/presentation/pages/courses/delete_courses_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
 import '../features/home/presentation/pages/news/add_news_screen.dart';
 import '../features/home/presentation/pages/news/delete_news_screen.dart';
@@ -43,10 +46,13 @@ class Routes {
   static const String shopRoute = "/shop";
   static const String addProductRoute = "/addProduct";
   static const String productsRoute = "/products";
-  static const String updateCompanyRankingRouter = "/updateCompanyRanking";
-  static const String newsRouter = "/news";
-  static const String addNewsRouter = "/addNews";
-  static const String deleteNewsRouter = "/deleteNews";
+  static const String updateCompanyRankingRoute = "/updateCompanyRanking";
+  static const String newsRoute = "/news";
+  static const String addNewsRoute = "/addNews";
+  static const String deleteNewsRoute = "/deleteNews";
+  static const String coursesRoute = "/courses";
+  static const String addCoursesRoute = "/addCourses";
+  static const String deleteCoursesRoute = "/deleteCourses";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -109,12 +115,18 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddProductScreen());
       case Routes.productsRoute:
         return MaterialPageRoute(builder: (_) => const ProductScreen());
-      case Routes.newsRouter:
+      case Routes.newsRoute:
         return MaterialPageRoute(builder: (_) => const NewsScreen());
-      case Routes.addNewsRouter:
+      case Routes.addNewsRoute:
         return MaterialPageRoute(builder: (_) => const AddNewsScreen());
-      case Routes.deleteNewsRouter:
+      case Routes.deleteNewsRoute:
         return MaterialPageRoute(builder: (_) => const DeleteNewsScreen());
+      case Routes.coursesRoute:
+        return MaterialPageRoute(builder: (_) => const CoursesScreen());
+      case Routes.addCoursesRoute:
+        return MaterialPageRoute(builder: (_) => const AddCoursesScreen());
+      case Routes.deleteCoursesRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteCoursesScreen());
 
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());
@@ -126,7 +138,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const DeleteCompanyScreen());
       case Routes.deleteServiceRoute:
         return MaterialPageRoute(builder: (_) => const DeleteServiceScreen());
-      case Routes.updateCompanyRankingRouter:
+      case Routes.updateCompanyRankingRoute:
         {
           final arg = settings.arguments as CompanyEntities;
           return MaterialPageRoute(

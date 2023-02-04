@@ -33,40 +33,42 @@ class UpdateCompanyRankingScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(),
         body: Center(
-            child: Container(
-          width: AppSize.s100.w,
-          height: AppSize.s200.h,
-          color: ColorManager.white,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                InputField(
-                  controller: companyRankingController,
-                  hintTitle: AppStrings.companyRanking.tr(context),
-                  regExp: getNumberInputFormat(),
-                  height: AppSize.s40.h,
-                ),
-                ControlPanelButton(
-                  buttonTitle: AppStrings.save.tr(context),
-                  onTap: () {
-                    if (companyRankingController.text.isNotEmpty) {
-                      BlocProvider.of<CompanyBloc>(context)
-                          .add(EditCompanyEvent(
-                        companyName: company.name,
-                        newRanking: int.parse(companyRankingController.text),
-                        oldRanking: company.companyRanking,
-                      ));
-                    } else {
-                      showCustomDialog(context,
-                          message: AppStrings.pleaseEnterAllRequiredData
-                              .tr(context));
-                    }
-                  },
-                ),
-              ],
+          child: Container(
+            width: AppSize.s150.w,
+            height: AppSize.s200.h,
+            color: ColorManager.white,
+            alignment: Alignment.center,
+            child: SingleChildScrollView(
+          child: Column(
+            children: [
+              InputField(
+                controller: companyRankingController,
+                hintTitle: AppStrings.companyRanking.tr(context),
+                regExp: getNumberInputFormat(),
+                height: AppSize.s50.h,
+              ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.save.tr(context),
+                onTap: () {
+                  if (companyRankingController.text.isNotEmpty) {
+                    BlocProvider.of<CompanyBloc>(context)
+                        .add(EditCompanyEvent(
+                      companyName: company.name,
+                      newRanking: int.parse(companyRankingController.text),
+                      oldRanking: company.companyRanking,
+                    ));
+                  } else {
+                    showCustomDialog(context,
+                        message: AppStrings.pleaseEnterAllRequiredData
+                            .tr(context));
+                  }
+                },
+              ),
+            ],
+          ),
             ),
           ),
-        )),
+        ),
       ),
     );
   }

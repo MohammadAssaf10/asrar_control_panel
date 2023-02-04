@@ -79,8 +79,13 @@
   "news": "الأخبار",
   "add_news": "إضافة خبر",
   "news_title": "عنوان الخبر",
+  "course_title": "عنوان الدورة",
   "news_content": "محتوى الخبر",
+  "course_content": "محتوى الدورة",
+  "course_price": "سعر الدورة",
   "no_news": "لا يوجد أخبار",
+  "courses": "الدورات",
+  "add_course": "إضافة دورة",
 
   "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",
 

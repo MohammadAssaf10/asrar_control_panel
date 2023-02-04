@@ -25,6 +25,7 @@ class InputField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         maxLines: null,
+         textInputAction: TextInputAction.newline,
         textAlign: TextAlign.center,
         inputFormatters: [
           FilteringTextInputFormatter.allow(regExp),

@@ -36,7 +36,7 @@ RegExp getArabicAndEnglishTextInputFormat() {
 }
 
 RegExp getAllKeyboradInputFormat() {
-  return RegExp(r'.+');
+  return RegExp(r"^([a-zA-Z\u0020-\u007Eء-ي\n]+)");
 }
 
 _isCurrentDialogShowing(BuildContext context) =>

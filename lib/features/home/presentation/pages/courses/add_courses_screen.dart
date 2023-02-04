@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:asrar_control_panel/config/app_localizations.dart';
-import 'package:asrar_control_panel/features/home/domain/entities/news_entities.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,20 +12,21 @@ import '../../../../../config/strings_manager.dart';
 import '../../../../../config/styles_manager.dart';
 import '../../../../../config/values_manager.dart';
 import '../../../../../core/app/functions.dart';
+import '../../../domain/entities/course_entities.dart';
 import '../../../domain/entities/xfile_entities.dart';
 import '../../../domain/use_cases/select_image_for_web.dart';
-import '../../blocs/news_bloc/news_bloc.dart';
+import '../../blocs/course_bloc/course_bloc.dart';
 import '../../widgets/control_panel_button.dart';
 import '../../widgets/input_field.dart';
 
-class AddNewsScreen extends StatefulWidget {
-  const AddNewsScreen({super.key});
+class AddCoursesScreen extends StatefulWidget {
+  const AddCoursesScreen({super.key});
 
   @override
-  State<AddNewsScreen> createState() => _AddNewsScreenState();
+  State<AddCoursesScreen> createState() => _AddCoursesScreenState();
 }
 
-class _AddNewsScreenState extends State<AddNewsScreen> {
+class _AddCoursesScreenState extends State<AddCoursesScreen> {
   File? image;
   final SelectImageForWebUseCase selectImageForWebUseCase =
       SelectImageForWebUseCase();
@@ -34,18 +34,21 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
   Uint8List webImage = Uint8List(8);
   late XFileEntities xFileEntities;
 
-  final TextEditingController _newsTitileController = TextEditingController();
-  final TextEditingController _newsContentController = TextEditingController();
+  final TextEditingController _coursesTitileController =
+      TextEditingController();
+  final TextEditingController _coursesContentController =
+      TextEditingController();
+  final TextEditingController _coursesPriceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<NewsBloc, NewsState>(
+    return BlocListener<CourseBloc, CourseState>(
       listener: (context, state) {
-        if (state is NewsLoadingState) {
+        if (state is CourseLoadingState) {
           showCustomDialog(context);
-        } else if (state is NewsErrorState) {
+        } else if (state is CourseErrorState) {
           showCustomDialog(context, message: state.errorMessage.tr(context));
-        } else if (state is NewsAddedSuccessfullyState) {
+        } else if (state is CourseAddedSuccessfullyState) {
           showCustomDialog(context,
               message: AppStrings.addedSuccessfully.tr(context));
         }
@@ -55,7 +58,7 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
         body: Center(
           child: Container(
             width: AppSize.s200.w,
-            height: AppSize.s600.h,
+            height: double.infinity,
             color: ColorManager.white,
             child: Center(
               child: SingleChildScrollView(
@@ -84,14 +87,20 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
                             ),
                           ),
                     InputField(
-                      controller: _newsTitileController,
+                      controller: _coursesTitileController,
                       hintTitle: AppStrings.newsTitile.tr(context),
                       regExp: getAllKeyboradInputFormat(),
                       height: AppSize.s80.h,
                     ),
                     InputField(
-                      controller: _newsContentController,
+                      controller: _coursesPriceController,
                       hintTitle: AppStrings.newsContent.tr(context),
+                      regExp: getDoubleInputFormat(),
+                      height: AppSize.s50.h,
+                    ),
+                    InputField(
+                      controller: _coursesContentController,
+                      hintTitle: AppStrings.courseContent.tr(context),
                       regExp: getAllKeyboradInputFormat(),
                       height: AppSize.s120.h,
                     ),
@@ -109,19 +118,20 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
                       buttonTitle: AppStrings.add.tr(context),
                       onTap: () {
                         if (image != null &&
-                            _newsContentController.text.isNotEmpty &&
-                            _newsTitileController.text.isNotEmpty) {
-                          final NewsEntities news = NewsEntities(
-                            newsId: 0,
+                            _coursesContentController.text.isNotEmpty &&
+                            _coursesTitileController.text.isNotEmpty &&
+                            _coursesPriceController.text.isNotEmpty) {
+                          final CourseEntities course = CourseEntities(
+                            courseTitile: _coursesTitileController.text,
+                            courseContent: _coursesContentController.text,
+                            coursePrice: _coursesPriceController.text,
+                            courseImageName: image!.path,
+                            courseImageUrl: "",
                             timestamp: Timestamp.now(),
-                            newsTitle: _newsTitileController.text,
-                            newsContent: _newsContentController.text,
-                            newsImageName: image!.path,
-                            newsImageUrl: "",
                           );
-                          BlocProvider.of<NewsBloc>(context).add(
-                            AddNewsEvent(
-                              news: news,
+                          BlocProvider.of<CourseBloc>(context).add(
+                            AddCourseEvent(
+                              course: course,
                               xFileEntities: xFileEntities,
                             ),
                           );

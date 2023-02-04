@@ -29,24 +29,6 @@ class NewsEntities extends Equatable {
     ];
   }
 
-  NewsEntities copyWith({
-    int? newsId,
-    Timestamp? timestamp,
-    String? newsTitle,
-    String? newsContent,
-    String? newsImageName,
-    String? newsImageUrl,
-  }) {
-    return NewsEntities(
-      newsId: newsId ?? this.newsId,
-      timestamp: timestamp ?? this.timestamp,
-      newsTitle: newsTitle ?? this.newsTitle,
-      newsContent: newsContent ?? this.newsContent,
-      newsImageName: newsImageName ?? this.newsImageName,
-      newsImageUrl: newsImageUrl ?? this.newsImageUrl,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'newsId': newsId,

@@ -124,7 +124,7 @@ class DeleteCompanyScreen extends StatelessWidget {
                                     IconButton(
                                       onPressed: () {
                                         Navigator.pushReplacementNamed(context,
-                                            Routes.updateCompanyRankingRouter,
+                                            Routes.updateCompanyRankingRoute,
                                             arguments: state.company[index]);
                                       },
                                       icon: const Icon(Icons.edit),

@@ -7,11 +7,13 @@ import '../../features/auth/data/repository/firebase_auth_repository.dart';
 import '../../features/auth/domain/repository/auth_repository.dart';
 
 import '../../features/home/data/repositories/company_repository_impl.dart';
+import '../../features/home/data/repositories/course_repository_impl.dart';
 import '../../features/home/data/repositories/news_repository_impl.dart';
 import '../../features/home/data/repositories/service_repository_impl.dart';
 import '../../features/home/data/repositories/product_repository_impl.dart';
 import '../../features/home/data/repositories/storage_file_repository_impl.dart';
 import '../../features/home/domain/repositories/company_repository.dart';
+import '../../features/home/domain/repositories/course_repository.dart';
 import '../../features/home/domain/repositories/news_repository.dart';
 import '../../features/home/domain/repositories/product_repository.dart';
 import '../../features/home/domain/repositories/service_repository.dart';
@@ -42,6 +44,8 @@ Future<void> initAppModule() async {
   instance
       .registerLazySingleton<ProductRepository>(() => ProductRepositoryImpl());
   instance.registerLazySingleton<NewsRepository>(() => NewsRepositoryImpl());
+  instance
+      .registerLazySingleton<CourseRepository>(() => CourseRepositoryImpl());
 }
 
 void initAuthenticationModule() {

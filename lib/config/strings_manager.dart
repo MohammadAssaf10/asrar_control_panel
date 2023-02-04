@@ -87,7 +87,12 @@ class AppStrings {
   static const String products = "products";
   static const String news = "news";
   static const String newsTitile = "news_title";
+  static const String courseTitile = "course_title";
+  static const String coursePrice = "course_price";
   static const String newsContent = "news_content";
+  static const String courseContent = "course_content";
+  static const String courses = "courses";
+  static const String addCourse = "add_course";
 
   static const String status = "status";
 
