@@ -107,13 +107,13 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                   ),
                   InputField(
                     controller: _servicesNameController,
-                    hintTitle: AppStrings.servicesName.tr(context),
+                    labelTitle: AppStrings.servicesName.tr(context),
                     regExp: getArabicAndEnglishTextInputFormat(),
                     height: AppSize.s50.h,
                   ),
                   InputField(
                     controller: _priceController,
-                    hintTitle: AppStrings.servicesPrice.tr(context),
+                    labelTitle: AppStrings.servicesPrice.tr(context),
                     regExp: getDoubleInputFormat(),
                     height: AppSize.s50.h,
                   ),
@@ -165,7 +165,7 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                           flex: 2,
                           child: InputField(
                             controller: _requiredDocumentsController,
-                            hintTitle: AppStrings.requiredDocuments.tr(context),
+                            labelTitle: AppStrings.requiredDocuments.tr(context),
                             regExp: getTextWithNumberInputFormat(),
                             height: AppSize.s50.h,
                           ),

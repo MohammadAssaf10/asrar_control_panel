@@ -7,12 +7,12 @@ import '../../../../config/values_manager.dart';
 class InputField extends StatelessWidget {
   const InputField({
     Key? key,
-    required this.hintTitle,
+    required this.labelTitle,
     required this.regExp,
     required this.controller,
     required this.height,
   }) : super(key: key);
-  final String hintTitle;
+  final String labelTitle;
   final RegExp regExp;
   final TextEditingController controller;
   final double height;
@@ -25,14 +25,13 @@ class InputField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         maxLines: null,
-         textInputAction: TextInputAction.newline,
         textAlign: TextAlign.center,
         inputFormatters: [
           FilteringTextInputFormatter.allow(regExp),
         ],
         expands: true,
         decoration: InputDecoration(
-          hintText: hintTitle,
+          labelText: labelTitle,
         ),
       ),
     );

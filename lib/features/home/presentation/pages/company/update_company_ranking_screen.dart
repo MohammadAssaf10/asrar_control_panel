@@ -43,7 +43,7 @@ class UpdateCompanyRankingScreen extends StatelessWidget {
             children: [
               InputField(
                 controller: companyRankingController,
-                hintTitle: AppStrings.companyRanking.tr(context),
+                labelTitle: AppStrings.companyRanking.tr(context),
                 regExp: getNumberInputFormat(),
                 height: AppSize.s50.h,
               ),

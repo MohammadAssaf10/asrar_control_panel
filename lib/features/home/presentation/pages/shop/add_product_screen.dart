@@ -84,13 +84,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           ),
                     InputField(
                       controller: _productNameController,
-                      hintTitle: AppStrings.productName.tr(context),
+                      labelTitle: AppStrings.productName.tr(context),
                       regExp: getTextWithNumberInputFormat(),
                       height: AppSize.s50.h,
                     ),
                     InputField(
                       controller: _priceController,
-                      hintTitle: AppStrings.productPrice.tr(context),
+                      labelTitle: AppStrings.productPrice.tr(context),
                       regExp: getDoubleInputFormat(),
                       height: AppSize.s50.h,
                     ),

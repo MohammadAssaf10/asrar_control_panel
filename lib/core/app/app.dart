@@ -10,7 +10,7 @@ import '../../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../../features/home/presentation/blocs/company/company_bloc.dart';
 import '../../features/home/presentation/blocs/course_bloc/course_bloc.dart';
 import '../../features/home/presentation/blocs/news_bloc/news_bloc.dart';
-import '../../features/home/presentation/blocs/photo_gallery_bloc/gallery_bloc.dart';
+import '../../features/home/presentation/blocs/photo_gallery_bloc/ad_image_bloc.dart';
 import '../../features/home/presentation/blocs/product/bloc/product_bloc.dart';
 import '../../features/home/presentation/blocs/services_bloc/services_bloc.dart';
 import '../../language_cubit/language_cubit.dart';
@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider<GalleryBloc>(
-              create: (context) => GalleryBloc(),
+            BlocProvider<AdImageBloc>(
+              create: (context) => AdImageBloc(),
             ),
             BlocProvider<CompanyBloc>(
               create: (context) => CompanyBloc(),

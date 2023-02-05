@@ -53,10 +53,4 @@ class StorageFileRepositoryImpl implements StorageFileRepository {
       return Left(ExceptionHandler.handle(e).failure);
     }
   }
-
-  @override
-  Future<void> deleteFile(String folderName, String fileName) async {
-    final ref = storage.ref().child("$folderName/$fileName");
-    await ref.delete();
-  }
 }

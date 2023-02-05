@@ -88,19 +88,19 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
                           ),
                     InputField(
                       controller: _coursesTitileController,
-                      hintTitle: AppStrings.newsTitile.tr(context),
+                      labelTitle: AppStrings.newsTitile.tr(context),
                       regExp: getAllKeyboradInputFormat(),
                       height: AppSize.s80.h,
                     ),
                     InputField(
                       controller: _coursesPriceController,
-                      hintTitle: AppStrings.newsContent.tr(context),
+                      labelTitle: AppStrings.newsContent.tr(context),
                       regExp: getDoubleInputFormat(),
                       height: AppSize.s50.h,
                     ),
                     InputField(
                       controller: _coursesContentController,
-                      hintTitle: AppStrings.courseContent.tr(context),
+                      labelTitle: AppStrings.courseContent.tr(context),
                       regExp: getAllKeyboradInputFormat(),
                       height: AppSize.s120.h,
                     ),
