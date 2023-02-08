@@ -85,13 +85,13 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
                           ),
                     InputField(
                       controller: _newsTitileController,
-                      labelTitle: AppStrings.newsTitile.tr(context),
+                      labelAndHintText: AppStrings.newsTitile.tr(context),
                       regExp: getAllKeyboradInputFormat(),
                       height: AppSize.s80.h,
                     ),
                     InputField(
                       controller: _newsContentController,
-                      labelTitle: AppStrings.newsContent.tr(context),
+                      labelAndHintText: AppStrings.newsContent.tr(context),
                       regExp: getAllKeyboradInputFormat(),
                       height: AppSize.s120.h,
                     ),

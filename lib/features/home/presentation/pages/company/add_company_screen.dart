@@ -80,7 +80,7 @@ class _AddCompanyScreenState extends State<AddCompanyScreen> {
                           ),
                     InputField(
                       controller: _controller,
-                      labelTitle: AppStrings.companyName.tr(context),
+                      labelAndHintText: AppStrings.companyName.tr(context),
                       regExp: getTextWithNumberInputFormat(),
                       height: AppSize.s50.h,
                     ),

@@ -58,6 +58,13 @@ class HomeScreen extends StatelessWidget {
                   Routes.newsRoute,
                 ),
               ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.jobs.tr(context),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.jobRoute,
+                ),
+              ),
             ],
           ),
         ],

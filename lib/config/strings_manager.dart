@@ -93,6 +93,10 @@ class AppStrings {
   static const String courseContent = "course_content";
   static const String courses = "courses";
   static const String addCourse = "add_course";
+  static const String jobs = "jobs";
+  static const String addJob = "add_job";
+  static const String jobTitle = "job_title";
+  static const String jobDetails = "job_details";
 
   static const String status = "status";
 

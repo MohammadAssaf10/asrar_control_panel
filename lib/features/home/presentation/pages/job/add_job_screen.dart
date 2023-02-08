@@ -12,21 +12,21 @@ import '../../../../../config/strings_manager.dart';
 import '../../../../../config/styles_manager.dart';
 import '../../../../../config/values_manager.dart';
 import '../../../../../core/app/functions.dart';
-import '../../../domain/entities/course_entities.dart';
+import '../../../domain/entities/job_entitiies.dart';
 import '../../../domain/entities/xfile_entities.dart';
 import '../../../domain/use_cases/select_image_for_web.dart';
-import '../../blocs/course_bloc/course_bloc.dart';
+import '../../blocs/job_bloc/job_bloc.dart';
 import '../../widgets/control_panel_button.dart';
 import '../../widgets/input_field.dart';
 
-class AddCoursesScreen extends StatefulWidget {
-  const AddCoursesScreen({super.key});
+class AddJobScreen extends StatefulWidget {
+  const AddJobScreen({super.key});
 
   @override
-  State<AddCoursesScreen> createState() => _AddCoursesScreenState();
+  State<AddJobScreen> createState() => _AddJobScreenState();
 }
 
-class _AddCoursesScreenState extends State<AddCoursesScreen> {
+class _AddJobScreenState extends State<AddJobScreen> {
   File? image;
   final SelectImageForWebUseCase selectImageForWebUseCase =
       SelectImageForWebUseCase();
@@ -34,21 +34,21 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
   Uint8List webImage = Uint8List(8);
   late XFileEntities xFileEntities;
 
-  final TextEditingController _coursesTitileController =
-      TextEditingController();
-  final TextEditingController _coursesContentController =
-      TextEditingController();
-  final TextEditingController _coursesPriceController = TextEditingController();
+  final TextEditingController _jobTitileController = TextEditingController();
+  final TextEditingController _jobDetailsController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CourseBloc, CourseState>(
+    return BlocListener<JobBloc, JobState>(
       listener: (context, state) {
-        if (state is CourseLoadingState) {
+        if (state is JobLoadingState) {
           showCustomDialog(context);
-        } else if (state is CourseErrorState) {
-          showCustomDialog(context, message: state.errorMessage.tr(context));
-        } else if (state is CourseAddedSuccessfullyState) {
+        } else if (state is JobErrorState) {
+          showCustomDialog(
+            context,
+            message: state.errorMessage.tr(context),
+          );
+        } else if (state is JobAddedSuccessfullyState) {
           showCustomDialog(context,
               message: AppStrings.addedSuccessfully.tr(context));
         }
@@ -58,7 +58,7 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
         body: Center(
           child: Container(
             width: AppSize.s200.w,
-            height: double.infinity,
+            height: AppSize.s600.h,
             color: ColorManager.white,
             child: Center(
               child: SingleChildScrollView(
@@ -87,20 +87,14 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
                             ),
                           ),
                     InputField(
-                      controller: _coursesTitileController,
-                      labelAndHintText: AppStrings.newsTitile.tr(context),
+                      controller: _jobTitileController,
+                      labelAndHintText: AppStrings.jobTitle.tr(context),
                       regExp: getAllKeyboradInputFormat(),
-                      height: AppSize.s80.h,
+                      height: AppSize.s60.h,
                     ),
                     InputField(
-                      controller: _coursesPriceController,
-                      labelAndHintText: AppStrings.newsContent.tr(context),
-                      regExp: getDoubleInputFormat(),
-                      height: AppSize.s50.h,
-                    ),
-                    InputField(
-                      controller: _coursesContentController,
-                      labelAndHintText: AppStrings.courseContent.tr(context),
+                      controller: _jobDetailsController,
+                      labelAndHintText: AppStrings.jobDetails.tr(context),
                       regExp: getAllKeyboradInputFormat(),
                       height: AppSize.s120.h,
                     ),
@@ -118,20 +112,19 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
                       buttonTitle: AppStrings.add.tr(context),
                       onTap: () {
                         if (image != null &&
-                            _coursesContentController.text.isNotEmpty &&
-                            _coursesTitileController.text.isNotEmpty &&
-                            _coursesPriceController.text.isNotEmpty) {
-                          final CourseEntities course = CourseEntities(
-                            courseTitile: _coursesTitileController.text,
-                            courseContent: _coursesContentController.text,
-                            coursePrice: _coursesPriceController.text,
-                            courseImageName: image!.path,
-                            courseImageUrl: "",
+                            _jobTitileController.text.isNotEmpty &&
+                            _jobDetailsController.text.isNotEmpty) {
+                          final JobEntities job = JobEntities(
+                            jobId: 0,
                             timestamp: Timestamp.now(),
+                            jobTitle: _jobTitileController.text,
+                            jobDetails: _jobDetailsController.text,
+                            jobImageName: image!.path,
+                            jobImageUrl: "",
                           );
-                          BlocProvider.of<CourseBloc>(context).add(
-                            AddCourseEvent(
-                              course: course,
+                          BlocProvider.of<JobBloc>(context).add(
+                            AddJobEvent(
+                              job: job,
                               xFileEntities: xFileEntities,
                             ),
                           );

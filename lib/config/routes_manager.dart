@@ -19,6 +19,9 @@ import '../features/home/presentation/pages/courses/add_courses_screen.dart';
 import '../features/home/presentation/pages/courses/courses_screen.dart';
 import '../features/home/presentation/pages/courses/delete_courses_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
+import '../features/home/presentation/pages/job/add_job_screen.dart';
+import '../features/home/presentation/pages/job/delete_job_screen.dart';
+import '../features/home/presentation/pages/job/job_screen.dart';
 import '../features/home/presentation/pages/news/add_news_screen.dart';
 import '../features/home/presentation/pages/news/delete_news_screen.dart';
 import '../features/home/presentation/pages/news/news_screen.dart';
@@ -53,6 +56,9 @@ class Routes {
   static const String coursesRoute = "/courses";
   static const String addCoursesRoute = "/addCourses";
   static const String deleteCoursesRoute = "/deleteCourses";
+  static const String jobRoute = "/job";
+  static const String addJobRoute = "/addjob";
+  static const String deleteJobRoute = "/deletejob";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -127,6 +133,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddCoursesScreen());
       case Routes.deleteCoursesRoute:
         return MaterialPageRoute(builder: (_) => const DeleteCoursesScreen());
+      case Routes.jobRoute:
+        return MaterialPageRoute(builder: (_) => const JobScreen());
+      case Routes.addJobRoute:
+        return MaterialPageRoute(builder: (_) => const AddJobScreen());
+      case Routes.deleteJobRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteJobScreen());
 
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());

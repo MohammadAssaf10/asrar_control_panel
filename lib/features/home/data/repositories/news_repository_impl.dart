@@ -11,12 +11,16 @@ import '../../domain/repositories/news_repository.dart';
 class NewsRepositoryImpl extends NewsRepository {
   final FirebaseFirestore db = FirebaseFirestore.instance;
   Future<int> getLastNewsId() async {
-    int newsId = 1;
+    int id = 0;
     final data = await db.collection(FireBaseCollection.news).get();
     if (data.size > 0) {
-      newsId = data.size + 1;
+      for (var doc in data.docs) {
+        if (doc["newsId"] > id) {
+          id = doc["newsId"];
+        }
+      }
     }
-    return newsId;
+    return id;
   }
 
   @override
@@ -25,7 +29,7 @@ class NewsRepositoryImpl extends NewsRepository {
     String newsImageUrl,
   ) async {
     try {
-      final int lastNewsId = await getLastNewsId();
+      final int lastNewsId = await getLastNewsId() + 1;
       final Map<String, dynamic> newsEntities = NewsEntities(
         newsId: lastNewsId,
         timestamp: news.timestamp,

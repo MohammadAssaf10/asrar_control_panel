@@ -85,6 +85,10 @@
   "no_news": "No news",
   "courses": "Courses",
   "add_course": "Add course",
+  "jobs": "Jobs",
+  "add_job": "Add job",
+  "job_title": "Job title",
+  "job_details": "Job details",
   
   "please_enter_all_required_data": "Please enter all required data",
 

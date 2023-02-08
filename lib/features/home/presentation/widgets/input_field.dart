@@ -7,12 +7,12 @@ import '../../../../config/values_manager.dart';
 class InputField extends StatelessWidget {
   const InputField({
     Key? key,
-    required this.labelTitle,
+    required this.labelAndHintText,
     required this.regExp,
     required this.controller,
     required this.height,
   }) : super(key: key);
-  final String labelTitle;
+  final String labelAndHintText;
   final RegExp regExp;
   final TextEditingController controller;
   final double height;
@@ -31,7 +31,8 @@ class InputField extends StatelessWidget {
         ],
         expands: true,
         decoration: InputDecoration(
-          labelText: labelTitle,
+          labelText: labelAndHintText,
+          hintText: labelAndHintText
         ),
       ),
     );

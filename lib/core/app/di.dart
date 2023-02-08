@@ -9,6 +9,7 @@ import '../../features/auth/domain/repository/auth_repository.dart';
 import '../../features/home/data/repositories/ad_image_repository_impl.dart';
 import '../../features/home/data/repositories/company_repository_impl.dart';
 import '../../features/home/data/repositories/course_repository_impl.dart';
+import '../../features/home/data/repositories/job_repository_impl.dart';
 import '../../features/home/data/repositories/news_repository_impl.dart';
 import '../../features/home/data/repositories/service_repository_impl.dart';
 import '../../features/home/data/repositories/product_repository_impl.dart';
@@ -16,6 +17,7 @@ import '../../features/home/data/repositories/storage_file_repository_impl.dart'
 import '../../features/home/domain/repositories/ad_image_repository.dart';
 import '../../features/home/domain/repositories/company_repository.dart';
 import '../../features/home/domain/repositories/course_repository.dart';
+import '../../features/home/domain/repositories/job_repository.dart';
 import '../../features/home/domain/repositories/news_repository.dart';
 import '../../features/home/domain/repositories/product_repository.dart';
 import '../../features/home/domain/repositories/service_repository.dart';
@@ -50,6 +52,7 @@ Future<void> initAppModule() async {
       .registerLazySingleton<CourseRepository>(() => CourseRepositoryImpl());
   instance
       .registerLazySingleton<AdImageRepository>(() => AdImageRepositoryImpl());
+  instance.registerLazySingleton<JobRepository>(() => JobRepositoryImpl());
 }
 
 void initAuthenticationModule() {

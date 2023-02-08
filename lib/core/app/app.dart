@@ -9,6 +9,7 @@ import '../../config/theme_manager.dart';
 import '../../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../../features/home/presentation/blocs/company/company_bloc.dart';
 import '../../features/home/presentation/blocs/course_bloc/course_bloc.dart';
+import '../../features/home/presentation/blocs/job_bloc/job_bloc.dart';
 import '../../features/home/presentation/blocs/news_bloc/news_bloc.dart';
 import '../../features/home/presentation/blocs/photo_gallery_bloc/ad_image_bloc.dart';
 import '../../features/home/presentation/blocs/product/bloc/product_bloc.dart';
@@ -44,6 +45,9 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<NewsBloc>(
               create: (context) => NewsBloc(),
+            ),
+            BlocProvider<JobBloc>(
+              create: (context) => JobBloc(),
             ),
             BlocProvider<CourseBloc>(
               create: (context) => CourseBloc(),

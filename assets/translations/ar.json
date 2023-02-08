@@ -86,6 +86,10 @@
   "no_news": "لا يوجد أخبار",
   "courses": "الدورات",
   "add_course": "إضافة دورة",
+  "jobs": "الوظائف",
+  "add_job": "إضافة وظيفة",
+  "job_title": "عنوان الوظيفة",
+  "job_details": "تفاصيل الوظيفة",
 
   "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",
 

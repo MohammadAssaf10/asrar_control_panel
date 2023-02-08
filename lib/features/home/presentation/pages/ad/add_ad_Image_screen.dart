@@ -81,7 +81,7 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
                   controller: _controller,
                   height: AppSize.s50.h,
                   regExp: getAllKeyboradInputFormat(),
-                  labelTitle: "رابط الصورة",
+                  labelAndHintText: "رابط الصورة",
                 ),
                 ControlPanelButton(
                   buttonTitle: AppStrings.selectImage.tr(context),
