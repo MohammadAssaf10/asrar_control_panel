@@ -89,6 +89,10 @@
   "add_job": "Add job",
   "job_title": "Job title",
   "job_details": "Job details",
+  "subscriptions": "Subscriptions",
+  "add_subscription": "Add subscription",
+  "subscription_name": "Subscription name",
+  "subscription_price": "Subscription price",
   
   "please_enter_all_required_data": "Please enter all required data",
 

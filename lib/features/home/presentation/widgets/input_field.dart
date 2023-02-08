@@ -18,21 +18,23 @@ class InputField extends StatelessWidget {
   final double height;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: AppSize.s130.w,
-      margin: EdgeInsets.symmetric(vertical: AppSize.s10.h),
-      child: TextFormField(
-        controller: controller,
-        maxLines: null,
-        textAlign: TextAlign.center,
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(regExp),
-        ],
-        expands: true,
-        decoration: InputDecoration(
-          labelText: labelAndHintText,
-          hintText: labelAndHintText
+    return Center(
+      child: Container(
+        height: height,
+        width: AppSize.s130.w,
+        margin: EdgeInsets.symmetric(vertical: AppSize.s10.h),
+        child: TextFormField(
+          controller: controller,
+          maxLines: null,
+          textAlign: TextAlign.center,
+          inputFormatters: [
+            FilteringTextInputFormatter.allow(regExp),
+          ],
+          expands: true,
+          decoration: InputDecoration(
+            labelText: labelAndHintText,
+            hintText: labelAndHintText
+          ),
         ),
       ),
     );

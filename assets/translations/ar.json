@@ -90,6 +90,10 @@
   "add_job": "إضافة وظيفة",
   "job_title": "عنوان الوظيفة",
   "job_details": "تفاصيل الوظيفة",
+  "subscriptions": "الاشتراكات",
+  "add_subscription": "إضافة اشتراك",
+  "subscription_name": "اسم الاشتراك",
+  "subscription_price": "سعر الاشتراك",
 
   "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",
 

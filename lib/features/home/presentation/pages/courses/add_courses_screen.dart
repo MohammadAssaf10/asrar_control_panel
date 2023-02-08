@@ -58,93 +58,90 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
         body: Center(
           child: Container(
             width: AppSize.s200.w,
-            height: double.infinity,
+            height: AppSize.s600.h,
             color: ColorManager.white,
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    image == null
-                        ? Padding(
-                            padding: EdgeInsets.only(bottom: AppSize.s20.h),
-                            child: Text(
-                              AppStrings.pleaseSelectImage.tr(context),
-                              style: getAlmaraiRegularStyle(
-                                  fontSize: AppSize.s20.sp,
-                                  color: ColorManager.primary),
-                            ),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AppSize.s10.w,
-                              vertical: AppSize.s10.h,
-                            ),
-                            child: Image.memory(
-                              webImage,
-                              height: AppSize.s250.h,
-                            ),
+            alignment: Alignment.center,
+            child: ListView(
+              children: [
+                image == null
+                    ? Center(
+                      child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: AppSize.s20.h),
+                          child: Text(
+                            AppStrings.pleaseSelectImage.tr(context),
+                            style: getAlmaraiRegularStyle(
+                                fontSize: AppSize.s20.sp,
+                                color: ColorManager.primary),
                           ),
-                    InputField(
-                      controller: _coursesTitileController,
-                      labelAndHintText: AppStrings.newsTitile.tr(context),
-                      regExp: getAllKeyboradInputFormat(),
-                      height: AppSize.s80.h,
-                    ),
-                    InputField(
-                      controller: _coursesPriceController,
-                      labelAndHintText: AppStrings.newsContent.tr(context),
-                      regExp: getDoubleInputFormat(),
-                      height: AppSize.s50.h,
-                    ),
-                    InputField(
-                      controller: _coursesContentController,
-                      labelAndHintText: AppStrings.courseContent.tr(context),
-                      regExp: getAllKeyboradInputFormat(),
-                      height: AppSize.s120.h,
-                    ),
-                    ControlPanelButton(
-                      buttonTitle: AppStrings.selectImage.tr(context),
-                      onTap: () async {
-                        xFileEntities = (await selectImageForWebUseCase())!;
-                        setState(() {
-                          webImage = xFileEntities.xFileAsBytes;
-                          image = File(xFileEntities.name);
-                        });
-                      },
-                    ),
-                    ControlPanelButton(
-                      buttonTitle: AppStrings.add.tr(context),
-                      onTap: () {
-                        if (image != null &&
-                            _coursesContentController.text.isNotEmpty &&
-                            _coursesTitileController.text.isNotEmpty &&
-                            _coursesPriceController.text.isNotEmpty) {
-                          final CourseEntities course = CourseEntities(
-                            courseTitile: _coursesTitileController.text,
-                            courseContent: _coursesContentController.text,
-                            coursePrice: _coursesPriceController.text,
-                            courseImageName: image!.path,
-                            courseImageUrl: "",
-                            timestamp: Timestamp.now(),
-                          );
-                          BlocProvider.of<CourseBloc>(context).add(
-                            AddCourseEvent(
-                              course: course,
-                              xFileEntities: xFileEntities,
-                            ),
-                          );
-                        } else {
-                          showCustomDialog(context,
-                              message: AppStrings.pleaseEnterAllRequiredData
-                                  .tr(context));
-                        }
-                      },
-                    ),
-                  ],
+                        ),
+                    )
+                    : Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppSize.s10.w,
+                          vertical: AppSize.s10.h,
+                        ),
+                        child: Image.memory(
+                          webImage,
+                          height: AppSize.s250.h,
+                        ),
+                      ),
+                InputField(
+                  controller: _coursesTitileController,
+                  labelAndHintText: AppStrings.newsTitile.tr(context),
+                  regExp: getAllKeyboradInputFormat(),
+                  height: AppSize.s80.h,
                 ),
-              ),
+                InputField(
+                  controller: _coursesPriceController,
+                  labelAndHintText: AppStrings.newsContent.tr(context),
+                  regExp: getDoubleInputFormat(),
+                  height: AppSize.s50.h,
+                ),
+                InputField(
+                  controller: _coursesContentController,
+                  labelAndHintText: AppStrings.courseContent.tr(context),
+                  regExp: getAllKeyboradInputFormat(),
+                  height: AppSize.s120.h,
+                ),
+                ControlPanelButton(
+                  buttonTitle: AppStrings.selectImage.tr(context),
+                  onTap: () async {
+                    xFileEntities = (await selectImageForWebUseCase())!;
+                    setState(() {
+                      webImage = xFileEntities.xFileAsBytes;
+                      image = File(xFileEntities.name);
+                    });
+                  },
+                ),
+                ControlPanelButton(
+                  buttonTitle: AppStrings.add.tr(context),
+                  onTap: () {
+                    if (image != null &&
+                        _coursesContentController.text.isNotEmpty &&
+                        _coursesTitileController.text.isNotEmpty &&
+                        _coursesPriceController.text.isNotEmpty) {
+                      final CourseEntities course = CourseEntities(
+                        courseTitile: _coursesTitileController.text,
+                        courseContent: _coursesContentController.text,
+                        coursePrice: _coursesPriceController.text,
+                        courseImageName: image!.path,
+                        courseImageUrl: "",
+                        timestamp: Timestamp.now(),
+                      );
+                      BlocProvider.of<CourseBloc>(context).add(
+                        AddCourseEvent(
+                          course: course,
+                          xFileEntities: xFileEntities,
+                        ),
+                      );
+                    } else {
+                      showCustomDialog(context,
+                          message: AppStrings.pleaseEnterAllRequiredData
+                              .tr(context));
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ),

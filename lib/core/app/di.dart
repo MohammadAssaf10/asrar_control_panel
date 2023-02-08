@@ -14,6 +14,7 @@ import '../../features/home/data/repositories/news_repository_impl.dart';
 import '../../features/home/data/repositories/service_repository_impl.dart';
 import '../../features/home/data/repositories/product_repository_impl.dart';
 import '../../features/home/data/repositories/storage_file_repository_impl.dart';
+import '../../features/home/data/repositories/subscription_repository_impl.dart';
 import '../../features/home/domain/repositories/ad_image_repository.dart';
 import '../../features/home/domain/repositories/company_repository.dart';
 import '../../features/home/domain/repositories/course_repository.dart';
@@ -22,6 +23,7 @@ import '../../features/home/domain/repositories/news_repository.dart';
 import '../../features/home/domain/repositories/product_repository.dart';
 import '../../features/home/domain/repositories/service_repository.dart';
 import '../../features/home/domain/repositories/storage_file_repository.dart';
+import '../../features/home/domain/repositories/subscription_repository.dart';
 
 final GetIt instance = GetIt.instance;
 
@@ -53,6 +55,8 @@ Future<void> initAppModule() async {
   instance
       .registerLazySingleton<AdImageRepository>(() => AdImageRepositoryImpl());
   instance.registerLazySingleton<JobRepository>(() => JobRepositoryImpl());
+  instance.registerLazySingleton<SubscriptionRepository>(
+      () => SubscriptionRepositoryImpl());
 }
 
 void initAuthenticationModule() {

@@ -14,6 +14,7 @@ import '../../features/home/presentation/blocs/news_bloc/news_bloc.dart';
 import '../../features/home/presentation/blocs/photo_gallery_bloc/ad_image_bloc.dart';
 import '../../features/home/presentation/blocs/product/bloc/product_bloc.dart';
 import '../../features/home/presentation/blocs/services_bloc/services_bloc.dart';
+import '../../features/home/presentation/blocs/subscription_bloc/subscription_bloc.dart';
 import '../../language_cubit/language_cubit.dart';
 import 'language.dart';
 
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
+      designSize: const Size(300, 690),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -48,6 +49,9 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<JobBloc>(
               create: (context) => JobBloc(),
+            ),
+            BlocProvider<SubscriptionBloc>(
+              create: (context) => SubscriptionBloc(),
             ),
             BlocProvider<CourseBloc>(
               create: (context) => CourseBloc(),

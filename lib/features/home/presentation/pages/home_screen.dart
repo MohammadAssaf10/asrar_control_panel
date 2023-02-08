@@ -40,6 +40,15 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.subscriptions.tr(context),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.subscriptionRoute,
+                  );
+                },
+              ),
             ],
           ),
           Column(

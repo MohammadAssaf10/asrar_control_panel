@@ -97,6 +97,10 @@ class AppStrings {
   static const String addJob = "add_job";
   static const String jobTitle = "job_title";
   static const String jobDetails = "job_details";
+  static const String subscriptions = "subscriptions";
+  static const String addSubscription = "add_subscription";
+  static const String subscriptionName = "subscription_name";
+  static const String subscriptionPrice = "subscription_price";
 
   static const String status = "status";
 

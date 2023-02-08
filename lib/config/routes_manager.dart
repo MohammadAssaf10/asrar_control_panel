@@ -31,6 +31,9 @@ import '../features/home/presentation/pages/service/services_screen.dart';
 import '../features/home/presentation/pages/shop/add_product_screen.dart';
 import '../features/home/presentation/pages/shop/products_screen.dart';
 import '../features/home/presentation/pages/shop/shop_screen.dart';
+import '../features/home/presentation/pages/subscription/add_subscription_sceen.dart';
+import '../features/home/presentation/pages/subscription/delete_subscription_screen.dart';
+import '../features/home/presentation/pages/subscription/subscription_screen.dart';
 import '../splash.dart';
 import 'strings_manager.dart';
 
@@ -59,6 +62,9 @@ class Routes {
   static const String jobRoute = "/job";
   static const String addJobRoute = "/addjob";
   static const String deleteJobRoute = "/deletejob";
+  static const String subscriptionRoute = "/subscription";
+  static const String addSubscriptionRoute = "/addSubscription";
+  static const String deleteSubscriptionRoute = "/deleteSubscription";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -139,13 +145,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddJobScreen());
       case Routes.deleteJobRoute:
         return MaterialPageRoute(builder: (_) => const DeleteJobScreen());
-
+      case Routes.subscriptionRoute:
+        return MaterialPageRoute(builder: (_) => const SubscriptionScreen());
+      case Routes.addSubscriptionRoute:
+        return MaterialPageRoute(builder: (_) => const AddSubscriptionScreen());
+      case Routes.deleteSubscriptionRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteSubscriptionScreen());
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());
-
       case Routes.servicesRoute:
         return MaterialPageRoute(builder: (_) => const ServicesScreen());
-
       case Routes.deleteCompanyRoute:
         return MaterialPageRoute(builder: (_) => const DeleteCompanyScreen());
       case Routes.deleteServiceRoute:
