@@ -116,6 +116,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             productPrice: _priceController.text,
                             productImageUrl: "",
                             productImageName: image!.path,
+                            productCount: 1
                           );
                           BlocProvider.of<ProductBloc>(context)
                               .add(AddProductEvent(

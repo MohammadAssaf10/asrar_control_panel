@@ -68,7 +68,7 @@ class DeleteSubscriptionScreen extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         return Center(
                           child: Container(
-                            height: AppSize.s60.h,
+                            height: AppSize.s80.h,
                             width: AppSize.s120.w,
                             margin: EdgeInsets.symmetric(
                               vertical: AppSize.s10.h,
@@ -86,32 +86,36 @@ class DeleteSubscriptionScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  textBaseline: TextBaseline.alphabetic,
-                                  children: [
-                                    Text(
-                                      state.subscriptionList[index]
-                                          .subscriptionName,
-                                      style: getAlmaraiRegularStyle(
-                                        fontSize: AppSize.s18.sp,
-                                        color: ColorManager.white,
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    textBaseline: TextBaseline.alphabetic,
+                                    children: [
+                                      Text(
+                                        state.subscriptionList[index]
+                                            .subscriptionName,
+                                        style: getAlmaraiRegularStyle(
+                                          fontSize: AppSize.s18.sp,
+                                          color: ColorManager.white,
+                                        ),
+                                        maxLines: 2,
+                                        softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      maxLines: 2,
-                                      softWrap: true,
-                                      overflow: TextOverflow.visible,
-                                    ),
-                                    Text(
-                                      "${state.subscriptionList[index].subscriptionPrice} ر.س",
-                                      style: getAlmaraiRegularStyle(
-                                        fontSize: AppSize.s16.sp,
-                                        color: ColorManager.white,
+                                      Text(
+                                        "${state.subscriptionList[index].subscriptionPrice} ر.س",
+                                        style: getAlmaraiRegularStyle(
+                                          fontSize: AppSize.s16.sp,
+                                          color: ColorManager.white,
+                                        ),
+                                        maxLines: 1,
+                                        softWrap: true,
+                                        overflow: TextOverflow.visible,
                                       ),
-                                      maxLines: 1,
-                                      softWrap: true,
-                                      overflow: TextOverflow.visible,
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                                 IconButton(
                                   onPressed: () {
