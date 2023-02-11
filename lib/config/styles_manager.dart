@@ -5,10 +5,11 @@ import 'font_manager.dart';
 TextStyle _getTextStyle(
     double fontSize, FontWeight fontWeight, Color color, String fontFamily) {
   return TextStyle(
-      fontSize: fontSize,
-      fontFamily: fontFamily,
-      color: color,
-      fontWeight: fontWeight);
+    fontSize: fontSize,
+    fontFamily: fontFamily,
+    color: color,
+    fontWeight: fontWeight,
+  );
 }
 
 // almarai regular style

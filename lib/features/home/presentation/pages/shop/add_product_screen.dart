@@ -6,17 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/color_manager.dart';
-import '../../../../config/strings_manager.dart';
-import '../../../../config/styles_manager.dart';
-import '../../../../config/values_manager.dart';
-import '../../../../core/app/functions.dart';
-import '../../domain/entities/product_entities.dart';
-import '../../domain/entities/xfile_entities.dart';
-import '../blocs/product/bloc/product_bloc.dart';
-import '../widgets/control_panel_button.dart';
-import '../../domain/use_cases/select_image_for_web.dart';
-import '../widgets/input_field.dart';
+import '../../../../../config/color_manager.dart';
+import '../../../../../config/strings_manager.dart';
+import '../../../../../config/styles_manager.dart';
+import '../../../../../config/values_manager.dart';
+import '../../../../../core/app/functions.dart';
+import '../../../domain/entities/product_entities.dart';
+import '../../../domain/entities/xfile_entities.dart';
+import '../../blocs/product/bloc/product_bloc.dart';
+import '../../widgets/control_panel_button.dart';
+import '../../../domain/use_cases/select_image_for_web.dart';
+import '../../widgets/input_field.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -83,30 +83,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             ),
                           ),
                     InputField(
-                      widget: Text(
-                        AppStrings.productName.tr(context),
-                        style: getAlmaraiRegularStyle(
-                          fontSize: AppSize.s16.sp,
-                          color: ColorManager.primary,
-                        ),
-                      ),
                       controller: _productNameController,
-                      hintTitle: AppStrings.productName.tr(context),
-                      keyboardType: TextInputType.name,
-                      regExp: RegExp('[" "a-zآ-يA-Z]'),
+                      labelAndHintText: AppStrings.productName.tr(context),
+                      regExp: getTextWithNumberInputFormat(),
+                      height: AppSize.s50.h,
                     ),
                     InputField(
-                      widget: Text(
-                        AppStrings.productPrice.tr(context),
-                        style: getAlmaraiRegularStyle(
-                          fontSize: AppSize.s16.sp,
-                          color: ColorManager.primary,
-                        ),
-                      ),
                       controller: _priceController,
-                      hintTitle: AppStrings.productPrice.tr(context),
-                      keyboardType: TextInputType.number,
-                      regExp: RegExp(r'(^\d*\.?\d*)'),
+                      labelAndHintText: AppStrings.productPrice.tr(context),
+                      regExp: getDoubleInputFormat(),
+                      height: AppSize.s50.h,
                     ),
                     ControlPanelButton(
                       buttonTitle: AppStrings.selectImage.tr(context),
@@ -130,6 +116,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             productPrice: _priceController.text,
                             productImageUrl: "",
                             productImageName: image!.path,
+                            productCount: 1
                           );
                           BlocProvider.of<ProductBloc>(context)
                               .add(AddProductEvent(

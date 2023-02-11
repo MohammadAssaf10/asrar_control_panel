@@ -7,22 +7,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // import '../features/auth/data/data_sources/auth_prefs.dart';
 import '../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../features/auth/presentation/pages/login_view.dart';
-
 import '../features/employees_manager/presentation/employee_management/employee_management_bloc.dart';
 import '../features/employees_manager/presentation/employee_management/employee_management_view.dart';
 import '../features/home/domain/entities/company.dart';
-import '../features/home/presentation/pages/add_ad_image_screen.dart';
-import '../features/home/presentation/pages/add_company_screen.dart';
-import '../features/home/presentation/pages/add_product_screen.dart';
-import '../features/home/presentation/pages/add_services_screen.dart';
-import '../features/home/presentation/pages/delete_company_screen.dart';
-import '../features/home/presentation/pages/delete_service_screen.dart';
+import '../features/home/presentation/pages/ad/add_ad_Image_screen.dart';
+import '../features/home/presentation/pages/ad/photo_gallery_screen.dart';
+import '../features/home/presentation/pages/company/add_company_screen.dart';
+import '../features/home/presentation/pages/company/delete_company_screen.dart';
+import '../features/home/presentation/pages/company/update_company_ranking_screen.dart';
+import '../features/home/presentation/pages/courses/add_courses_screen.dart';
+import '../features/home/presentation/pages/courses/courses_screen.dart';
+import '../features/home/presentation/pages/courses/delete_courses_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
-import '../features/home/presentation/pages/photo_gallery_screen.dart';
-import '../features/home/presentation/pages/products_screen.dart';
-import '../features/home/presentation/pages/services_screen.dart';
-import '../features/home/presentation/pages/shop_screen.dart';
-import '../features/home/presentation/pages/update_company_ranking_screen.dart';
+import '../features/home/presentation/pages/job/add_job_screen.dart';
+import '../features/home/presentation/pages/job/delete_job_screen.dart';
+import '../features/home/presentation/pages/job/job_screen.dart';
+import '../features/home/presentation/pages/news/add_news_screen.dart';
+import '../features/home/presentation/pages/news/delete_news_screen.dart';
+import '../features/home/presentation/pages/news/news_screen.dart';
+import '../features/home/presentation/pages/service/add_services_screen.dart';
+import '../features/home/presentation/pages/service/delete_service_screen.dart';
+import '../features/home/presentation/pages/service/services_screen.dart';
+import '../features/home/presentation/pages/shop/add_product_screen.dart';
+import '../features/home/presentation/pages/shop/products_screen.dart';
+import '../features/home/presentation/pages/shop/shop_screen.dart';
+import '../features/home/presentation/pages/subscription/add_subscription_sceen.dart';
+import '../features/home/presentation/pages/subscription/delete_subscription_screen.dart';
+import '../features/home/presentation/pages/subscription/subscription_screen.dart';
 import '../splash.dart';
 import 'strings_manager.dart';
 
@@ -41,7 +52,19 @@ class Routes {
   static const String shopRoute = "/shop";
   static const String addProductRoute = "/addProduct";
   static const String productsRoute = "/products";
-  static const String updateCompanyRankingRouter = "/updateCompanyRanking";
+  static const String updateCompanyRankingRoute = "/updateCompanyRanking";
+  static const String newsRoute = "/news";
+  static const String addNewsRoute = "/addNews";
+  static const String deleteNewsRoute = "/deleteNews";
+  static const String coursesRoute = "/courses";
+  static const String addCoursesRoute = "/addCourses";
+  static const String deleteCoursesRoute = "/deleteCourses";
+  static const String jobRoute = "/job";
+  static const String addJobRoute = "/addjob";
+  static const String deleteJobRoute = "/deletejob";
+  static const String subscriptionRoute = "/subscription";
+  static const String addSubscriptionRoute = "/addSubscription";
+  static const String deleteSubscriptionRoute = "/deleteSubscription";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -104,22 +127,44 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddProductScreen());
       case Routes.productsRoute:
         return MaterialPageRoute(builder: (_) => const ProductScreen());
-
+      case Routes.newsRoute:
+        return MaterialPageRoute(builder: (_) => const NewsScreen());
+      case Routes.addNewsRoute:
+        return MaterialPageRoute(builder: (_) => const AddNewsScreen());
+      case Routes.deleteNewsRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteNewsScreen());
+      case Routes.coursesRoute:
+        return MaterialPageRoute(builder: (_) => const CoursesScreen());
+      case Routes.addCoursesRoute:
+        return MaterialPageRoute(builder: (_) => const AddCoursesScreen());
+      case Routes.deleteCoursesRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteCoursesScreen());
+      case Routes.jobRoute:
+        return MaterialPageRoute(builder: (_) => const JobScreen());
+      case Routes.addJobRoute:
+        return MaterialPageRoute(builder: (_) => const AddJobScreen());
+      case Routes.deleteJobRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteJobScreen());
+      case Routes.subscriptionRoute:
+        return MaterialPageRoute(builder: (_) => const SubscriptionScreen());
+      case Routes.addSubscriptionRoute:
+        return MaterialPageRoute(builder: (_) => const AddSubscriptionScreen());
+      case Routes.deleteSubscriptionRoute:
+        return MaterialPageRoute(builder: (_) => const DeleteSubscriptionScreen());
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());
-
       case Routes.servicesRoute:
         return MaterialPageRoute(builder: (_) => const ServicesScreen());
-
       case Routes.deleteCompanyRoute:
         return MaterialPageRoute(builder: (_) => const DeleteCompanyScreen());
       case Routes.deleteServiceRoute:
         return MaterialPageRoute(builder: (_) => const DeleteServiceScreen());
-      case Routes.updateCompanyRankingRouter:
+      case Routes.updateCompanyRankingRoute:
         {
           final arg = settings.arguments as CompanyEntities;
           return MaterialPageRoute(
-              builder: (_) => UpdateCompanyRankingScreen(arg));
+            builder: (_) => UpdateCompanyRankingScreen(arg),
+          );
         }
       case Routes.addCompanyRoute:
         return MaterialPageRoute(builder: (_) => const AddCompanyScreen());

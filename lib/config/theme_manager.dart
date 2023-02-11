@@ -1,10 +1,10 @@
+import 'package:asrar_control_panel/config/styles_manager.dart';
+import 'package:asrar_control_panel/config/values_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'color_manager.dart';
-import 'styles_manager.dart';
-import 'values_manager.dart';
 
 ThemeData getApplicationTheme() {
   return ThemeData(
@@ -22,10 +22,20 @@ ThemeData getApplicationTheme() {
       centerTitle: true,
       elevation: AppSize.s0,
       titleTextStyle: getAlmaraiRegularStyle(
-          fontSize: AppSize.s16.sp, color: ColorManager.white),
+          fontSize: AppSize.s17.sp, color: ColorManager.white),
+    ),
+    errorColor: ColorManager.error,
+    textSelectionTheme: const TextSelectionThemeData(
+      cursorColor: ColorManager.primary,
+      selectionHandleColor: ColorManager.primary,
+    ),
+    textTheme: TextTheme(
+      subtitle1: getAlmaraiRegularStyle(
+        fontSize: AppSize.s18.sp,
+        color: ColorManager.primary,
+      ),
     ),
     // input decoration theme (text form field)
-    errorColor: ColorManager.error,
     inputDecorationTheme: InputDecorationTheme(
       // hint style
       hintStyle: getAlmaraiRegularStyle(
@@ -36,18 +46,47 @@ ThemeData getApplicationTheme() {
           color: ColorManager.error, fontSize: AppSize.s16.sp),
 
       // enabled border style
-      enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: ColorManager.grey)),
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: ColorManager.grey),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            AppSize.s10.r,
+          ),
+        ),
+      ),
       // focused border style
-      focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: ColorManager.primary)),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: ColorManager.primary),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            AppSize.s10.r,
+          ),
+        ),
+      ),
       // error border style
-      errorBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: ColorManager.error)),
-      // focused border style
+      errorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: ColorManager.error),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            AppSize.s10.r,
+          ),
+        ),
+      ),
+      // focused error border style
+      focusedErrorBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: ColorManager.error),
+        borderRadius: BorderRadius.all(
+          Radius.circular(
+            AppSize.s10.r,
+          ),
+        ),
+      ),
     ),
     // icon theme
-    iconTheme: IconThemeData(color: ColorManager.white, size: AppSize.s25.sp),
+    iconTheme: IconThemeData(
+      color: ColorManager.white,
+      size: AppSize.s25.sp,
+    ),
     // text button
     textButtonTheme: TextButtonThemeData(
       style: ButtonStyle(
@@ -60,48 +99,60 @@ ThemeData getApplicationTheme() {
             }
           },
         ),
-        textStyle: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return getAlmaraiRegularStyle(
-                color: ColorManager.grey, fontSize: AppSize.s18.sp);
-          } else {
-            return getAlmaraiRegularStyle(
-                color: ColorManager.primary, fontSize: AppSize.s18.sp);
-          }
-        }),
+        textStyle: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.disabled)) {
+              return getAlmaraiRegularStyle(
+                  color: ColorManager.grey, fontSize: AppSize.s18.sp);
+            } else {
+              return getAlmaraiRegularStyle(
+                  color: ColorManager.primary, fontSize: AppSize.s18.sp);
+            }
+          },
+        ),
       ),
     ),
     // elevated button
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return ColorManager.grey;
-          } else {
-            return ColorManager.primary;
-          }
-        }),
-        foregroundColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return ColorManager.primary;
-          } else {
-            return ColorManager.white;
-          }
-        }),
-        shadowColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return ColorManager.white;
-          } else {
-            return ColorManager.primary;
-          }
-        }),
-        elevation: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.disabled)) {
-            return AppSize.s0;
-          } else {
-            return AppSize.s6.h;
-          }
-        }),
+        backgroundColor: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.disabled)) {
+              return ColorManager.white;
+            } else {
+              return ColorManager.primary;
+            }
+          },
+        ),
+        foregroundColor: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.disabled)) {
+              return ColorManager.primary;
+            } else {
+              return ColorManager.white;
+            }
+          },
+        ),
+        shadowColor: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.disabled)) {
+              return ColorManager.white;
+            } else {
+              return ColorManager.primary;
+            }
+          },
+        ),
+        elevation: MaterialStateProperty.resolveWith(
+          (states) {
+            if (states.contains(MaterialState.disabled)) {
+              return AppSize.s0;
+            } else {
+              return AppSize.s6.h;
+            }
+          },
+        ),
+        side: MaterialStateProperty.resolveWith(
+            (states) => const BorderSide(color: ColorManager.primary)),
         shape: MaterialStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSize.s10.r),
@@ -112,40 +163,51 @@ ThemeData getApplicationTheme() {
     // outline button
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.resolveWith((states) {
+        foregroundColor: MaterialStateProperty.resolveWith(
+          (states) {
             if (states.contains(MaterialState.disabled)) {
               return ColorManager.primary;
             } else {
               return ColorManager.white;
             }
-          }),
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
+          },
+        ),
+        backgroundColor: MaterialStateProperty.resolveWith(
+          (states) {
             if (states.contains(MaterialState.disabled)) {
               return ColorManager.white;
             } else {
               return ColorManager.primary;
             }
-          }),
-          side: MaterialStateProperty.resolveWith(
-              (states) => const BorderSide(color: ColorManager.primary)),
-          elevation: MaterialStateProperty.resolveWith((states) {
+          },
+        ),
+        side: MaterialStateProperty.resolveWith(
+            (states) => const BorderSide(color: ColorManager.primary)),
+        elevation: MaterialStateProperty.resolveWith(
+          (states) {
             if (states.contains(MaterialState.disabled)) {
               return AppSize.s0;
             } else {
               return AppSize.s6.h;
             }
-          }),
-          shadowColor: MaterialStateProperty.resolveWith((states) {
+          },
+        ),
+        shadowColor: MaterialStateProperty.resolveWith(
+          (states) {
             if (states.contains(MaterialState.disabled)) {
               return ColorManager.white;
             } else {
               return ColorManager.primary;
             }
-          }),
-          shape: MaterialStateProperty.resolveWith((states) {
+          },
+        ),
+        shape: MaterialStateProperty.resolveWith(
+          (states) {
             return RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(AppSize.s18));
-          })),
+          },
+        ),
+      ),
     ),
   );
 }

@@ -31,13 +31,48 @@ class HomeScreen extends StatelessWidget {
                   Routes.shopRoute,
                 ),
               ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.courses.tr(context),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.coursesRoute,
+                  );
+                },
+              ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.subscriptions.tr(context),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.subscriptionRoute,
+                  );
+                },
+              ),
             ],
           ),
           Column(
             children: [
               ControlPanelButton(
                 buttonTitle: AppStrings.services.tr(context),
-                onTap: () => Navigator.pushNamed(context, Routes.servicesRoute,),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.servicesRoute,
+                ),
+              ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.news.tr(context),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.newsRoute,
+                ),
+              ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.jobs.tr(context),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  Routes.jobRoute,
+                ),
               ),
             ],
           ),

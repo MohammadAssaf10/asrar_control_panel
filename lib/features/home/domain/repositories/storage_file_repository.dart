@@ -9,6 +9,4 @@ abstract class StorageFileRepository {
       XFileEntities xFileEntities, String folderPath);
 
   Future<Either<Failure, List<FileEntities>>> getFile(String folderName);
-
-  Future<void> deleteFile(String folderName,String fileName);
 }

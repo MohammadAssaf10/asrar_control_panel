@@ -19,6 +19,26 @@ bool isMobileNumberCorrect(String mobileNumber) {
   return RegExp(r"^[+]*[0-9]+").hasMatch(mobileNumber);
 }
 
+RegExp getNumberInputFormat() {
+  return RegExp(r'^[0-9]+');
+}
+
+RegExp getDoubleInputFormat() {
+  return RegExp(r'(^\d*\.?\d*)');
+}
+
+RegExp getTextWithNumberInputFormat() {
+  return RegExp(r"^[a-zA-Z0-9ء-ي\s]+");
+}
+
+RegExp getArabicAndEnglishTextInputFormat() {
+  return RegExp(r"^[a-zA-Zء-ي\s]+");
+}
+
+RegExp getAllKeyboradInputFormat() {
+  return RegExp(r"^([،a-zA-Z\u0020-\u007Eء-ي\n]+)");
+}
+
 _isCurrentDialogShowing(BuildContext context) =>
     ModalRoute.of(context)?.isCurrent != true;
 

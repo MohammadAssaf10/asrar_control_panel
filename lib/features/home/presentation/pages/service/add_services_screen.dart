@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/color_manager.dart';
-import '../../../../config/strings_manager.dart';
-import '../../../../config/styles_manager.dart';
-import '../../../../config/values_manager.dart';
-import '../../../../core/app/functions.dart';
-import '../../domain/entities/service_entities.dart';
-import '../blocs/company/company_bloc.dart';
-import '../blocs/services_bloc/services_bloc.dart';
-import '../widgets/control_panel_button.dart';
-import '../widgets/input_field.dart';
-import '../../../../core/app/extensions.dart';
+import '../../../../../config/color_manager.dart';
+import '../../../../../config/strings_manager.dart';
+import '../../../../../config/styles_manager.dart';
+import '../../../../../config/values_manager.dart';
+import '../../../../../core/app/functions.dart';
+import '../../../domain/entities/service_entities.dart';
+import '../../blocs/company/company_bloc.dart';
+import '../../blocs/services_bloc/services_bloc.dart';
+import '../../widgets/control_panel_button.dart';
+import '../../widgets/input_field.dart';
+import '../../../../../core/app/extensions.dart';
 
 class AddServicesScreen extends StatefulWidget {
   const AddServicesScreen({Key? key}) : super(key: key);
@@ -106,30 +106,16 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                     },
                   ),
                   InputField(
-                    widget: Text(
-                      AppStrings.servicesName.tr(context),
-                      style: getAlmaraiRegularStyle(
-                        fontSize: AppSize.s16.sp,
-                        color: ColorManager.primary,
-                      ),
-                    ),
                     controller: _servicesNameController,
-                    hintTitle: AppStrings.servicesName.tr(context),
-                    keyboardType: TextInputType.name,
-                    regExp: RegExp('[" "a-zآ-يA-Z]'),
+                    labelAndHintText: AppStrings.servicesName.tr(context),
+                    regExp: getArabicAndEnglishTextInputFormat(),
+                    height: AppSize.s50.h,
                   ),
                   InputField(
-                    widget: Text(
-                      AppStrings.servicesPrice.tr(context),
-                      style: getAlmaraiRegularStyle(
-                        fontSize: AppSize.s16.sp,
-                        color: ColorManager.primary,
-                      ),
-                    ),
                     controller: _priceController,
-                    hintTitle: AppStrings.servicesPrice.tr(context),
-                    keyboardType: TextInputType.number,
-                    regExp: RegExp(r'(^\d*\.?\d*)'),
+                    labelAndHintText: AppStrings.servicesPrice.tr(context),
+                    regExp: getDoubleInputFormat(),
+                    height: AppSize.s50.h,
                   ),
                   ListView.builder(
                       shrinkWrap: true,
@@ -145,30 +131,47 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
                           ),
                         );
                       }),
-                  InputField(
-                    widget: MaterialButton(
-                      height: double.infinity,
-                      color: ColorManager.primary,
-                      onPressed: () {
-                        if (_requiredDocumentsController.text.isNotEmpty) {
-                          setState(() {
-                            list.add(_requiredDocumentsController.text);
-                            _requiredDocumentsController.clear();
-                          });
-                        }
-                      },
-                      child: Text(
-                        AppStrings.add.tr(context),
-                        style: getAlmaraiRegularStyle(
-                          fontSize: AppSize.s16.sp,
-                          color: ColorManager.white,
+                  SizedBox(
+                    width: AppSize.s130.w,
+                    child: Row(
+                      children: [
+                        MaterialButton(
+                          height: 55.h,
+                          color: ColorManager.primary,
+                          shape: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: ColorManager.primary),
+                            borderRadius: BorderRadius.circular(
+                              AppSize.s10.r,
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_requiredDocumentsController.text.isNotEmpty) {
+                              setState(() {
+                                list.add(_requiredDocumentsController.text);
+                                _requiredDocumentsController.clear();
+                              });
+                            }
+                          },
+                          child: Text(
+                            AppStrings.add.tr(context),
+                            style: getAlmaraiRegularStyle(
+                              fontSize: AppSize.s16.sp,
+                              color: ColorManager.white,
+                            ),
+                          ),
                         ),
-                      ),
+                        Expanded(
+                          flex: 2,
+                          child: InputField(
+                            controller: _requiredDocumentsController,
+                            labelAndHintText: AppStrings.requiredDocuments.tr(context),
+                            regExp: getTextWithNumberInputFormat(),
+                            height: AppSize.s50.h,
+                          ),
+                        ),
+                      ],
                     ),
-                    controller: _requiredDocumentsController,
-                    hintTitle: AppStrings.requiredDocuments.tr(context),
-                    keyboardType: TextInputType.text,
-                    regExp: RegExp('[" "a-zآ-يA-Z0-9]'),
                   ),
                   ControlPanelButton(
                     buttonTitle: AppStrings.add.tr(context),

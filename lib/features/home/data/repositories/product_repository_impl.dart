@@ -20,6 +20,7 @@ class ProductRepositoryImpl extends ProductRepository {
         productImageUrl: productImageUrl,
         productImageName: product.productImageName,
         productPrice: product.productPrice,
+        productCount: product.productCount,
       ).toMap();
       await db
           .collection(FireBaseCollection.products)

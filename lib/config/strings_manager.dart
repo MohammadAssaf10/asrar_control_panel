@@ -72,6 +72,7 @@ class AppStrings {
   static const String addServicesCompany = "add_services_company";
   static const String addService = "add_service";
   static const String addProduct = "add_product";
+  static const String addNews = "add_news";
   static const String add = "add";
   static const String makeASelection = "make_a_selection";
   static const String requiredDocuments = "required_documents";
@@ -79,10 +80,27 @@ class AppStrings {
   static const String photos = "photos";
   static const String noCompanies = "no_companies";
   static const String noProducts = "no_products";
+  static const String noNews = "no_news";
   static const String shop = "shop";
   static const String productName = "product_name";
   static const String productPrice = "product_price";
   static const String products = "products";
+  static const String news = "news";
+  static const String newsTitile = "news_title";
+  static const String courseTitile = "course_title";
+  static const String coursePrice = "course_price";
+  static const String newsContent = "news_content";
+  static const String courseContent = "course_content";
+  static const String courses = "courses";
+  static const String addCourse = "add_course";
+  static const String jobs = "jobs";
+  static const String addJob = "add_job";
+  static const String jobTitle = "job_title";
+  static const String jobDetails = "job_details";
+  static const String subscriptions = "subscriptions";
+  static const String addSubscription = "add_subscription";
+  static const String subscriptionName = "subscription_name";
+  static const String subscriptionPrice = "subscription_price";
 
   static const String status = "status";
 
