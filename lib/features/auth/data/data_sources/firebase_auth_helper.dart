@@ -14,17 +14,7 @@ class FirebaseAuthHelper {
     await _firebaseAuth.signInWithEmailAndPassword(
         email: loginRequest.email, password: loginRequest.password);
 
-    final employeeMap = (await _firestore
-            .collection(employeeCollectionPath)
-            .doc(loginRequest.email)
-            .get())
-        .data();
-
-    if (employeeMap == null) {
-      throw FirebaseAuthException(code: "auth/user-not-found");
-    }
-
-    return Employee.fromMap(employeeMap);
+    return await getEmployee(loginRequest.email);
   }
 
   Future<Employee> getEmployee(String email) async {
