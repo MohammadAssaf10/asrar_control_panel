@@ -50,8 +50,8 @@ class ShopOrderDetailsScreen extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Center(
                     child: Container(
-                      height: AppSize.s90.h,
-                      width: AppSize.s100.w,
+                      height: AppSize.s100.h,
+                      width: AppSize.s120.w,
                       margin: EdgeInsets.symmetric(
                         vertical: AppSize.s8.h,
                       ),
@@ -107,7 +107,7 @@ class ShopOrderDetailsScreen extends StatelessWidget {
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  SizedBox(height: AppSize.s5.h),
+                                  SizedBox(height: AppSize.s4.h),
                                   Text(
                                     "${AppStrings.productPrice.tr(context)}: ${shopOrder.products[index].productPrice} ر.س",
                                     style: getAlmaraiBoldStyle(
@@ -116,7 +116,7 @@ class ShopOrderDetailsScreen extends StatelessWidget {
                                     ),
                                     textAlign: TextAlign.start,
                                   ),
-                                  SizedBox(height: AppSize.s5.h),
+                                  SizedBox(height: AppSize.s4.h),
                                   Text(
                                     "${AppStrings.number.tr(context)}: ${shopOrder.products[index].productCount}",
                                     style: getAlmaraiBoldStyle(
@@ -124,7 +124,6 @@ class ShopOrderDetailsScreen extends StatelessWidget {
                                       color: ColorManager.primary,
                                     ),
                                     textAlign: TextAlign.start,
-                                    textDirection: TextDirection.rtl,
                                   ),
                                 ],
                               ),
