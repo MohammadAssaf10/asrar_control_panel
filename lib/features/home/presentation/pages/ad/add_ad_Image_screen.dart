@@ -54,75 +54,75 @@ class _AddAdImageScreenState extends State<AddAdImageScreen> {
           ),
         ),
         body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                image == null
-                    ? Padding(
-                        padding: EdgeInsets.only(bottom: AppSize.s20.h),
-                        child: Text(
-                          AppStrings.pleaseSelectImage.tr(context),
-                          style: getAlmaraiRegularStyle(
-                              fontSize: AppSize.s20.sp,
-                              color: ColorManager.primary),
-                        ),
-                      )
-                    : Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppSize.s10.w,
-                          vertical: AppSize.s10.h,
-                        ),
-                        child: Image.memory(
-                          webImage,
-                          width: double.infinity,
-                        ),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              image == null
+                  ? Padding(
+                      padding: EdgeInsets.only(bottom: AppSize.s20.h),
+                      child: Text(
+                        AppStrings.pleaseSelectImage.tr(context),
+                        textAlign: TextAlign.center,
+                        style: getAlmaraiRegularStyle(
+                            fontSize: AppSize.s20.sp,
+                            color: ColorManager.primary),
                       ),
-                InputField(
-                  controller: _controller,
-                  height: AppSize.s50.h,
-                  regExp: getAllKeyboradInputFormat(),
-                  labelAndHintText: "رابط الصورة",
-                ),
-                ControlPanelButton(
-                  buttonTitle: AppStrings.selectImage.tr(context),
-                  onTap: () async {
-                    final XFileEntities? xFileEntities =
-                        await selectImageForWebUseCase();
-                    setState(() {
-                      webImage = xFileEntities!.xFileAsBytes;
-                      image = File(xFileEntities.name);
-                    });
-                  },
-                ),
-                ControlPanelButton(
-                  buttonTitle: AppStrings.uploadImage.tr(context),
-                  onTap: () async {
-                    if (image != null && _controller.text.isNotEmpty) {
-                      final XFileEntities xFileEntities = XFileEntities(
-                          name: image!.path, xFileAsBytes: webImage);
-                      final AdImageEntities adImage = AdImageEntities(
-                          adImageName: image!.path,
-                          adImageUrl: "",
-                          adImagedeepLink: _controller.text);
-                      BlocProvider.of<AdImageBloc>(context).add(
-                        AddAdImageEvent(
-                            xFileEntities: xFileEntities, adImage: adImage),
-                      );
-                    } else {
-                      showCustomDialog(context,
-                          message: AppStrings.pleaseSelectImage.tr(context));
-                    }
-                  },
-                ),
-                ControlPanelButton(
-                    buttonTitle: AppStrings.photos.tr(context),
-                    onTap: () {
-                      Navigator.pushNamed(context, Routes.photoGalleryRoute);
-                      BlocProvider.of<AdImageBloc>(context)
-                          .add(GetAdImagesEvent());
-                    }),
-              ],
-            ),
+                    )
+                  : Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppSize.s10.w,
+                        vertical: AppSize.s10.h,
+                      ),
+                      child: Image.memory(
+                        webImage,
+                        width: double.infinity,
+                      ),
+                    ),
+              InputField(
+                controller: _controller,
+                height: AppSize.s50.h,
+                regExp: getAllKeyboradInputFormat(),
+                labelText: AppStrings.imageUrl.tr(context),
+              ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.selectImage.tr(context),
+                onTap: () async {
+                  final XFileEntities? xFileEntities =
+                      await selectImageForWebUseCase();
+                  setState(() {
+                    webImage = xFileEntities!.xFileAsBytes;
+                    image = File(xFileEntities.name);
+                  });
+                },
+              ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.uploadImage.tr(context),
+                onTap: () async {
+                  if (image != null && _controller.text.isNotEmpty) {
+                    final XFileEntities xFileEntities = XFileEntities(
+                        name: image!.path, xFileAsBytes: webImage);
+                    final AdImageEntities adImage = AdImageEntities(
+                        adImageName: image!.path,
+                        adImageUrl: "",
+                        adImagedeepLink: _controller.text);
+                    BlocProvider.of<AdImageBloc>(context).add(
+                      AddAdImageEvent(
+                          xFileEntities: xFileEntities, adImage: adImage),
+                    );
+                  } else {
+                    showCustomDialog(context,
+                        message: AppStrings.pleaseSelectImage.tr(context));
+                  }
+                },
+              ),
+              ControlPanelButton(
+                  buttonTitle: AppStrings.photos.tr(context),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.photoGalleryRoute);
+                    BlocProvider.of<AdImageBloc>(context)
+                        .add(GetAdImagesEvent());
+                  }),
+            ],
           ),
         ),
       ),

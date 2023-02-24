@@ -7,14 +7,17 @@ import '../../config/app_localizations.dart';
 import '../../config/routes_manager.dart';
 import '../../config/theme_manager.dart';
 import '../../features/auth/presentation/bloc/authentication_bloc.dart';
+import '../../features/home/presentation/blocs/about_us_bloc/about_us_bloc.dart';
 import '../../features/home/presentation/blocs/company/company_bloc.dart';
 import '../../features/home/presentation/blocs/course_bloc/course_bloc.dart';
 import '../../features/home/presentation/blocs/job_bloc/job_bloc.dart';
 import '../../features/home/presentation/blocs/news_bloc/news_bloc.dart';
 import '../../features/home/presentation/blocs/photo_gallery_bloc/ad_image_bloc.dart';
-import '../../features/home/presentation/blocs/product/bloc/product_bloc.dart';
+import '../../features/home/presentation/blocs/product/product_bloc.dart';
 import '../../features/home/presentation/blocs/services_bloc/services_bloc.dart';
+import '../../features/home/presentation/blocs/shop_order_bloc/shop_order_bloc.dart';
 import '../../features/home/presentation/blocs/subscription_bloc/subscription_bloc.dart';
+import '../../features/home/presentation/blocs/terms_of_use_bloc/terms_of_use_bloc.dart';
 import '../../language_cubit/language_cubit.dart';
 import 'language.dart';
 
@@ -49,6 +52,15 @@ class MyApp extends StatelessWidget {
             ),
             BlocProvider<JobBloc>(
               create: (context) => JobBloc(),
+            ),
+            BlocProvider<ShopOrderBloc>(
+              create: (context) => ShopOrderBloc(),
+            ),
+            BlocProvider<AboutUsBloc>(
+              create: (context) => AboutUsBloc(),
+            ),
+            BlocProvider<TermsOfUseBloc>(
+              create: (context) => TermsOfUseBloc(),
             ),
             BlocProvider<SubscriptionBloc>(
               create: (context) => SubscriptionBloc(),

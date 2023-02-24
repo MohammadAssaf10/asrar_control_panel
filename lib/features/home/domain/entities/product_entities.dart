@@ -3,7 +3,7 @@ class ProductEntities {
   final String productImageUrl;
   final String productImageName;
   final String productPrice;
-  int productCount;
+  final int productCount;
   ProductEntities({
     required this.productName,
     required this.productImageUrl,

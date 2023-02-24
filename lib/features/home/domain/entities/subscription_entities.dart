@@ -23,6 +23,7 @@ class SubscriptionEntities extends Equatable {
       subscriptionPrice: map['subscriptionPrice'],
     );
   }
+
   @override
   String toString() =>
       'SubscriptionEntities(subscriptionName: $subscriptionName, subscriptionPrice: $subscriptionPrice)';

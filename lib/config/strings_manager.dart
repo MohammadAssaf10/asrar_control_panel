@@ -11,6 +11,7 @@ class AppStrings {
   static const String idNumber = "idNumber";
   static const String nationality = "nationality";
   static const String email = "email";
+  static const String userName = "user_name";
   static const String password = "password";
   static const String pleaseEnterEmail = "please_enter_email";
   static const String pleaseEnterPassword = "please_enter_password";
@@ -50,7 +51,6 @@ class AppStrings {
   static const String whatsApp = "whats_app";
   static const String googleTranslate = "google_translate";
   static const String subscribe = "subscribe";
-  static const String termsOfUse = "terms_of_use";
   static const String asrarControlPanel = "asrar_control_panel";
   static const String addAnAdvertisementImage = "add_an_advertisement_image";
   static const String pleaseSelectImage = "please_select_image";
@@ -101,6 +101,31 @@ class AppStrings {
   static const String addSubscription = "add_subscription";
   static const String subscriptionName = "subscription_name";
   static const String subscriptionPrice = "subscription_price";
+  static const String noCourses = "no_courses";
+  static const String noJobs = "no_jobs";
+  static const String noSubscriptions = "no_subscriptions";
+  static const String free = "free";
+  static const String imageUrl = "image_url";
+  static const String shopOrder = "shop_order";
+  static const String orderNumber = "order_number";
+  static const String pending = "pending";
+  static const String inProgress = "inProgress";
+  static const String finished = "finished";
+  static const String canceled = "canceled";
+  static const String orderPrice = "order_price";
+  static const String number = "number";
+  static const String acceptOrder = "accept_order";
+  static const String orderAccepted = "order_accepted";
+  static const String finishOrder = "finish_order";
+  static const String orderFinished = "order_finished";
+  static const String aboutUs = "about_us";
+  static const String addAboutUs = "add_about_us";
+  static const String updateAboutUs = "update_about_us";
+  static const String noInformationToUpdateIt = "no_information_to_update_it";
+  static const String updatedSuccessfully = "updated_successfully";
+  static const String termsOfUse = "terms_of_use";
+  static const String addTermsOfUse = "add_terms_of_use";
+  static const String updateTermsOfUse = "update_terms_of_use";
 
   static const String status = "status";
 
@@ -143,7 +168,6 @@ class AppStrings {
   static const String unauthenticated = "unauthenticated";
   static const String retryLimitExceeded = "retry_limit_exceeded";
   static const String invalidChecksum = "invalid_checksum";
-  static const String canceled = "canceled";
   static const String invalidEventName = "invalid_event_name";
   static const String invalidUrl = "invalid_url";
   static const String invalidArgument = "invalid_argument";

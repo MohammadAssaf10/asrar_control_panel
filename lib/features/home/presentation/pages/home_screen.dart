@@ -1,8 +1,10 @@
 import 'package:asrar_control_panel/config/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/routes_manager.dart';
 import '../../../../config/strings_manager.dart';
+import '../blocs/shop_order_bloc/shop_order_bloc.dart';
 import '../widgets/control_panel_button.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -49,6 +51,15 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
               ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.aboutUs.tr(context),
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.aboutUsRoute,
+                  );
+                },
+              ),
             ],
           ),
           Column(
@@ -74,6 +85,24 @@ class HomeScreen extends StatelessWidget {
                   Routes.jobRoute,
                 ),
               ),
+              ControlPanelButton(
+                  buttonTitle: AppStrings.shopOrder.tr(context),
+                  onTap: () {
+                    BlocProvider.of<ShopOrderBloc>(context)
+                        .add(GetShopOrderEvent());
+                    Navigator.pushNamed(
+                      context,
+                      Routes.shopOrderRoute,
+                    );
+                  }),
+              ControlPanelButton(
+                  buttonTitle: AppStrings.termsOfUse.tr(context),
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      Routes.termsOfUseRoute,
+                    );
+                  }),
             ],
           ),
         ],

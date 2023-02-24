@@ -10,6 +10,10 @@ import '../features/auth/presentation/pages/login_view.dart';
 import '../features/employees_manager/presentation/employee_management/employee_management_bloc.dart';
 import '../features/employees_manager/presentation/employee_management/employee_management_view.dart';
 import '../features/home/domain/entities/company.dart';
+import '../features/home/domain/entities/shop_order_entities.dart';
+import '../features/home/presentation/pages/about_us/about_us_screen.dart';
+import '../features/home/presentation/pages/about_us/add_about_us_screen.dart';
+import '../features/home/presentation/pages/about_us/update_about_us_screen.dart';
 import '../features/home/presentation/pages/ad/add_ad_Image_screen.dart';
 import '../features/home/presentation/pages/ad/photo_gallery_screen.dart';
 import '../features/home/presentation/pages/company/add_company_screen.dart';
@@ -25,15 +29,20 @@ import '../features/home/presentation/pages/job/job_screen.dart';
 import '../features/home/presentation/pages/news/add_news_screen.dart';
 import '../features/home/presentation/pages/news/delete_news_screen.dart';
 import '../features/home/presentation/pages/news/news_screen.dart';
+import '../features/home/presentation/pages/order/shop_order_details_screen.dart';
 import '../features/home/presentation/pages/service/add_services_screen.dart';
 import '../features/home/presentation/pages/service/delete_service_screen.dart';
 import '../features/home/presentation/pages/service/services_screen.dart';
 import '../features/home/presentation/pages/shop/add_product_screen.dart';
 import '../features/home/presentation/pages/shop/products_screen.dart';
+import '../features/home/presentation/pages/order/shop_order_screen.dart';
 import '../features/home/presentation/pages/shop/shop_screen.dart';
 import '../features/home/presentation/pages/subscription/add_subscription_sceen.dart';
 import '../features/home/presentation/pages/subscription/delete_subscription_screen.dart';
 import '../features/home/presentation/pages/subscription/subscription_screen.dart';
+import '../features/home/presentation/pages/term_of_use/add_terms_of_use_screen.dart';
+import '../features/home/presentation/pages/term_of_use/terms_of_use_screen.dart';
+import '../features/home/presentation/pages/term_of_use/update_terms_of_use_screen.dart';
 import '../splash.dart';
 import 'strings_manager.dart';
 
@@ -65,6 +74,14 @@ class Routes {
   static const String subscriptionRoute = "/subscription";
   static const String addSubscriptionRoute = "/addSubscription";
   static const String deleteSubscriptionRoute = "/deleteSubscription";
+  static const String shopOrderRoute = "/shopOrder";
+  static const String shopOrderDetailsRoute = "/shopOrderDetails";
+  static const String aboutUsRoute = "/aboutUs";
+  static const String addAboutUsRoute = "/addAboutUs";
+  static const String updateAboutUsRoute = "/upadteAboutUs";
+  static const String termsOfUseRoute = "/termsOfUse";
+  static const String addTermsOfUseRoute = "/addTermsOfUse";
+  static const String updateTermsOfUseRoute = "/updateTermsOfUse";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -139,6 +156,15 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddCoursesScreen());
       case Routes.deleteCoursesRoute:
         return MaterialPageRoute(builder: (_) => const DeleteCoursesScreen());
+      case Routes.shopOrderRoute:
+        return MaterialPageRoute(builder: (_) => const ShopOrderScreen());
+      case Routes.shopOrderDetailsRoute:
+        {
+          final arg = settings.arguments as ShopOrderEntities;
+          return MaterialPageRoute(
+            builder: (_) => ShopOrderDetailsScreen(arg),
+          );
+        }
       case Routes.jobRoute:
         return MaterialPageRoute(builder: (_) => const JobScreen());
       case Routes.addJobRoute:
@@ -150,7 +176,8 @@ class RouteGenerator {
       case Routes.addSubscriptionRoute:
         return MaterialPageRoute(builder: (_) => const AddSubscriptionScreen());
       case Routes.deleteSubscriptionRoute:
-        return MaterialPageRoute(builder: (_) => const DeleteSubscriptionScreen());
+        return MaterialPageRoute(
+            builder: (_) => const DeleteSubscriptionScreen());
       case Routes.photoGalleryRoute:
         return MaterialPageRoute(builder: (_) => const PhotoGalleryScreen());
       case Routes.servicesRoute:
@@ -168,6 +195,18 @@ class RouteGenerator {
         }
       case Routes.addCompanyRoute:
         return MaterialPageRoute(builder: (_) => const AddCompanyScreen());
+      case Routes.aboutUsRoute:
+        return MaterialPageRoute(builder: (_) => const AboutUsScreen());
+      case Routes.addAboutUsRoute:
+        return MaterialPageRoute(builder: (_) => const AddAboutUsScreen());
+      case Routes.updateAboutUsRoute:
+        return MaterialPageRoute(builder: (_) => const UpdateAboutUsScreen());
+      case Routes.termsOfUseRoute:
+        return MaterialPageRoute(builder: (_) => const TermsOfUseScreen());
+      case Routes.addTermsOfUseRoute:
+        return MaterialPageRoute(builder: (_) => const AddTermsOfUseScreen());
+      case Routes.updateTermsOfUseRoute:
+        return MaterialPageRoute(builder: (_) => const UpdateTermsOfUseScreen());
 
       case Routes.addServicesRoute:
         return MaterialPageRoute(builder: (_) => const AddServicesScreen());

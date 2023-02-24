@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../config/routes_manager.dart';
 import '../../../../../config/strings_manager.dart';
-import '../../blocs/product/bloc/product_bloc.dart';
+import '../../blocs/product/product_bloc.dart';
 import '../../widgets/control_panel_button.dart';
 
 class ShopScreen extends StatelessWidget {

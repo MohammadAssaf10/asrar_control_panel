@@ -49,7 +49,7 @@ dismissDialog(BuildContext context) {
 }
 
 void showCustomDialog(BuildContext context,
-    {String? message, String? jsonPath}) {
+    {String? message, String? jsonPath, Function? onTap}) {
   SchedulerBinding.instance.addPostFrameCallback((_) {
     dismissDialog(context);
     showDialog(
@@ -96,7 +96,12 @@ void showCustomDialog(BuildContext context,
                     width: AppSize.s120.w,
                     height: AppSize.s30.h,
                     child: ElevatedButton(
-                      onPressed: () => dismissDialog(context),
+                      onPressed: () {
+                        dismissDialog(context);
+                        if(onTap !=null) {
+                          onTap();
+                        }
+                      },
                       child: Text(
                         AppStrings.ok.tr(context),
                         style: getAlmaraiRegularStyle(

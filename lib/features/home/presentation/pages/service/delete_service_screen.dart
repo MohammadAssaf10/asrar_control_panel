@@ -9,6 +9,9 @@ import '../../../../../config/styles_manager.dart';
 import '../../../../../config/values_manager.dart';
 import '../../../../../core/app/functions.dart';
 import '../../blocs/services_bloc/services_bloc.dart';
+import '../../widgets/empty_list_view.dart';
+import '../../widgets/error_view.dart';
+import '../../widgets/loading_view.dart';
 
 class DeleteServiceScreen extends StatelessWidget {
   const DeleteServiceScreen({super.key});
@@ -17,8 +20,7 @@ class DeleteServiceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-          child: BlocConsumer<ServicesBloc, ServicesState>(
+      body: BlocConsumer<ServicesBloc, ServicesState>(
         listener: (context, state) {
           if (state is ServiceDeleteLoadingState) {
             showCustomDialog(context);
@@ -34,20 +36,15 @@ class DeleteServiceScreen extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is ServiceLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: ColorManager.primary,
-              ),
+            return LoadingView(
+              height: AppSize.s550.h,
+              width: double.infinity,
             );
           } else if (state is ServiceErrorState) {
-            return Center(
-              child: Text(
-                state.errorMessage,
-                style: getAlmaraiRegularStyle(
-                  fontSize: AppSize.s20.sp,
-                  color: ColorManager.error,
-                ),
-              ),
+            return ErrorView(
+              errorMessage: state.errorMessage.tr(context),
+              height: AppSize.s550.h,
+              width: double.infinity,
             );
           } else if (state is ServicesLoadedState) {
             if (state.services.isNotEmpty) {
@@ -55,74 +52,73 @@ class DeleteServiceScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: state.services.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: AppSize.s50.h,
-                    margin: EdgeInsets.symmetric(
-                      vertical: AppSize.s10.h,
-                      horizontal: AppSize.s120.w,
-                    ),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: ColorManager.primary,
-                      borderRadius: BorderRadius.circular(AppSize.s20.r),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: AppSize.s10.w),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                state.services[index].serviceName,
-                                style: getAlmaraiRegularStyle(
-                                  fontSize: AppSize.s18.sp,
-                                  color: ColorManager.white,
+                  return Center(
+                    child: Container(
+                      height: AppSize.s50.h,
+                      width: AppSize.s120.w,
+                      margin: EdgeInsets.symmetric(
+                        vertical: AppSize.s10.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: ColorManager.primary,
+                        borderRadius: BorderRadius.circular(AppSize.s10.r),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: AppSize.s8.w),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.services[index].serviceName,
+                                  style: getAlmaraiRegularStyle(
+                                    fontSize: AppSize.s18.sp,
+                                    color: ColorManager.white,
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                state.services[index].servicePrice,
-                                style: getAlmaraiRegularStyle(
-                                  fontSize: AppSize.s16.sp,
-                                  color: ColorManager.white,
+                                Text(
+                                  "${state.services[index].servicePrice} ر.س",
+                                  textDirection: TextDirection.rtl,
+                                  style: getAlmaraiRegularStyle(
+                                    fontSize: AppSize.s16.sp,
+                                    color: ColorManager.white,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            BlocProvider.of<ServicesBloc>(context).add(
-                                DeleteServiceEvent(
-                                    serviceName:
-                                        state.services[index].serviceName,
-                                    companyName:
-                                        state.services[index].companyName));
-                          },
-                          icon: const Icon(Icons.delete),
-                        ),          
-                      ],
+                          IconButton(
+                            onPressed: () {
+                              BlocProvider.of<ServicesBloc>(context).add(
+                                  DeleteServiceEvent(
+                                      serviceName:
+                                          state.services[index].serviceName,
+                                      companyName:
+                                          state.services[index].companyName));
+                            },
+                            icon: const Icon(Icons.delete),
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 },
               );
             } else {
-              return Center(
-                child: Text(
-                  AppStrings.noServices.tr(context),
-                  style: getAlmaraiRegularStyle(
-                    fontSize: AppSize.s25.sp,
-                    color: ColorManager.primary,
-                  ),
-                ),
+              return EmptyListView(
+                emptyListMessage: AppStrings.noServices.tr(context),
+                height: AppSize.s550.h,
+                width: double.infinity,
               );
             }
           }
           return const SizedBox();
         },
-      )),
+      ),
     );
   }
 }

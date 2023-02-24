@@ -9,6 +9,9 @@ import '../../../../../config/styles_manager.dart';
 import '../../../../../config/values_manager.dart';
 import '../../../../../core/app/functions.dart';
 import '../../blocs/news_bloc/news_bloc.dart';
+import '../../widgets/empty_list_view.dart';
+import '../../widgets/error_view.dart';
+import '../../widgets/loading_view.dart';
 
 class DeleteNewsScreen extends StatelessWidget {
   const DeleteNewsScreen({super.key});
@@ -17,49 +20,44 @@ class DeleteNewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: BlocListener<NewsBloc, NewsState>(
-          listener: (context, state) {
-            if (state is DeleteNewsLoadingState) {
-              showCustomDialog(context);
-            } else if (state is NewsErrorState) {
-              showCustomDialog(context, message: state.errorMessage);
-              BlocProvider.of<NewsBloc>(context).add(GetNewsListEvent());
-            } else if (state is NewsDeletedSuccessfullyState) {
-              showCustomDialog(context,
-                  message: AppStrings.deletedSuccessfully.tr(context));
-              BlocProvider.of<NewsBloc>(context).add(GetNewsListEvent());
-            }
-          },
-          child: BlocBuilder<NewsBloc, NewsState>(
-            builder: (context, state) {
-              if (state is NewsLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.primary,
-                  ),
-                );
-              } else if (state is GetNewsErrorState) {
-                return Center(
-                  child: Text(
-                    state.errorMessage.tr(context),
-                    style: getAlmaraiRegularStyle(
-                      fontSize: AppSize.s20.sp,
-                      color: ColorManager.error,
-                    ),
-                  ),
-                );
-              } else if (state is NewsLoadedState) {
-                if (state.newsList.isNotEmpty) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.newsList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
+      body: BlocListener<NewsBloc, NewsState>(
+        listener: (context, state) {
+          if (state is DeleteNewsLoadingState) {
+            showCustomDialog(context);
+          } else if (state is NewsErrorState) {
+            showCustomDialog(context, message: state.errorMessage);
+            BlocProvider.of<NewsBloc>(context).add(GetNewsListEvent());
+          } else if (state is NewsDeletedSuccessfullyState) {
+            showCustomDialog(context,
+                message: AppStrings.deletedSuccessfully.tr(context));
+            BlocProvider.of<NewsBloc>(context).add(GetNewsListEvent());
+          }
+        },
+        child: BlocBuilder<NewsBloc, NewsState>(
+          builder: (context, state) {
+            if (state is NewsLoadingState) {
+              return LoadingView(
+                height: AppSize.s550.h,
+                width: double.infinity,
+              );
+            } else if (state is GetNewsErrorState) {
+              return ErrorView(
+                errorMessage: state.errorMessage.tr(context),
+                height: AppSize.s550.h,
+                width: double.infinity,
+              );
+            } else if (state is NewsLoadedState) {
+              if (state.newsList.isNotEmpty) {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.newsList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Center(
+                        child: Container(
                           height: AppSize.s80.h,
+                          width: AppSize.s120.w,
                           margin: EdgeInsets.symmetric(
                             vertical: AppSize.s10.h,
-                            horizontal: AppSize.s120.w,
                           ),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
@@ -139,23 +137,19 @@ class DeleteNewsScreen extends StatelessWidget {
                               )
                             ],
                           ),
-                        );
-                      });
-                } else {
-                  return Center(
-                    child: Text(
-                      AppStrings.noNews.tr(context),
-                      style: getAlmaraiRegularStyle(
-                        fontSize: AppSize.s25.sp,
-                        color: ColorManager.primary,
-                      ),
-                    ),
-                  );
-                }
+                        ),
+                      );
+                    });
+              } else {
+                return EmptyListView(
+                  emptyListMessage: AppStrings.noNews.tr(context),
+                  height: AppSize.s550.h,
+                  width: double.infinity,
+                );
               }
-              return const SizedBox();
-            },
-          ),
+            }
+            return const SizedBox();
+          },
         ),
       ),
     );

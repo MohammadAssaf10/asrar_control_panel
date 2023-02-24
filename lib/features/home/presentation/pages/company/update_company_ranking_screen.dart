@@ -38,34 +38,33 @@ class UpdateCompanyRankingScreen extends StatelessWidget {
             height: AppSize.s200.h,
             color: ColorManager.white,
             alignment: Alignment.center,
-            child: SingleChildScrollView(
-          child: Column(
-            children: [
-              InputField(
-                controller: companyRankingController,
-                labelAndHintText: AppStrings.companyRanking.tr(context),
-                regExp: getNumberInputFormat(),
-                height: AppSize.s50.h,
-              ),
-              ControlPanelButton(
-                buttonTitle: AppStrings.save.tr(context),
-                onTap: () {
-                  if (companyRankingController.text.isNotEmpty) {
-                    BlocProvider.of<CompanyBloc>(context)
-                        .add(EditCompanyEvent(
-                      companyName: company.name,
-                      newRanking: int.parse(companyRankingController.text),
-                      oldRanking: company.companyRanking,
-                    ));
-                  } else {
-                    showCustomDialog(context,
-                        message: AppStrings.pleaseEnterAllRequiredData
-                            .tr(context));
-                  }
-                },
-              ),
-            ],
-          ),
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                InputField(
+                  controller: companyRankingController,
+                  labelText: AppStrings.companyRanking.tr(context),
+                  regExp: getNumberInputFormat(),
+                  height: AppSize.s50.h,
+                ),
+                ControlPanelButton(
+                  buttonTitle: AppStrings.save.tr(context),
+                  onTap: () {
+                    if (companyRankingController.text.isNotEmpty) {
+                      BlocProvider.of<CompanyBloc>(context)
+                          .add(EditCompanyEvent(
+                        companyName: company.name,
+                        newRanking: int.parse(companyRankingController.text),
+                        oldRanking: company.companyRanking,
+                      ));
+                    } else {
+                      showCustomDialog(context,
+                          message: AppStrings.pleaseEnterAllRequiredData
+                              .tr(context));
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ),
