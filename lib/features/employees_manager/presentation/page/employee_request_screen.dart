@@ -31,7 +31,7 @@ class EmployeeRequestScreen extends StatelessWidget {
           if (state.updateEmployeeStatus == Status.loading) {
             showCustomDialog(context);
           } else if (state.updateEmployeeStatus == Status.failed) {
-            showCustomDialog(context, message: '');
+            showCustomDialog(context, message: state.errorMessage.tr(context));
             BlocProvider.of<EmployeeManagementBloc>(context)
                 .add(GetEmployeesRequests());
           } else if (state.updateEmployeeStatus == Status.success) {
@@ -54,7 +54,7 @@ class EmployeeRequestScreen extends StatelessWidget {
             );
           } else if (state.employeeRequestStatus == Status.failed) {
             return ErrorView(
-              errorMessage: "",
+              errorMessage: state.errorMessage.tr(context),
               height: AppSize.s550.h,
               width: double.infinity,
             );

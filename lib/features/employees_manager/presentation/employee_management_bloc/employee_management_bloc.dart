@@ -61,8 +61,11 @@ class EmployeeManagementBloc
       emit(state.copyWith(
           employeeRequestStatus: Status.loading,
           updateEmployeeStatus: Status.init));
-      (await _employeeRepository.getEmployeesRequests()).fold((l) {
-        emit(state.copyWith(employeeRequestStatus: Status.failed));
+      (await _employeeRepository.getEmployeesRequests()).fold((failure) {
+        emit(state.copyWith(
+          employeeRequestStatus: Status.failed,
+          errorMessage: failure.message,
+        ));
       }, (employeesRequestsList) {
         emit(state.copyWith(
           employeeRequestStatus: Status.success,
@@ -73,8 +76,10 @@ class EmployeeManagementBloc
     on<AcceptEmployeeRequest>((event, emit) async {
       emit(state.copyWith(updateEmployeeStatus: Status.loading));
       (await _employeeRepository.acceptEmployeeRequest(event.employeeRequest))
-          .fold((l) {
-        emit(state.copyWith(updateEmployeeStatus: Status.failed));
+          .fold((failure) {
+        emit(state.copyWith(
+            updateEmployeeStatus: Status.failed,
+            errorMessage: failure.message));
       }, (r) {
         emit(state.copyWith(updateEmployeeStatus: Status.success));
       });
@@ -83,8 +88,10 @@ class EmployeeManagementBloc
       emit(state.copyWith(updateEmployeeStatus: Status.loading));
       (await _employeeRepository.cancelEmployeeRequest(
               event.employeeId, event.newImageName))
-          .fold((l) {
-        emit(state.copyWith(updateEmployeeStatus: Status.failed));
+          .fold((failure) {
+        emit(state.copyWith(
+            updateEmployeeStatus: Status.failed,
+            errorMessage: failure.message));
       }, (r) {
         emit(state.copyWith(updateEmployeeStatus: Status.cancel));
       });

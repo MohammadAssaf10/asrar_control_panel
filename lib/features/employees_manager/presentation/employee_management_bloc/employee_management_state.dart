@@ -1,6 +1,6 @@
 part of 'employee_management_bloc.dart';
 
-enum Status { init, loading, failed, success,cancel }
+enum Status { init, loading, failed, success, cancel }
 
 class EmployeeManagementState extends Equatable {
   // enum
@@ -14,6 +14,7 @@ class EmployeeManagementState extends Equatable {
   //enum
   final Status employeeRequestStatus;
   final List<EmployeeRequest> employeesRequestsList;
+  final String errorMessage;
 
   final Status updateEmployeeStatus;
 
@@ -25,6 +26,7 @@ class EmployeeManagementState extends Equatable {
     required this.updateEmployeeStatus,
     required this.employeesRequestsList,
     required this.employeeRequestStatus,
+    required this.errorMessage,
   });
 
   EmployeeManagementState.empty()
@@ -34,7 +36,8 @@ class EmployeeManagementState extends Equatable {
         employeeImages = [],
         updateEmployeeStatus = Status.init,
         employeesRequestsList = [],
-        employeeRequestStatus = Status.init;
+        employeeRequestStatus = Status.init,
+        errorMessage = '';
 
   EmployeeManagementState copyWith({
     Status? employeeListStatus,
@@ -44,6 +47,7 @@ class EmployeeManagementState extends Equatable {
     Status? updateEmployeeStatus,
     List<EmployeeRequest>? employeesRequestsList,
     Status? employeeRequestStatus,
+    String? errorMessage,
   }) {
     return EmployeeManagementState(
       employeeListStatus: employeeListStatus ?? this.employeeListStatus,
@@ -55,12 +59,13 @@ class EmployeeManagementState extends Equatable {
           employeesRequestsList ?? this.employeesRequestsList,
       employeeRequestStatus:
           employeeRequestStatus ?? this.employeeRequestStatus,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
   String toString() {
-    return 'EmployeeListState(employeeListStatus: $employeeListStatus, employeeList: $employeeList, employeeImageStatus: $employeeImageStatus, employeeImages: $employeeImages, employeesRequestsList: $employeesRequestsList, employeeRequestStatus: $employeeRequestStatus)';
+    return 'EmployeeListState(employeeListStatus: $employeeListStatus, employeeList: $employeeList, employeeImageStatus: $employeeImageStatus, employeeImages: $employeeImages, employeesRequestsList: $employeesRequestsList, employeeRequestStatus: $employeeRequestStatus, errorMessage: $errorMessage)';
   }
 
   @override
@@ -72,5 +77,6 @@ class EmployeeManagementState extends Equatable {
         updateEmployeeStatus,
         employeesRequestsList,
         employeeRequestStatus,
+        errorMessage,
       ];
 }
