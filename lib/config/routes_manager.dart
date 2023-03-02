@@ -1,14 +1,12 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // import '../core/app/di.dart';
 // import '../features/auth/data/data_sources/auth_prefs.dart';
 import '../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../features/auth/presentation/pages/login_view.dart';
-import '../features/employees_manager/presentation/employee_management/employee_management_bloc.dart';
-import '../features/employees_manager/presentation/employee_management/employee_management_view.dart';
+import '../features/employees_manager/presentation/page/employee_management_view.dart';
 import '../features/home/domain/entities/company.dart';
 import '../features/home/domain/entities/shop_order_entities.dart';
 import '../features/home/presentation/pages/about_us/about_us_screen.dart';
@@ -22,6 +20,7 @@ import '../features/home/presentation/pages/company/update_company_ranking_scree
 import '../features/home/presentation/pages/courses/add_courses_screen.dart';
 import '../features/home/presentation/pages/courses/courses_screen.dart';
 import '../features/home/presentation/pages/courses/delete_courses_screen.dart';
+import '../features/employees_manager/presentation/page/employee_request_screen.dart';
 import '../features/home/presentation/pages/home_screen.dart';
 import '../features/home/presentation/pages/job/add_job_screen.dart';
 import '../features/home/presentation/pages/job/delete_job_screen.dart';
@@ -69,8 +68,8 @@ class Routes {
   static const String addCoursesRoute = "/addCourses";
   static const String deleteCoursesRoute = "/deleteCourses";
   static const String jobRoute = "/job";
-  static const String addJobRoute = "/addjob";
-  static const String deleteJobRoute = "/deletejob";
+  static const String addJobRoute = "/addJob";
+  static const String deleteJobRoute = "/deleteJob";
   static const String subscriptionRoute = "/subscription";
   static const String addSubscriptionRoute = "/addSubscription";
   static const String deleteSubscriptionRoute = "/deleteSubscription";
@@ -78,10 +77,11 @@ class Routes {
   static const String shopOrderDetailsRoute = "/shopOrderDetails";
   static const String aboutUsRoute = "/aboutUs";
   static const String addAboutUsRoute = "/addAboutUs";
-  static const String updateAboutUsRoute = "/upadteAboutUs";
+  static const String updateAboutUsRoute = "/updateAboutUs";
   static const String termsOfUseRoute = "/termsOfUse";
   static const String addTermsOfUseRoute = "/addTermsOfUse";
   static const String updateTermsOfUseRoute = "/updateTermsOfUse";
+  static const String employeeRequestRoute = "/employeeRequest";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -103,7 +103,6 @@ class RouteGenerator {
     // }
 
     switch (settings.name) {
-
       // home route
       case Routes.splashRoute:
         return MaterialPageRoute(
@@ -127,11 +126,8 @@ class RouteGenerator {
       case Routes.employeeList:
         // if (_authPreferences.employeeManagement())
         return MaterialPageRoute(
-            builder: (_) => BlocProvider(
-                  create: (context) =>
-                      EmployeeManagementBloc()..add(FetchEmployeesList()),
-                  child: const EmployeeManagementView(),
-                ));
+          builder: (_) => const EmployeeManagementView(),
+        );
 
       // continue de;
 
@@ -206,7 +202,10 @@ class RouteGenerator {
       case Routes.addTermsOfUseRoute:
         return MaterialPageRoute(builder: (_) => const AddTermsOfUseScreen());
       case Routes.updateTermsOfUseRoute:
-        return MaterialPageRoute(builder: (_) => const UpdateTermsOfUseScreen());
+        return MaterialPageRoute(
+            builder: (_) => const UpdateTermsOfUseScreen());
+      case Routes.employeeRequestRoute:
+        return MaterialPageRoute(builder: (_) => const EmployeeRequestScreen());
 
       case Routes.addServicesRoute:
         return MaterialPageRoute(builder: (_) => const AddServicesScreen());

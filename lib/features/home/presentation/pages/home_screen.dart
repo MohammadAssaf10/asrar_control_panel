@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/routes_manager.dart';
 import '../../../../config/strings_manager.dart';
+import '../../../employees_manager/presentation/employee_management_bloc/employee_management_bloc.dart';
 import '../blocs/shop_order_bloc/shop_order_bloc.dart';
 import '../widgets/control_panel_button.dart';
 
@@ -57,6 +58,17 @@ class HomeScreen extends StatelessWidget {
                   Navigator.pushNamed(
                     context,
                     Routes.aboutUsRoute,
+                  );
+                },
+              ),
+              ControlPanelButton(
+                buttonTitle: AppStrings.employeesRequests.tr(context),
+                onTap: () {
+                  BlocProvider.of<EmployeeManagementBloc>(context)
+                      .add(GetEmployeesRequests());
+                  Navigator.pushNamed(
+                    context,
+                    Routes.employeeRequestRoute,
                   );
                 },
               ),

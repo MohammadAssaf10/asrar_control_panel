@@ -8,8 +8,10 @@ import '../../../home/domain/repositories/storage_file_repository.dart';
 import '../../data/repo/firebase_employee_repo.dart';
 import '../../domain/employees_repo.dart';
 import '../../domain/entities/employee.dart';
+import '../../domain/entities/employees_request.dart';
 
 part 'employee_management_event.dart';
+
 part 'employee_management_state.dart';
 
 class EmployeeManagementBloc
@@ -54,6 +56,38 @@ class EmployeeManagementBloc
       }), ((r) {
         emit(state.copyWith(updateEmployeeStatus: Status.success));
       }));
+    });
+    on<GetEmployeesRequests>((event, emit) async {
+      emit(state.copyWith(
+          employeeRequestStatus: Status.loading,
+          updateEmployeeStatus: Status.init));
+      (await _employeeRepository.getEmployeesRequests()).fold((l) {
+        emit(state.copyWith(employeeRequestStatus: Status.failed));
+      }, (employeesRequestsList) {
+        emit(state.copyWith(
+          employeeRequestStatus: Status.success,
+          employeesRequestsList: employeesRequestsList,
+        ));
+      });
+    });
+    on<AcceptEmployeeRequest>((event, emit) async {
+      emit(state.copyWith(updateEmployeeStatus: Status.loading));
+      (await _employeeRepository.acceptEmployeeRequest(event.employeeRequest))
+          .fold((l) {
+        emit(state.copyWith(updateEmployeeStatus: Status.failed));
+      }, (r) {
+        emit(state.copyWith(updateEmployeeStatus: Status.success));
+      });
+    });
+    on<CancelEmployeeRequest>((event, emit) async {
+      emit(state.copyWith(updateEmployeeStatus: Status.loading));
+      (await _employeeRepository.cancelEmployeeRequest(
+              event.employeeId, event.newImageName))
+          .fold((l) {
+        emit(state.copyWith(updateEmployeeStatus: Status.failed));
+      }, (r) {
+        emit(state.copyWith(updateEmployeeStatus: Status.cancel));
+      });
     });
   }
 }

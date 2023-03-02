@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,7 +48,12 @@ dismissDialog(BuildContext context) {
     Navigator.of(context, rootNavigator: true).pop(true);
   }
 }
-
+// fullPath: file path with name
+Future<void> deleteFile(String fullPath) async {
+  final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  final Reference ref = firebaseStorage.ref(fullPath);
+  await ref.delete();
+}
 void showCustomDialog(BuildContext context,
     {String? message, String? jsonPath, Function? onTap}) {
   SchedulerBinding.instance.addPostFrameCallback((_) {

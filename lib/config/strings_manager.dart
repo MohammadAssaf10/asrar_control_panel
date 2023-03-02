@@ -126,7 +126,17 @@ class AppStrings {
   static const String termsOfUse = "terms_of_use";
   static const String addTermsOfUse = "add_terms_of_use";
   static const String updateTermsOfUse = "update_terms_of_use";
-
+  static const String employeesRequests = "employees_requests";
+  static const String oldName = "old_name";
+  static const String newName = "new_name";
+  static const String oldPhoneNumber = "old_phone_number";
+  static const String newPhoneNumber = "new_phone_number";
+  static const String oldImage = "old_image";
+  static const String newImage = "new_image";
+  static const String options = "options";
+  static const String noOrder = "no_order";
+  static const String requestCanceled = "request_canceled";
+  static const String requestAccepted = "request_accepted";
   static const String status = "status";
 
   static const String deleteCompanies = "delete_companies";

@@ -7,6 +7,7 @@ import '../../config/app_localizations.dart';
 import '../../config/routes_manager.dart';
 import '../../config/theme_manager.dart';
 import '../../features/auth/presentation/bloc/authentication_bloc.dart';
+import '../../features/employees_manager/presentation/employee_management_bloc/employee_management_bloc.dart';
 import '../../features/home/presentation/blocs/about_us_bloc/about_us_bloc.dart';
 import '../../features/home/presentation/blocs/company/company_bloc.dart';
 import '../../features/home/presentation/blocs/course_bloc/course_bloc.dart';
@@ -71,10 +72,14 @@ class MyApp extends StatelessWidget {
             BlocProvider<ServicesBloc>(
               create: (context) => ServicesBloc(),
             ),
+            BlocProvider<EmployeeManagementBloc>(
+              create: (context) => EmployeeManagementBloc(),
+            ),
             BlocProvider<AuthenticationBloc>(
-                lazy: false,
-                create: ((context) =>
-                    AuthenticationBloc.instance..add(AppStarted()))),
+              lazy: false,
+              create: ((context) =>
+                  AuthenticationBloc.instance..add(AppStarted())),
+            ),
             BlocProvider<LanguageCubit>(
               create: (context) => LanguageCubit(),
             ),

@@ -118,7 +118,19 @@
   "terms_of_use": "Terms Of Use",
   "add_terms_of_use": "Add Terms Of Use",
   "update_terms_of_use": "Update Terms Of Use",
-  
+  "employees_requests": "Employees Requests",
+  "old_name": "Old Name",
+  "new_name": "New Name",
+  "old_phone_number": "Old Phone Number",
+  "new_phone_number": "New Phone Number",
+  "old_image": "Old Image",
+  "new_image": "New Image",
+  "options": "Options",
+  "no_order": "No Order",
+  "request_canceled": "Request Canceled",
+  "request_accepted": "Request Accepted",
+
+
   "please_enter_all_required_data": "Please enter all required data",
 
   "isRejected": "isRejected",

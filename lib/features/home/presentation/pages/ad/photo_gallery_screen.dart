@@ -11,6 +11,7 @@ import '../../../../../config/values_manager.dart';
 import '../../blocs/photo_gallery_bloc/ad_image_bloc.dart';
 import '../../widgets/empty_list_view.dart';
 import '../../widgets/error_view.dart';
+import '../../widgets/image_network.dart';
 import '../../widgets/loading_view.dart';
 
 class PhotoGalleryScreen extends StatelessWidget {
@@ -91,14 +92,14 @@ class PhotoGalleryScreen extends StatelessWidget {
                                 ),
                                 width: AppSize.s200.w,
                                 height: AppSize.s250.h,
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   color: ColorManager.grey,
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: NetworkImage(
-                                      state.adImagesList[index].adImageUrl,
-                                    ),
-                                  ),
+                                ),
+                                child: ImageNetwork(
+                                  image: state.adImagesList[index].adImageUrl,
+                                  boxFit: BoxFit.fill,
+                                  loadingHeight: AppSize.s250.h,
+                                  loadingWidth: AppSize.s200.w,
                                 ),
                               ),
                             ),

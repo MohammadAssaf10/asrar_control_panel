@@ -19,13 +19,20 @@ class FirebaseAuthRepository implements AuthRepository {
     // is the super admin
     if (loginRequest.email == "asrar@superadmin.com" &&
         loginRequest.password == "123456") {
-      return Right(Employee(
+      return Right(
+        Employee(
           name: 'super admin',
           email: 'asrar@superadmin.com',
-          phonNumber: '',
+          phoneNumber: '',
           idNumber: '',
           national: '',
-          permissions: Permissions.superAdmin()));
+          permissions: Permissions.superAdmin(),
+          employeeTokenList: [],
+          employeeID: '',
+          imageName: '',
+          imageURL: '',
+        ),
+      );
     }
 
     // normal admin

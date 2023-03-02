@@ -1,5 +1,4 @@
 import 'package:asrar_control_panel/config/app_localizations.dart';
-import 'package:asrar_control_panel/config/styles_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +11,8 @@ import '../../blocs/shop_order_bloc/shop_order_bloc.dart';
 import '../../widgets/empty_list_view.dart';
 import '../../widgets/error_view.dart';
 import '../../widgets/loading_view.dart';
+import '../../widgets/table_subtitle.dart';
+import '../../widgets/table_title.dart';
 
 class ShopOrderScreen extends StatelessWidget {
   const ShopOrderScreen({super.key});
@@ -43,56 +44,11 @@ class ShopOrderScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Expanded(
-                          child: Text(
-                            AppStrings.orderNumber.tr(context),
-                            textAlign: TextAlign.center,
-                            style: getAlmaraiBoldStyle(
-                              fontSize: AppSize.s18.sp,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            AppStrings.mobileNumber.tr(context),
-                            textAlign: TextAlign.center,
-                            style: getAlmaraiBoldStyle(
-                              fontSize: AppSize.s18.sp,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            AppStrings.userName.tr(context),
-                            textAlign: TextAlign.center,
-                            style: getAlmaraiBoldStyle(
-                              fontSize: AppSize.s18.sp,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            AppStrings.orderPrice.tr(context),
-                            textAlign: TextAlign.center,
-                            style: getAlmaraiBoldStyle(
-                              fontSize: AppSize.s18.sp,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            AppStrings.status.tr(context),
-                            textAlign: TextAlign.center,
-                            style: getAlmaraiBoldStyle(
-                              fontSize: AppSize.s18.sp,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                        ),
+                        TitleTable(title: AppStrings.orderNumber.tr(context)),
+                        TitleTable(title: AppStrings.mobileNumber.tr(context)),
+                        TitleTable(title: AppStrings.userName.tr(context)),
+                        TitleTable(title: AppStrings.orderPrice.tr(context)),
+                        TitleTable(title: AppStrings.status.tr(context)),
                       ],
                     ),
                     SizedBox(height: AppSize.s10.h),
@@ -118,56 +74,35 @@ class ShopOrderScreen extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: Text(
-                                    state.shopOrderList[index].shopOrderId
+                                  child: SubTitleTable(
+                                    subTitle: state
+                                        .shopOrderList[index].shopOrderId
                                         .toString(),
-                                    textAlign: TextAlign.center,
-                                    style: getAlmaraiRegularStyle(
-                                      fontSize: AppSize.s18.sp,
-                                      color: ColorManager.primary,
-                                    ),
                                   ),
                                 ),
                                 Expanded(
-                                  child: Text(
-                                    state.shopOrderList[index].phoneNumber,
-                                    textAlign: TextAlign.center,
-                                    style: getAlmaraiRegularStyle(
-                                      fontSize: AppSize.s18.sp,
-                                      color: ColorManager.primary,
-                                    ),
+                                  child: SubTitleTable(
+                                    subTitle:
+                                        state.shopOrderList[index].phoneNumber,
                                   ),
                                 ),
                                 Expanded(
-                                  child: Text(
-                                    state.shopOrderList[index].user.name,
-                                    textAlign: TextAlign.center,
-                                    style: getAlmaraiRegularStyle(
-                                      fontSize: AppSize.s18.sp,
-                                      color: ColorManager.primary,
-                                    ),
+                                  child: SubTitleTable(
+                                    subTitle:
+                                        state.shopOrderList[index].user.name,
                                   ),
                                 ),
                                 Expanded(
-                                  child: Text(
-                                    "${state.shopOrderList[index].totalPrice} ر.س",
-                                    textAlign: TextAlign.center,
-                                    textDirection: TextDirection.rtl,
-                                    style: getAlmaraiRegularStyle(
-                                      fontSize: AppSize.s18.sp,
-                                      color: ColorManager.primary,
-                                    ),
+                                  child: SubTitleTable(
+                                    subTitle:
+                                        "${state.shopOrderList[index].totalPrice} ر.س",
                                   ),
                                 ),
                                 Expanded(
-                                  child: Text(
-                                    state.shopOrderList[index].orderStatus
+                                  child: SubTitleTable(
+                                    subTitle: state
+                                        .shopOrderList[index].orderStatus
                                         .tr(context),
-                                    textAlign: TextAlign.center,
-                                    style: getAlmaraiRegularStyle(
-                                      fontSize: AppSize.s18.sp,
-                                      color: ColorManager.primary,
-                                    ),
                                   ),
                                 ),
                               ],
@@ -180,7 +115,7 @@ class ShopOrderScreen extends StatelessWidget {
                 );
               } else {
                 return EmptyListView(
-                  emptyListMessage: "",
+                  emptyListMessage: AppStrings.noOrder.tr(context),
                   height: AppSize.s550.h,
                   width: double.infinity,
                 );
