@@ -17,9 +17,9 @@ class FirebaseAuthRepository implements AuthRepository {
   @override
   Future<Either<Failure, Employee>> login(LoginRequest loginRequest) async {
     // is the super admin
-    if (loginRequest.email == "asrar@superadmin.com" &&
-        loginRequest.password == "123456") {
+    if (loginRequest.email == "asrar@superadmin.com" && loginRequest.password == "123456") {
       return Right(Employee(
+          employeeID: '',
           name: 'super admin',
           email: 'asrar@superadmin.com',
           phonNumber: '',
