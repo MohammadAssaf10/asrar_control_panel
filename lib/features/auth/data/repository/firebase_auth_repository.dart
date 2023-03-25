@@ -27,7 +27,6 @@ class FirebaseAuthRepository implements AuthRepository {
           national: '',
           permissions: Permissions.superAdmin(),
           employeeTokenList: [],
-          employeeID: '',
           imageName: '',
           imageURL: '',
         ),

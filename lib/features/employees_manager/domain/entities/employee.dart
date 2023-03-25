@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'permissions.dart';
 
 class Employee {
-  String employeeID;
+
   String employeeID;
   String name;
   String email;
@@ -18,7 +19,6 @@ class Employee {
   List<String> employeeTokenList;
 
   Employee({
-    required this.employeeID,
     required this.employeeID,
     required this.name,
     required this.email,
@@ -33,7 +33,6 @@ class Employee {
 
   Employee copyWith({
     String? employeeID,
-    String? employeeID,
     String? name,
     String? email,
     String? phoneNumber,
@@ -45,7 +44,6 @@ class Employee {
     List<String>? employeeTokenList,
   }) {
     return Employee(
-      employeeID: employeeID ?? this.employeeID,
       employeeID: employeeID ?? this.employeeID,
       name: name ?? this.name,
       email: email ?? this.email,
@@ -60,55 +58,59 @@ class Employee {
   }
 
   Map<String, dynamic> toMap() {
-    final result = <String, dynamic>{};
-  
-    result.addAll({'employeeID': employeeID});
-    result.addAll({'name': name});
-    result.addAll({'email': email});
-    result.addAll({'phoneNumber': phoneNumber});
-    result.addAll({'idNumber': idNumber});
-    result.addAll({'national': national});
-    result.addAll({'imageName': imageName});
-    result.addAll({'imageURL': imageURL});
-    result.addAll({'permissions': permissions.toMap()});
-  
-    return result;
+    return <String, dynamic>{
+      'employeeID': employeeID,
+      'name': name,
+      'email': email,
+      'phoneNumber': phoneNumber,
+      'idNumber': idNumber,
+      'national': national,
+      'permissions': permissions.toMap(),
+      'imageName': imageName,
+      'imageURL': imageURL,
+      'employeeTokenList': employeeTokenList,
+    };
   }
 
   factory Employee.fromMap(Map<String, dynamic> map) {
     return Employee(
-      employeeID: map['employeeID'] ?? '',
-      employeeID: map['employeeID'] ?? '',
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      phoneNumber: map['phoneNumber'] ?? '',
-      idNumber: map['idNumber'] ?? '',
-      national: map['national'] ?? '',
-      permissions: Permissions.fromMap(map['permissions']),
+      employeeID: (map['employeeID'] ?? '') as String,
+      name: (map['name'] ?? '') as String,
+      email: (map['email'] ?? '') as String,
+      phoneNumber: (map['phoneNumber'] ?? '') as String,
+      idNumber: (map['idNumber'] ?? '') as String,
+      national: (map['national'] ?? '') as String,
+      permissions: Permissions.fromMap(map['permissions'] as Map<String,dynamic>),
+      imageName: (map['imageName'] ?? '') as String,
+      imageURL: (map['imageURL'] ?? '') as String,
+      employeeTokenList: List<String>.from((map['employeeTokenList'] ?? const <String>[]) as List<String>),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Employee.fromJson(String source) => Employee.fromMap(json.decode(source));
+  factory Employee.fromJson(String source) => Employee.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Employee(employeeID: $employeeID, name: $name, email: $email, phonNumber: $phonNumber, idNumber: $idNumber, national: $national, permissions: $permissions)';
+    return 'Employee(employeeID: $employeeID, name: $name, email: $email, phoneNumber: $phoneNumber, idNumber: $idNumber, national: $national, permissions: $permissions, imageName: $imageName, imageURL: $imageURL, employeeTokenList: $employeeTokenList)';
   }
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant Employee other) {
     if (identical(this, other)) return true;
   
-    return other is Employee &&
+    return 
       other.employeeID == employeeID &&
       other.name == name &&
       other.email == email &&
-      other.phonNumber == phonNumber &&
+      other.phoneNumber == phoneNumber &&
       other.idNumber == idNumber &&
       other.national == national &&
-      other.permissions == permissions;
+      other.permissions == permissions &&
+      other.imageName == imageName &&
+      other.imageURL == imageURL &&
+      listEquals(other.employeeTokenList, employeeTokenList);
   }
 
   @override
@@ -116,9 +118,12 @@ class Employee {
     return employeeID.hashCode ^
       name.hashCode ^
       email.hashCode ^
-      phonNumber.hashCode ^
+      phoneNumber.hashCode ^
       idNumber.hashCode ^
       national.hashCode ^
-      permissions.hashCode;
+      permissions.hashCode ^
+      imageName.hashCode ^
+      imageURL.hashCode ^
+      employeeTokenList.hashCode;
   }
 }
