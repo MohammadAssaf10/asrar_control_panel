@@ -90,7 +90,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   InputField(
                     controller: _priceController,
                     labelText: AppStrings.productPrice.tr(context),
-                    regExp: getDoubleInputFormat(),
+                    regExp: getNumberInputFormat(),
                     height: AppSize.s50.h,
                   ),
                   ControlPanelButton(

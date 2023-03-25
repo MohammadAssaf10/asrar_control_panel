@@ -6,7 +6,7 @@ class ShopOrderEntities {
   final User user;
   final String phoneNumber;
   final List<ProductEntities> products;
-  final String totalPrice;
+  final int totalPrice;
   String orderStatus;
   ShopOrderEntities({
     required this.shopOrderId,

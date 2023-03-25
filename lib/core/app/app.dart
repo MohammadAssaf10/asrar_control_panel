@@ -84,32 +84,28 @@ class MyApp extends StatelessWidget {
               create: (context) => LanguageCubit(),
             ),
           ],
-          child: BlocBuilder<LanguageCubit, LanguageState>(
-            builder: (context, state) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                title: "لوحة تحكم تطبيق أسرار",
-                localizationsDelegates: const [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  AppLocalizations.delegate,
-                ],
-                supportedLocales: const [arabicLocale, englishLocale],
-                locale: state.locale,
-                localeResolutionCallback: (deviceLocale, supportedLocales) {
-                  for (var locale in supportedLocales) {
-                    if (deviceLocale != null &&
-                        deviceLocale.languageCode == locale.languageCode) {
-                      return deviceLocale;
-                    }
-                  }
-                  return supportedLocales.first;
-                },
-                theme: getApplicationTheme(),
-                onGenerateRoute: RouteGenerator.getRoute,
-              );
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: "لوحة تحكم تطبيق أسرار",
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              AppLocalizations.delegate,
+            ],
+            supportedLocales: const [arabicLocale],
+            locale: arabicLocale,
+            localeResolutionCallback: (deviceLocale, supportedLocales) {
+              for (var locale in supportedLocales) {
+                if (deviceLocale != null &&
+                    deviceLocale.languageCode == locale.languageCode) {
+                  return deviceLocale;
+                }
+              }
+              return supportedLocales.first;
             },
+            theme: getApplicationTheme(),
+            onGenerateRoute: RouteGenerator.getRoute,
           ),
         );
       },
