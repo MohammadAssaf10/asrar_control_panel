@@ -11,6 +11,9 @@ import '../../../../../config/values_manager.dart';
 import '../../../../../core/app/functions.dart';
 import '../../blocs/company/company_bloc.dart';
 import '../../blocs/services_bloc/services_bloc.dart';
+import '../../widgets/empty_list_view.dart';
+import '../../widgets/error_view.dart';
+import '../../widgets/loading_view.dart';
 
 class DeleteCompanyScreen extends StatelessWidget {
   const DeleteCompanyScreen({super.key});
@@ -19,44 +22,39 @@ class DeleteCompanyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SingleChildScrollView(
-        child: BlocListener<CompanyBloc, CompanyState>(
-          listener: (context, state) {
-            if (state is CompanyDeleteLoadingState) {
-              showCustomDialog(context);
-            } else if (state is DeleteCompanyErrorState) {
-              showCustomDialog(context, message: state.errorMessage);
-            } else if (state is CompanyDeletedSuccessfully) {
-              showCustomDialog(context,
-                  message: AppStrings.deletedSuccessfully.tr(context));
-              BlocProvider.of<CompanyBloc>(context).add(GetCompaniesListEvent());
-            }
-          },
-          child: BlocBuilder<CompanyBloc, CompanyState>(
-            builder: (context, state) {
-              if (state is CompanyLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: ColorManager.primary,
-                  ),
-                );
-              } else if (state is CompanyErrorState) {
-                return Center(
-                  child: Text(
-                    state.errorMessage.tr(context),
-                    style: getAlmaraiRegularStyle(
-                      fontSize: AppSize.s20.sp,
-                      color: ColorManager.error,
-                    ),
-                  ),
-                );
-              } else if (state is CompanyLoadedState) {
-                if (state.company.isNotEmpty) {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.company.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
+      body: BlocListener<CompanyBloc, CompanyState>(
+        listener: (context, state) {
+          if (state is CompanyDeleteLoadingState) {
+            showCustomDialog(context);
+          } else if (state is DeleteCompanyErrorState) {
+            showCustomDialog(context, message: state.errorMessage);
+          } else if (state is CompanyDeletedSuccessfully) {
+            showCustomDialog(context,
+                message: AppStrings.deletedSuccessfully.tr(context));
+            BlocProvider.of<CompanyBloc>(context).add(GetCompaniesListEvent());
+          }
+        },
+        child: BlocBuilder<CompanyBloc, CompanyState>(
+          builder: (context, state) {
+            if (state is CompanyLoadingState) {
+              return LoadingView(
+                height: AppSize.s550.h,
+                width: double.infinity,
+              );
+            } else if (state is CompanyErrorState) {
+              return ErrorView(
+                errorMessage: state.errorMessage.tr(context),
+                height: AppSize.s550.h,
+                width: double.infinity,
+              );
+            } else if (state is CompanyLoadedState) {
+              if (state.company.isNotEmpty) {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.company.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Center(
+                        child: InkWell(
                           onTap: () {
                             BlocProvider.of<ServicesBloc>(context)
                                 .add(GetServicesListEvent(
@@ -67,22 +65,21 @@ class DeleteCompanyScreen extends StatelessWidget {
                           },
                           child: Container(
                             height: AppSize.s50.h,
+                            width: AppSize.s120.w,
                             margin: EdgeInsets.symmetric(
                               vertical: AppSize.s10.h,
-                              horizontal: AppSize.s120.w,
                             ),
-                            alignment: Alignment.center,
                             decoration: BoxDecoration(
                               color: ColorManager.primary,
                               borderRadius:
-                                  BorderRadius.circular(AppSize.s20.r),
+                                  BorderRadius.circular(AppSize.s10.r),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: AppSize.s10.w),
+                                      horizontal: AppSize.s8.w),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -134,23 +131,19 @@ class DeleteCompanyScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                        );
-                      });
-                } else {
-                  return Center(
-                    child: Text(
-                      AppStrings.noCompanies.tr(context),
-                      style: getAlmaraiRegularStyle(
-                        fontSize: AppSize.s25.sp,
-                        color: ColorManager.primary,
-                      ),
-                    ),
-                  );
-                }
+                        ),
+                      );
+                    });
+              } else {
+                return EmptyListView(
+                  emptyListMessage: AppStrings.noCompanies.tr(context),
+                  height: AppSize.s550.h,
+                  width: double.infinity,
+                );
               }
-              return const SizedBox();
-            },
-          ),
+            }
+            return const SizedBox();
+          },
         ),
       ),
     );

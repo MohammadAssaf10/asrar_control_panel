@@ -7,21 +7,23 @@ import '../../../../config/values_manager.dart';
 class InputField extends StatelessWidget {
   const InputField({
     Key? key,
-    required this.labelAndHintText,
+    required this.labelText,
     required this.regExp,
     required this.controller,
     required this.height,
+    this.width,
   }) : super(key: key);
-  final String labelAndHintText;
+  final String labelText;
   final RegExp regExp;
   final TextEditingController controller;
   final double height;
+  final double? width;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
         height: height,
-        width: AppSize.s130.w,
+        width: width??AppSize.s130.w,
         margin: EdgeInsets.symmetric(vertical: AppSize.s10.h),
         child: TextFormField(
           controller: controller,
@@ -32,8 +34,7 @@ class InputField extends StatelessWidget {
           ],
           expands: true,
           decoration: InputDecoration(
-            labelText: labelAndHintText,
-            hintText: labelAndHintText
+            labelText: labelText,
           ),
         ),
       ),

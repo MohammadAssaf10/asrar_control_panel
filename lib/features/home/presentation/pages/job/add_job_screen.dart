@@ -58,85 +58,83 @@ class _AddJobScreenState extends State<AddJobScreen> {
         body: Center(
           child: Container(
             width: AppSize.s200.w,
-            height: AppSize.s600.h,
+            height: AppSize.s550.h,
             color: ColorManager.white,
             child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    image == null
-                        ? Padding(
-                            padding: EdgeInsets.only(bottom: AppSize.s20.h),
-                            child: Text(
-                              AppStrings.pleaseSelectImage.tr(context),
-                              style: getAlmaraiRegularStyle(
-                                  fontSize: AppSize.s20.sp,
-                                  color: ColorManager.primary),
-                            ),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AppSize.s10.w,
-                              vertical: AppSize.s10.h,
-                            ),
-                            child: Image.memory(
-                              webImage,
-                              height: AppSize.s250.h,
-                            ),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  image == null
+                      ? Padding(
+                          padding: EdgeInsets.only(bottom: AppSize.s20.h),
+                          child: Text(
+                            AppStrings.pleaseSelectImage.tr(context),
+                            textAlign: TextAlign.center,
+                            style: getAlmaraiRegularStyle(
+                                fontSize: AppSize.s20.sp,
+                                color: ColorManager.primary),
                           ),
-                    InputField(
-                      controller: _jobTitileController,
-                      labelAndHintText: AppStrings.jobTitle.tr(context),
-                      regExp: getAllKeyboradInputFormat(),
-                      height: AppSize.s60.h,
-                    ),
-                    InputField(
-                      controller: _jobDetailsController,
-                      labelAndHintText: AppStrings.jobDetails.tr(context),
-                      regExp: getAllKeyboradInputFormat(),
-                      height: AppSize.s120.h,
-                    ),
-                    ControlPanelButton(
-                      buttonTitle: AppStrings.selectImage.tr(context),
-                      onTap: () async {
-                        xFileEntities = (await selectImageForWebUseCase())!;
-                        setState(() {
-                          webImage = xFileEntities.xFileAsBytes;
-                          image = File(xFileEntities.name);
-                        });
-                      },
-                    ),
-                    ControlPanelButton(
-                      buttonTitle: AppStrings.add.tr(context),
-                      onTap: () {
-                        if (image != null &&
-                            _jobTitileController.text.isNotEmpty &&
-                            _jobDetailsController.text.isNotEmpty) {
-                          final JobEntities job = JobEntities(
-                            jobId: 0,
-                            timestamp: Timestamp.now(),
-                            jobTitle: _jobTitileController.text,
-                            jobDetails: _jobDetailsController.text,
-                            jobImageName: image!.path,
-                            jobImageUrl: "",
-                          );
-                          BlocProvider.of<JobBloc>(context).add(
-                            AddJobEvent(
-                              job: job,
-                              xFileEntities: xFileEntities,
-                            ),
-                          );
-                        } else {
-                          showCustomDialog(context,
-                              message: AppStrings.pleaseEnterAllRequiredData
-                                  .tr(context));
-                        }
-                      },
-                    ),
-                  ],
-                ),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppSize.s10.w,
+                            vertical: AppSize.s10.h,
+                          ),
+                          child: Image.memory(
+                            webImage,
+                            height: AppSize.s250.h,
+                          ),
+                        ),
+                  InputField(
+                    controller: _jobTitileController,
+                    labelText: AppStrings.jobTitle.tr(context),
+                    regExp: getAllKeyboradInputFormat(),
+                    height: AppSize.s60.h,
+                  ),
+                  InputField(
+                    controller: _jobDetailsController,
+                    labelText: AppStrings.jobDetails.tr(context),
+                    regExp: getAllKeyboradInputFormat(),
+                    height: AppSize.s120.h,
+                  ),
+                  ControlPanelButton(
+                    buttonTitle: AppStrings.selectImage.tr(context),
+                    onTap: () async {
+                      xFileEntities = (await selectImageForWebUseCase())!;
+                      setState(() {
+                        webImage = xFileEntities.xFileAsBytes;
+                        image = File(xFileEntities.name);
+                      });
+                    },
+                  ),
+                  ControlPanelButton(
+                    buttonTitle: AppStrings.add.tr(context),
+                    onTap: () {
+                      if (image != null &&
+                          _jobTitileController.text.isNotEmpty &&
+                          _jobDetailsController.text.isNotEmpty) {
+                        final JobEntities job = JobEntities(
+                          jobId: 0,
+                          timestamp: Timestamp.now(),
+                          jobTitle: _jobTitileController.text,
+                          jobDetails: _jobDetailsController.text,
+                          jobImageName: image!.path,
+                          jobImageUrl: "",
+                        );
+                        BlocProvider.of<JobBloc>(context).add(
+                          AddJobEvent(
+                            job: job,
+                            xFileEntities: xFileEntities,
+                          ),
+                        );
+                      } else {
+                        showCustomDialog(context,
+                            message: AppStrings.pleaseEnterAllRequiredData
+                                .tr(context));
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
           ),

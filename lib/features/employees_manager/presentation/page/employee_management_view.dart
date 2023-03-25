@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/values_manager.dart';
 import '../../../../core/app/functions.dart';
+import '../employee_management_bloc/employee_management_bloc.dart';
 import '../widget/employee_card.dart';
-import 'employee_management_bloc.dart';
 
 class EmployeeManagementView extends StatelessWidget {
   const EmployeeManagementView({super.key});

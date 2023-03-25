@@ -55,85 +55,83 @@ class _AddNewsScreenState extends State<AddNewsScreen> {
         body: Center(
           child: Container(
             width: AppSize.s200.w,
-            height: AppSize.s600.h,
+            height: AppSize.s550.h,
             color: ColorManager.white,
             child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    image == null
-                        ? Padding(
-                            padding: EdgeInsets.only(bottom: AppSize.s20.h),
-                            child: Text(
-                              AppStrings.pleaseSelectImage.tr(context),
-                              style: getAlmaraiRegularStyle(
-                                  fontSize: AppSize.s20.sp,
-                                  color: ColorManager.primary),
-                            ),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AppSize.s10.w,
-                              vertical: AppSize.s10.h,
-                            ),
-                            child: Image.memory(
-                              webImage,
-                              height: AppSize.s250.h,
-                            ),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  image == null
+                      ? Padding(
+                          padding: EdgeInsets.only(bottom: AppSize.s20.h),
+                          child: Text(
+                            AppStrings.pleaseSelectImage.tr(context),
+                            textAlign: TextAlign.center,
+                            style: getAlmaraiRegularStyle(
+                                fontSize: AppSize.s20.sp,
+                                color: ColorManager.primary),
                           ),
-                    InputField(
-                      controller: _newsTitileController,
-                      labelAndHintText: AppStrings.newsTitile.tr(context),
-                      regExp: getAllKeyboradInputFormat(),
-                      height: AppSize.s80.h,
-                    ),
-                    InputField(
-                      controller: _newsContentController,
-                      labelAndHintText: AppStrings.newsContent.tr(context),
-                      regExp: getAllKeyboradInputFormat(),
-                      height: AppSize.s120.h,
-                    ),
-                    ControlPanelButton(
-                      buttonTitle: AppStrings.selectImage.tr(context),
-                      onTap: () async {
-                        xFileEntities = (await selectImageForWebUseCase())!;
-                        setState(() {
-                          webImage = xFileEntities.xFileAsBytes;
-                          image = File(xFileEntities.name);
-                        });
-                      },
-                    ),
-                    ControlPanelButton(
-                      buttonTitle: AppStrings.add.tr(context),
-                      onTap: () {
-                        if (image != null &&
-                            _newsContentController.text.isNotEmpty &&
-                            _newsTitileController.text.isNotEmpty) {
-                          final NewsEntities news = NewsEntities(
-                            newsId: 0,
-                            timestamp: Timestamp.now(),
-                            newsTitle: _newsTitileController.text,
-                            newsContent: _newsContentController.text,
-                            newsImageName: image!.path,
-                            newsImageUrl: "",
-                          );
-                          BlocProvider.of<NewsBloc>(context).add(
-                            AddNewsEvent(
-                              news: news,
-                              xFileEntities: xFileEntities,
-                            ),
-                          );
-                        } else {
-                          showCustomDialog(context,
-                              message: AppStrings.pleaseEnterAllRequiredData
-                                  .tr(context));
-                        }
-                      },
-                    ),
-                  ],
-                ),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppSize.s10.w,
+                            vertical: AppSize.s10.h,
+                          ),
+                          child: Image.memory(
+                            webImage,
+                            height: AppSize.s250.h,
+                          ),
+                        ),
+                  InputField(
+                    controller: _newsTitileController,
+                    labelText: AppStrings.newsTitile.tr(context),
+                    regExp: getAllKeyboradInputFormat(),
+                    height: AppSize.s80.h,
+                  ),
+                  InputField(
+                    controller: _newsContentController,
+                    labelText: AppStrings.newsContent.tr(context),
+                    regExp: getAllKeyboradInputFormat(),
+                    height: AppSize.s120.h,
+                  ),
+                  ControlPanelButton(
+                    buttonTitle: AppStrings.selectImage.tr(context),
+                    onTap: () async {
+                      xFileEntities = (await selectImageForWebUseCase())!;
+                      setState(() {
+                        webImage = xFileEntities.xFileAsBytes;
+                        image = File(xFileEntities.name);
+                      });
+                    },
+                  ),
+                  ControlPanelButton(
+                    buttonTitle: AppStrings.add.tr(context),
+                    onTap: () {
+                      if (image != null &&
+                          _newsContentController.text.isNotEmpty &&
+                          _newsTitileController.text.isNotEmpty) {
+                        final NewsEntities news = NewsEntities(
+                          newsId: 0,
+                          timestamp: Timestamp.now(),
+                          newsTitle: _newsTitileController.text,
+                          newsContent: _newsContentController.text,
+                          newsImageName: image!.path,
+                          newsImageUrl: "",
+                        );
+                        BlocProvider.of<NewsBloc>(context).add(
+                          AddNewsEvent(
+                            news: news,
+                            xFileEntities: xFileEntities,
+                          ),
+                        );
+                      } else {
+                        showCustomDialog(context,
+                            message: AppStrings.pleaseEnterAllRequiredData
+                                .tr(context));
+                      }
+                    },
+                  ),
+                ],
               ),
             ),
           ),

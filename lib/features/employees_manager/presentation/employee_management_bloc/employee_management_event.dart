@@ -30,3 +30,30 @@ class UpdateEmployee extends EmployeeManagementEvent {
   @override
   List<Object> get props => [employee];
 }
+
+class GetEmployeesRequests extends EmployeeManagementEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class AcceptEmployeeRequest extends EmployeeManagementEvent {
+  final EmployeeRequest employeeRequest;
+
+  const AcceptEmployeeRequest({required this.employeeRequest});
+
+  @override
+  List<Object> get props => [employeeRequest];
+}
+
+class CancelEmployeeRequest extends EmployeeManagementEvent {
+  final String employeeId;
+  final String newImageName;
+
+  const CancelEmployeeRequest({
+    required this.employeeId,
+    required this.newImageName,
+  });
+
+  @override
+  List<Object> get props => [employeeId, newImageName];
+}

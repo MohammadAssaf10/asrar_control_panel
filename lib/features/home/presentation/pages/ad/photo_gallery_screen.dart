@@ -9,6 +9,10 @@ import '../../../../../config/strings_manager.dart';
 import '../../../../../config/styles_manager.dart';
 import '../../../../../config/values_manager.dart';
 import '../../blocs/photo_gallery_bloc/ad_image_bloc.dart';
+import '../../widgets/empty_list_view.dart';
+import '../../widgets/error_view.dart';
+import '../../widgets/image_network.dart';
+import '../../widgets/loading_view.dart';
 
 class PhotoGalleryScreen extends StatelessWidget {
   const PhotoGalleryScreen({Key? key}) : super(key: key);
@@ -19,10 +23,10 @@ class PhotoGalleryScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppStrings.photoGallery.tr(context)),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
+      body: ListView(
+        children: [
+          Center(
+            child: Padding(
               padding: EdgeInsets.symmetric(
                 vertical: AppSize.s10.h,
               ),
@@ -34,94 +38,89 @@ class PhotoGalleryScreen extends StatelessWidget {
                 ),
               ),
             ),
-            BlocConsumer<AdImageBloc, AdImageState>(
-              listener: (context, state) {
-                if (state is ImageDeletedSuccessfullyState) {
-                  showCustomDialog(
-                    context,
-                    message: AppStrings.deletedSuccessfully.tr(context),
-                  );
-                  BlocProvider.of<AdImageBloc>(context).add(GetAdImagesEvent());
-                } else if (state is DeleteAdImageErrorState) {
-                  showCustomDialog(
-                    context,
-                    message: state.errorMessage.tr(context),
-                  );
-                  BlocProvider.of<AdImageBloc>(context).add(GetAdImagesEvent());
-                } else if (state is DeleteAdImageLoadingState) {
-                  showCustomDialog(context);
-                }
-              },
-              builder: (context, state) {
-                return BlocBuilder<AdImageBloc, AdImageState>(
-                  builder: (context, state) {
-                    if (state is AdImageLoadingState) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                            color: ColorManager.primary),
-                      );
-                    } else if (state is AdImageErrorState) {
-                      return Text(
-                        state.errorMessage,
-                        style: getAlmaraiRegularStyle(
-                            fontSize: AppSize.s20.sp,
-                            color: ColorManager.error),
-                      );
-                    } else if (state is AdImagesLoadedState) {
-                      if (state.adImagesList.isNotEmpty) {
-                        return Center(
-                          child: SizedBox(
-                            width: AppSize.s200.w,
-                            child: ListView.builder(
-                              itemCount: state.adImagesList.length,
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext context, int index) {
-                                return InkWell(
-                                  onLongPress: () {
-                                    BlocProvider.of<AdImageBloc>(context)
-                                        .add(DeleteAdImageEvent(
-                                      adImage: state.adImagesList[index],
-                                    ));
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.symmetric(
-                                      vertical: AppSize.s12.h,
-                                    ),
-                                    height: AppSize.s250.h,
-                                    decoration: BoxDecoration(
-                                      color: ColorManager.grey,
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          state.adImagesList[index].adImageUrl,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        );
-                      } else {
-                        return Center(
-                          child: Text(
-                            AppStrings.noPictures.tr(context),
-                            style: getAlmaraiRegularStyle(
-                              fontSize: AppSize.s25.sp,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                        );
-                      }
-                    } else {
-                      return const SizedBox();
-                    }
-                  },
+          ),
+          BlocConsumer<AdImageBloc, AdImageState>(
+            listener: (context, state) {
+              if (state is ImageDeletedSuccessfullyState) {
+                showCustomDialog(
+                  context,
+                  message: AppStrings.deletedSuccessfully.tr(context),
                 );
-              },
-            ),
-          ],
-        ),
+                BlocProvider.of<AdImageBloc>(context).add(GetAdImagesEvent());
+              } else if (state is DeleteAdImageErrorState) {
+                showCustomDialog(
+                  context,
+                  message: state.errorMessage.tr(context),
+                );
+                BlocProvider.of<AdImageBloc>(context).add(GetAdImagesEvent());
+              } else if (state is DeleteAdImageLoadingState) {
+                showCustomDialog(context);
+              }
+            },
+            builder: (context, state) {
+              return BlocBuilder<AdImageBloc, AdImageState>(
+                builder: (context, state) {
+                  if (state is AdImageLoadingState) {
+                    return LoadingView(
+                      height: AppSize.s550.h,
+                      width: double.infinity,
+                    );
+                  } else if (state is AdImageErrorState) {
+                    return ErrorView(
+                      errorMessage: state.errorMessage.tr(context),
+                      height: AppSize.s550.h,
+                      width: double.infinity,
+                    );
+                  } else if (state is AdImagesLoadedState) {
+                    if (state.adImagesList.isNotEmpty) {
+                      return ListView.builder(
+                        physics: const ScrollPhysics(),
+                        itemCount: state.adImagesList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Center(
+                            child: InkWell(
+                              onLongPress: () {
+                                BlocProvider.of<AdImageBloc>(context)
+                                    .add(DeleteAdImageEvent(
+                                  adImage: state.adImagesList[index],
+                                ));
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                  vertical: AppSize.s12.h,
+                                ),
+                                width: AppSize.s200.w,
+                                height: AppSize.s250.h,
+                                decoration: const BoxDecoration(
+                                  color: ColorManager.grey,
+                                ),
+                                child: ImageNetwork(
+                                  image: state.adImagesList[index].adImageUrl,
+                                  boxFit: BoxFit.fill,
+                                  loadingHeight: AppSize.s250.h,
+                                  loadingWidth: AppSize.s200.w,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    } else {
+                      return EmptyListView(
+                        emptyListMessage: AppStrings.noPictures.tr(context),
+                        height: AppSize.s550.h,
+                        width: double.infinity,
+                      );
+                    }
+                  } else {
+                    return const SizedBox();
+                  }
+                },
+              );
+            },
+          ),
+        ],
       ),
     );
   }

@@ -13,7 +13,7 @@ import '../../../../../config/values_manager.dart';
 import '../../../../../core/app/functions.dart';
 import '../../../domain/entities/product_entities.dart';
 import '../../../domain/entities/xfile_entities.dart';
-import '../../blocs/product/bloc/product_bloc.dart';
+import '../../blocs/product/product_bloc.dart';
 import '../../widgets/control_panel_button.dart';
 import '../../../domain/use_cases/select_image_for_web.dart';
 import '../../widgets/input_field.dart';
@@ -57,80 +57,78 @@ class _AddProductScreenState extends State<AddProductScreen> {
             height: AppSize.s550.h,
             color: ColorManager.white,
             child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    image == null
-                        ? Padding(
-                            padding: EdgeInsets.only(bottom: AppSize.s20.h),
-                            child: Text(
-                              AppStrings.pleaseSelectImage.tr(context),
-                              style: getAlmaraiRegularStyle(
-                                  fontSize: AppSize.s20.sp,
-                                  color: ColorManager.primary),
-                            ),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: AppSize.s10.w,
-                              vertical: AppSize.s10.h,
-                            ),
-                            child: Image.memory(
-                              webImage,
-                              height: AppSize.s250.h,
-                            ),
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  image == null
+                      ? Padding(
+                          padding: EdgeInsets.only(bottom: AppSize.s20.h),
+                          child: Text(
+                            AppStrings.pleaseSelectImage.tr(context),
+                            textAlign: TextAlign.center,
+                            style: getAlmaraiRegularStyle(
+                                fontSize: AppSize.s20.sp,
+                                color: ColorManager.primary),
                           ),
-                    InputField(
-                      controller: _productNameController,
-                      labelAndHintText: AppStrings.productName.tr(context),
-                      regExp: getTextWithNumberInputFormat(),
-                      height: AppSize.s50.h,
-                    ),
-                    InputField(
-                      controller: _priceController,
-                      labelAndHintText: AppStrings.productPrice.tr(context),
-                      regExp: getDoubleInputFormat(),
-                      height: AppSize.s50.h,
-                    ),
-                    ControlPanelButton(
-                      buttonTitle: AppStrings.selectImage.tr(context),
-                      onTap: () async {
-                        xFileEntities = (await selectImageForWebUseCase())!;
-                        setState(() {
-                          webImage = xFileEntities.xFileAsBytes;
-                          image = File(xFileEntities.name);
-                        });
-                      },
-                    ),
-                    ControlPanelButton(
-                      buttonTitle: AppStrings.add.tr(context),
-                      onTap: () {
-                        if (image != null &&
-                            _priceController.text.isNotEmpty &&
-                            _productNameController.text.isNotEmpty) {
-                          final ProductEntities productEntities =
-                              ProductEntities(
-                            productName: _productNameController.text,
-                            productPrice: _priceController.text,
-                            productImageUrl: "",
-                            productImageName: image!.path,
-                            productCount: 1
-                          );
-                          BlocProvider.of<ProductBloc>(context)
-                              .add(AddProductEvent(
-                            productEntities: productEntities,
-                            xFileEntities: xFileEntities,
-                          ));
-                        }
-                        showCustomDialog(context,
-                            message: AppStrings.pleaseEnterAllRequiredData
-                                .tr(context));
-                      },
-                    ),
-                  ],
-                ),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppSize.s10.w,
+                            vertical: AppSize.s10.h,
+                          ),
+                          child: Image.memory(
+                            webImage,
+                            height: AppSize.s250.h,
+                          ),
+                        ),
+                  InputField(
+                    controller: _productNameController,
+                    labelText: AppStrings.productName.tr(context),
+                    regExp: getTextWithNumberInputFormat(),
+                    height: AppSize.s50.h,
+                  ),
+                  InputField(
+                    controller: _priceController,
+                    labelText: AppStrings.productPrice.tr(context),
+                    regExp: getNumberInputFormat(),
+                    height: AppSize.s50.h,
+                  ),
+                  ControlPanelButton(
+                    buttonTitle: AppStrings.selectImage.tr(context),
+                    onTap: () async {
+                      xFileEntities = (await selectImageForWebUseCase())!;
+                      setState(() {
+                        webImage = xFileEntities.xFileAsBytes;
+                        image = File(xFileEntities.name);
+                      });
+                    },
+                  ),
+                  ControlPanelButton(
+                    buttonTitle: AppStrings.add.tr(context),
+                    onTap: () {
+                      if (image != null &&
+                          _priceController.text.isNotEmpty &&
+                          _productNameController.text.isNotEmpty) {
+                        final ProductEntities productEntities =
+                            ProductEntities(
+                          productName: _productNameController.text,
+                          productPrice: _priceController.text,
+                          productImageUrl: "",
+                          productImageName: image!.path,
+                          productCount: 1
+                        );
+                        BlocProvider.of<ProductBloc>(context)
+                            .add(AddProductEvent(
+                          productEntities: productEntities,
+                          xFileEntities: xFileEntities,
+                        ));
+                      }
+                      showCustomDialog(context,
+                          message: AppStrings.pleaseEnterAllRequiredData
+                              .tr(context));
+                    },
+                  ),
+                ],
               ),
             ),
           ),

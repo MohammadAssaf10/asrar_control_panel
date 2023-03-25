@@ -10,15 +10,16 @@ class ControlPanelButton extends StatelessWidget {
     Key? key,
     required this.buttonTitle,
     required this.onTap,
+    this.width = AppSize.s130,
   }) : super(key: key);
   final String buttonTitle;
   final Function onTap;
-
+  final double width;
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: AppSize.s130.w,
+        width: width.w,
         height: AppSize.s60.h,
         child: Padding(
           padding: EdgeInsets.symmetric(

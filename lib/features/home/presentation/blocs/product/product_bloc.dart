@@ -1,18 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../../../core/app/constants.dart';
-import '../../../../../../core/app/di.dart';
-import '../../../../domain/entities/product_entities.dart';
-import '../../../../domain/entities/xfile_entities.dart';
-import '../../../../domain/repositories/product_repository.dart';
-import '../../../../domain/repositories/storage_file_repository.dart';
+import '../../../../../core/app/constants.dart';
+import '../../../../../core/app/di.dart';
+import '../../../domain/entities/product_entities.dart';
+import '../../../domain/entities/xfile_entities.dart';
+import '../../../domain/repositories/shop_repository.dart';
+import '../../../domain/repositories/storage_file_repository.dart';
 
 part 'product_event.dart';
 part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
-  final ProductRepository productRepository = instance<ProductRepository>();
+  final ShopRepository productRepository = instance<ShopRepository>();
   final StorageFileRepository storageFileRepository =
       instance<StorageFileRepository>();
   ProductBloc() : super(ProductInitial()) {

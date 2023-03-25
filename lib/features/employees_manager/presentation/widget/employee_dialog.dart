@@ -6,8 +6,8 @@ import '../../../../config/app_localizations.dart';
 import '../../../../config/strings_manager.dart';
 import '../../domain/entities/employee.dart';
 
-import '../employee_management/employee_management_bloc.dart';
-import '../employee_management/employee_management_view.dart';
+import '../employee_management_bloc/employee_management_bloc.dart';
+import '../page/employee_management_view.dart';
 import 'permission_list.dart';
 
 class EmployeeDialog extends StatelessWidget {
@@ -53,7 +53,7 @@ class EmployeeDialog extends StatelessWidget {
                               Text(
                                   '${AppStrings.idNumber.tr(context)}: ${_employee.idNumber}'),
                               Text(
-                                  '${AppStrings.mobileNumber.tr(context)}: ${_employee.phonNumber}'),
+                                  '${AppStrings.mobileNumber.tr(context)}: ${_employee.phoneNumber}'),
                               Text(
                                   '${AppStrings.nationality.tr(context)}: ${_employee.national}'),
                             ],

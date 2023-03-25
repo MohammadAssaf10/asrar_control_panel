@@ -51,153 +51,142 @@ class _AddServicesScreenState extends State<AddServicesScreen> {
         ),
         body: Center(
           child: Container(
-            width: AppSize.s180.w,
-            height: AppSize.s500.h,
+            width: AppSize.s200.w,
+            height: AppSize.s550.h,
             color: ColorManager.white,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: AppSize.s80.h),
-                  BlocBuilder<CompanyBloc, CompanyState>(
-                    builder: (context, state) {
-                      if (state is CompanyLoadingState) {
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                SizedBox(height: AppSize.s80.h),
+                BlocBuilder<CompanyBloc, CompanyState>(
+                  builder: (context, state) {
+                    if (state is CompanyLoadingState) {
+                      return Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.symmetric(vertical: AppSize.s15.h),
+                        child: Text(AppStrings.loading.tr(context)),
+                      );
+                    } else if (state is CompanyErrorState) {
+                      return Center(
+                        child: Text(state.errorMessage.tr(context)),
+                      );
+                    } else if (state is CompanyLoadedState) {
+                      if (state.company.isNotEmpty) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: AppSize.s10.h),
+                          alignment: Alignment.center,
+                          height: AppSize.s50.h,
+                          child: DropdownButton<String>(
+                            hint: Text(dropdownValue ??
+                                AppStrings.makeASelection.tr(context)),
+                            items: state.company
+                                .map<DropdownMenuItem<String>>((company) {
+                              return DropdownMenuItem<String>(
+                                value: company.name,
+                                child: Text(company.name),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                dropdownValue = value;
+                              });
+                            },
+                          ),
+                        );
+                      } else {
                         return Container(
                           alignment: Alignment.center,
                           margin: EdgeInsets.symmetric(vertical: AppSize.s15.h),
-                          child: Text(AppStrings.loading.tr(context)),
+                          child: Text(AppStrings.noCompanies.tr(context)),
                         );
-                      } else if (state is CompanyErrorState) {
-                        return Center(
-                          child: Text(state.errorMessage.tr(context)),
-                        );
-                      } else if (state is CompanyLoadedState) {
-                        if (state.company.isNotEmpty) {
-                          return Container(
-                            margin:
-                                EdgeInsets.symmetric(vertical: AppSize.s10.h),
-                            height: AppSize.s50.h,
-                            child: DropdownButton<String>(
-                              hint: Text(dropdownValue ??
-                                  AppStrings.makeASelection.tr(context)),
-                              items: state.company
-                                  .map<DropdownMenuItem<String>>((company) {
-                                return DropdownMenuItem<String>(
-                                  value: company.name,
-                                  child: Text(company.name),
-                                );
-                              }).toList(),
-                              onChanged: (value) {
-                                setState(() {
-                                  dropdownValue = value;
-                                });
-                              },
-                            ),
-                          );
-                        } else {
-                          return Container(
-                            alignment: Alignment.center,
-                            margin:
-                                EdgeInsets.symmetric(vertical: AppSize.s15.h),
-                            child: Text(AppStrings.noCompanies.tr(context)),
-                          );
+                      }
+                    }
+                    return const SizedBox();
+                  },
+                ),
+                InputField(
+                  controller: _servicesNameController,
+                  labelText: AppStrings.servicesName.tr(context),
+                  regExp: getArabicAndEnglishTextInputFormat(),
+                  height: AppSize.s50.h,
+                ),
+                InputField(
+                  controller: _priceController,
+                  labelText: AppStrings.servicesPrice.tr(context),
+                  regExp: getDoubleInputFormat(),
+                  height: AppSize.s50.h,
+                ),
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: list.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Center(
+                        child: Text(
+                          "- ${list[index]}",
+                          style: getAlmaraiRegularStyle(
+                            fontSize: AppSize.s16.sp,
+                            color: ColorManager.primary,
+                          ),
+                        ),
+                      );
+                    }),
+                Row(
+                  children: [
+                    SizedBox(width: AppSize.s4.w),
+                    MaterialButton(
+                      height: AppSize.s50.h,
+                      minWidth: AppSize.s20.w,
+                      color: ColorManager.primary,
+                      onPressed: () {
+                        if (_requiredDocumentsController.text.isNotEmpty) {
+                          setState(() {
+                            list.add(_requiredDocumentsController.text);
+                            _requiredDocumentsController.clear();
+                          });
                         }
-                      }
-                      return const SizedBox();
-                    },
-                  ),
-                  InputField(
-                    controller: _servicesNameController,
-                    labelAndHintText: AppStrings.servicesName.tr(context),
-                    regExp: getArabicAndEnglishTextInputFormat(),
-                    height: AppSize.s50.h,
-                  ),
-                  InputField(
-                    controller: _priceController,
-                    labelAndHintText: AppStrings.servicesPrice.tr(context),
-                    regExp: getDoubleInputFormat(),
-                    height: AppSize.s50.h,
-                  ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: list.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Center(
-                          child: Text(
-                            "- ${list[index]}",
-                            style: getAlmaraiRegularStyle(
-                              fontSize: AppSize.s16.sp,
-                              color: ColorManager.primary,
-                            ),
-                          ),
-                        );
-                      }),
-                  SizedBox(
-                    width: AppSize.s130.w,
-                    child: Row(
-                      children: [
-                        MaterialButton(
-                          height: 55.h,
-                          color: ColorManager.primary,
-                          shape: OutlineInputBorder(
-                            borderSide:
-                                const BorderSide(color: ColorManager.primary),
-                            borderRadius: BorderRadius.circular(
-                              AppSize.s10.r,
-                            ),
-                          ),
-                          onPressed: () {
-                            if (_requiredDocumentsController.text.isNotEmpty) {
-                              setState(() {
-                                list.add(_requiredDocumentsController.text);
-                                _requiredDocumentsController.clear();
-                              });
-                            }
-                          },
-                          child: Text(
-                            AppStrings.add.tr(context),
-                            style: getAlmaraiRegularStyle(
-                              fontSize: AppSize.s16.sp,
-                              color: ColorManager.white,
-                            ),
-                          ),
+                      },
+                      child: Text(
+                        AppStrings.add.tr(context),
+                        style: getAlmaraiRegularStyle(
+                          fontSize: AppSize.s16.sp,
+                          color: ColorManager.white,
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: InputField(
-                            controller: _requiredDocumentsController,
-                            labelAndHintText: AppStrings.requiredDocuments.tr(context),
-                            regExp: getTextWithNumberInputFormat(),
-                            height: AppSize.s50.h,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  ControlPanelButton(
-                    buttonTitle: AppStrings.add.tr(context),
-                    onTap: () {
-                      if (list.isNotEmpty &&
-                          _priceController.text.isNotEmpty &&
-                          _servicesNameController.text.isNotEmpty &&
-                          !dropdownValue.nullOrEmpty()) {
-                        final ServiceEntities serviceEntities = ServiceEntities(
-                          companyName: dropdownValue!,
-                          serviceName: _servicesNameController.text,
-                          servicePrice: _priceController.text,
-                          requiredDocuments: list,
-                        );
-                        BlocProvider.of<ServicesBloc>(context).add(
-                          AddServiceEvent(serviceEntities: serviceEntities),
-                        );
-                      } else {
-                        showCustomDialog(context,
-                            message: AppStrings.pleaseEnterAllRequiredData
-                                .tr(context));
-                      }
-                    },
-                  ),
-                ],
-              ),
+                    SizedBox(width: AppSize.s4.w),
+                    InputField(
+                      controller: _requiredDocumentsController,
+                      labelText:
+                          AppStrings.requiredDocuments.tr(context),
+                      regExp: getTextWithNumberInputFormat(),
+                      height: AppSize.s50.h,
+                    ),
+                  ],
+                ),
+                ControlPanelButton(
+                  buttonTitle: AppStrings.add.tr(context),
+                  onTap: () {
+                    if (list.isNotEmpty &&
+                        _priceController.text.isNotEmpty &&
+                        _servicesNameController.text.isNotEmpty &&
+                        !dropdownValue.nullOrEmpty()) {
+                      final ServiceEntities serviceEntities = ServiceEntities(
+                        companyName: dropdownValue!,
+                        serviceName: _servicesNameController.text,
+                        servicePrice: _priceController.text,
+                        requiredDocuments: list,
+                      );
+                      BlocProvider.of<ServicesBloc>(context).add(
+                        AddServiceEvent(serviceEntities: serviceEntities),
+                      );
+                    } else {
+                      showCustomDialog(context,
+                          message: AppStrings.pleaseEnterAllRequiredData
+                              .tr(context));
+                    }
+                  },
+                ),
+              ],
             ),
           ),
         ),

@@ -1,43 +1,61 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'permissions.dart';
 
 class Employee {
   String employeeID;
+  String employeeID;
   String name;
   String email;
-  String phonNumber;
+  String phoneNumber;
   String idNumber;
   String national;
   Permissions permissions;
+  String imageName;
+  String imageURL;
+  List<String> employeeTokenList;
 
   Employee({
     required this.employeeID,
+    required this.employeeID,
     required this.name,
     required this.email,
-    required this.phonNumber,
+    required this.phoneNumber,
     required this.idNumber,
     required this.national,
     required this.permissions,
+    required this.imageName,
+    required this.imageURL,
+    required this.employeeTokenList,
   });
 
   Employee copyWith({
     String? employeeID,
+    String? employeeID,
     String? name,
     String? email,
-    String? phonNumber,
+    String? phoneNumber,
     String? idNumber,
     String? national,
     Permissions? permissions,
+    String? imageName,
+    String? imageURL,
+    List<String>? employeeTokenList,
   }) {
     return Employee(
       employeeID: employeeID ?? this.employeeID,
+      employeeID: employeeID ?? this.employeeID,
       name: name ?? this.name,
       email: email ?? this.email,
-      phonNumber: phonNumber ?? this.phonNumber,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
       idNumber: idNumber ?? this.idNumber,
       national: national ?? this.national,
       permissions: permissions ?? this.permissions,
+      imageName: imageName ?? this.imageName,
+      imageURL: imageURL ?? this.imageURL,
+      employeeTokenList: employeeTokenList ?? this.employeeTokenList,
     );
   }
 
@@ -47,9 +65,11 @@ class Employee {
     result.addAll({'employeeID': employeeID});
     result.addAll({'name': name});
     result.addAll({'email': email});
-    result.addAll({'phonNumber': phonNumber});
+    result.addAll({'phoneNumber': phoneNumber});
     result.addAll({'idNumber': idNumber});
     result.addAll({'national': national});
+    result.addAll({'imageName': imageName});
+    result.addAll({'imageURL': imageURL});
     result.addAll({'permissions': permissions.toMap()});
   
     return result;
@@ -58,9 +78,10 @@ class Employee {
   factory Employee.fromMap(Map<String, dynamic> map) {
     return Employee(
       employeeID: map['employeeID'] ?? '',
+      employeeID: map['employeeID'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
-      phonNumber: map['phonNumber'] ?? '',
+      phoneNumber: map['phoneNumber'] ?? '',
       idNumber: map['idNumber'] ?? '',
       national: map['national'] ?? '',
       permissions: Permissions.fromMap(map['permissions']),

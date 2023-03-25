@@ -22,10 +22,16 @@ class FirebaseAuthRepository implements AuthRepository {
           employeeID: '',
           name: 'super admin',
           email: 'asrar@superadmin.com',
-          phonNumber: '',
+          phoneNumber: '',
           idNumber: '',
           national: '',
-          permissions: Permissions.superAdmin()));
+          permissions: Permissions.superAdmin(),
+          employeeTokenList: [],
+          employeeID: '',
+          imageName: '',
+          imageURL: '',
+        ),
+      );
     }
 
     // normal admin

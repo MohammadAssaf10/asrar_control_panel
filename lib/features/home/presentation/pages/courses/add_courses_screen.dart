@@ -58,7 +58,7 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
         body: Center(
           child: Container(
             width: AppSize.s200.w,
-            height: AppSize.s600.h,
+            height: AppSize.s550.h,
             color: ColorManager.white,
             alignment: Alignment.center,
             child: ListView(
@@ -69,6 +69,7 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
                           padding: EdgeInsets.symmetric(vertical: AppSize.s20.h),
                           child: Text(
                             AppStrings.pleaseSelectImage.tr(context),
+                            textAlign: TextAlign.center,
                             style: getAlmaraiRegularStyle(
                                 fontSize: AppSize.s20.sp,
                                 color: ColorManager.primary),
@@ -87,19 +88,19 @@ class _AddCoursesScreenState extends State<AddCoursesScreen> {
                       ),
                 InputField(
                   controller: _coursesTitileController,
-                  labelAndHintText: AppStrings.newsTitile.tr(context),
+                  labelText: AppStrings.newsTitile.tr(context),
                   regExp: getAllKeyboradInputFormat(),
                   height: AppSize.s80.h,
                 ),
                 InputField(
                   controller: _coursesPriceController,
-                  labelAndHintText: AppStrings.newsContent.tr(context),
+                  labelText: AppStrings.newsContent.tr(context),
                   regExp: getDoubleInputFormat(),
                   height: AppSize.s50.h,
                 ),
                 InputField(
                   controller: _coursesContentController,
-                  labelAndHintText: AppStrings.courseContent.tr(context),
+                  labelText: AppStrings.courseContent.tr(context),
                   regExp: getAllKeyboradInputFormat(),
                   height: AppSize.s120.h,
                 ),
