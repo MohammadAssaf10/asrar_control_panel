@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../config/routes_manager.dart';
 import '../../../../config/strings_manager.dart';
 import '../../../employees_manager/presentation/employee_management_bloc/employee_management_bloc.dart';
+import '../blocs/service_order/service_order_bloc.dart';
 import '../blocs/shop_order_bloc/shop_order_bloc.dart';
 import '../widgets/control_panel_button.dart';
 
@@ -115,6 +116,14 @@ class HomeScreen extends StatelessWidget {
                       Routes.termsOfUseRoute,
                     );
                   }),
+              ControlPanelButton(
+                buttonTitle: AppStrings.serviceOrdersChat.tr(context),
+                onTap: () {
+                  BlocProvider.of<ServiceOrderBloc>(context)
+                      .add(GetServiceOrder());
+                  Navigator.pushNamed(context, Routes.serviceOrderRoute);
+                },
+              ),
             ],
           ),
         ],

@@ -9,7 +9,7 @@ class User extends Equatable {
   final String phoneNumber;
   final String imageURL;
   final String imageName;
-  final List<String> userTokenList;
+  final List userTokenList;
 
   const User({
     required this.id,
@@ -28,7 +28,7 @@ class User extends Equatable {
     String? phoneNumber,
     String? imageURL,
     String? imageName,
-    List<String>? userTokenList,
+    List? userTokenList,
   }) {
     return User(
       id: id ?? this.id,
@@ -46,7 +46,7 @@ class User extends Equatable {
 
     result.addAll({'id': id});
     result.addAll({'name': name});
-    result.addAll({'emailG': email});
+    result.addAll({'email': email});
     result.addAll({'phoneNumber': phoneNumber});
     result.addAll({'imageURL': imageURL});
     result.addAll({'imageName': imageName});
@@ -59,11 +59,11 @@ class User extends Equatable {
     return User(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
-      email: map['emailG'] ?? '',
+      email: map['email'] ?? '',
       phoneNumber: map['phoneNumber'] ?? '',
       imageURL: map['imageURL'] ?? '',
       imageName: map['imageName'] ?? '',
-      userTokenList: List<String>.from(map['userTokenList']),
+      userTokenList: List.from(map['userTokenList']??[]),
     );
   }
 

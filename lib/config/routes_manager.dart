@@ -8,6 +8,7 @@ import '../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../features/auth/presentation/pages/login_view.dart';
 import '../features/employees_manager/presentation/page/employee_management_view.dart';
 import '../features/home/domain/entities/company.dart';
+import '../features/home/domain/entities/service_order.dart';
 import '../features/home/domain/entities/shop_order_entities.dart';
 import '../features/home/presentation/pages/about_us/about_us_screen.dart';
 import '../features/home/presentation/pages/about_us/add_about_us_screen.dart';
@@ -31,6 +32,8 @@ import '../features/home/presentation/pages/news/news_screen.dart';
 import '../features/home/presentation/pages/order/shop_order_details_screen.dart';
 import '../features/home/presentation/pages/service/add_services_screen.dart';
 import '../features/home/presentation/pages/service/delete_service_screen.dart';
+import '../features/home/presentation/pages/service/service_order_chat_screen.dart';
+import '../features/home/presentation/pages/service/service_order_screen.dart';
 import '../features/home/presentation/pages/service/services_screen.dart';
 import '../features/home/presentation/pages/shop/add_product_screen.dart';
 import '../features/home/presentation/pages/shop/products_screen.dart';
@@ -82,6 +85,8 @@ class Routes {
   static const String addTermsOfUseRoute = "/addTermsOfUse";
   static const String updateTermsOfUseRoute = "/updateTermsOfUse";
   static const String employeeRequestRoute = "/employeeRequest";
+  static const String serviceOrderRoute = "/serviceOrder";
+  static const String serviceOrderChatRoute = "/serviceOrderChat";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -136,6 +141,13 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const AddAdImageScreen());
       case Routes.shopRoute:
         return MaterialPageRoute(builder: (_) => const ShopScreen());
+      case Routes.serviceOrderRoute:
+        return MaterialPageRoute(builder: (_) => const ServiceOrderScreen());
+      case Routes.serviceOrderChatRoute:
+        return MaterialPageRoute(builder: (_) {
+          final arg = settings.arguments as ServiceOrder;
+          return ServiceOrderChatScreen(serviceOrder: arg);
+        });
       case Routes.addProductRoute:
         return MaterialPageRoute(builder: (_) => const AddProductScreen());
       case Routes.productsRoute:

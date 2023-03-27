@@ -130,6 +130,9 @@
   "new_image": "الصورة الجديدة",
   "options": "الخيارات",
   "no_order": "لا يوجد طلبات",
+  "service_orders_chat": "دردشة طلبات الخدمات",
+  "customer": "العميل",
+  "employee": "الموظف",
 
 
   "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",

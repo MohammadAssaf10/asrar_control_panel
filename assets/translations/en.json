@@ -129,6 +129,9 @@
   "no_order": "No Order",
   "request_canceled": "Request Canceled",
   "request_accepted": "Request Accepted",
+  "service_orders_chat": "Service Order Chat",
+  "customer": "Customer",
+  "employee": "Employee",
 
 
   "please_enter_all_required_data": "Please enter all required data",

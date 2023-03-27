@@ -198,4 +198,7 @@ class AppStrings {
   static const String technicalSupport = "technicalSupport";
   static const String save = "save";
   static const String cancel = "cancel";
+  static const String serviceOrdersChat = "service_orders_chat";
+  static const String customer = "customer";
+  static const String employee = "employee";
 }
