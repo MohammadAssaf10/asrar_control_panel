@@ -6,7 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../config/app_localizations.dart';
 import '../../config/routes_manager.dart';
 import '../../config/theme_manager.dart';
+import '../../features/auth/data/data_sources/auth_prefs.dart';
 import '../../features/auth/presentation/bloc/authentication_bloc.dart';
+import '../../features/chat/presentation/bloc/support_chat/support_chat_bloc.dart';
 import '../../features/employees_manager/presentation/employee_management_bloc/employee_management_bloc.dart';
 import '../../features/home/presentation/blocs/about_us_bloc/about_us_bloc.dart';
 import '../../features/home/presentation/blocs/company/company_bloc.dart';
@@ -21,6 +23,7 @@ import '../../features/home/presentation/blocs/shop_order_bloc/shop_order_bloc.d
 import '../../features/home/presentation/blocs/subscription_bloc/subscription_bloc.dart';
 import '../../features/home/presentation/blocs/terms_of_use_bloc/terms_of_use_bloc.dart';
 import '../../language_cubit/language_cubit.dart';
+import 'di.dart';
 import 'language.dart';
 
 class MyApp extends StatelessWidget {
@@ -33,6 +36,7 @@ class MyApp extends StatelessWidget {
   factory MyApp() => _instance; // factory
   @override
   Widget build(BuildContext context) {
+    final AuthPreferences authPreferences=instance<AuthPreferences>();
     return ScreenUtilInit(
       designSize: const Size(360, 690),
       minTextAdapt: true,
@@ -76,6 +80,9 @@ class MyApp extends StatelessWidget {
             BlocProvider<ServiceOrderBloc>(
               create: (context) => ServiceOrderBloc(),
             ),
+            BlocProvider<SupportChatBloc>(
+              create: (context) => SupportChatBloc(),
+            ),
             BlocProvider<EmployeeManagementBloc>(
               create: (context) => EmployeeManagementBloc(),
             ),
@@ -109,6 +116,7 @@ class MyApp extends StatelessWidget {
               return supportedLocales.first;
             },
             theme: getApplicationTheme(),
+            initialRoute: authPreferences.userLoggedIn()?'/':'/login',
             onGenerateRoute: RouteGenerator.getRoute,
           ),
         );

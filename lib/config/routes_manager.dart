@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-// import '../core/app/di.dart';
-// import '../features/auth/data/data_sources/auth_prefs.dart';
-import '../features/auth/presentation/bloc/authentication_bloc.dart';
 import '../features/auth/presentation/pages/login_view.dart';
+import '../features/chat/domain/entities/message.dart';
+import '../features/chat/presentation/pages/support_chat_screen.dart';
+import '../features/chat/presentation/pages/support_screen.dart';
 import '../features/employees_manager/presentation/page/employee_management_view.dart';
 import '../features/home/domain/entities/company.dart';
 import '../features/home/domain/entities/service_order.dart';
@@ -45,13 +45,12 @@ import '../features/home/presentation/pages/subscription/subscription_screen.dar
 import '../features/home/presentation/pages/term_of_use/add_terms_of_use_screen.dart';
 import '../features/home/presentation/pages/term_of_use/terms_of_use_screen.dart';
 import '../features/home/presentation/pages/term_of_use/update_terms_of_use_screen.dart';
-import '../splash.dart';
 import 'strings_manager.dart';
 
 class Routes {
   // home route
-  static const String splashRoute = "/";
-  static const String homeRoute = "/home";
+  // static const String splashRoute = "/";
+  static const String homeRoute = "/";
 
   static const String addAnAdvertisementImageRoute = "/addAnAdvertisementImage";
   static const String photoGalleryRoute = "/photoGallery";
@@ -87,6 +86,8 @@ class Routes {
   static const String employeeRequestRoute = "/employeeRequest";
   static const String serviceOrderRoute = "/serviceOrder";
   static const String serviceOrderChatRoute = "/serviceOrderChat";
+  static const String supportRoute = "/support";
+  static const String supportChatRoute = "/supportChat";
 
   // employee manager routes
   static const String employeeList = "/employeeList";
@@ -108,11 +109,6 @@ class RouteGenerator {
     // }
 
     switch (settings.name) {
-      // home route
-      case Routes.splashRoute:
-        return MaterialPageRoute(
-          builder: (_) => const SplashScreen(),
-        );
 
       case Routes.homeRoute:
         // if (_authPreferences.canWork())
@@ -123,8 +119,6 @@ class RouteGenerator {
 
       // auth rotes
       case Routes.loginRoute:
-        // todo: delete this line after add a logout button
-        AuthenticationBloc.instance.add(LogOut());
         return MaterialPageRoute(builder: (_) => const LoginView());
 
       // employee manager routes
@@ -148,10 +142,17 @@ class RouteGenerator {
           final arg = settings.arguments as ServiceOrder;
           return ServiceOrderChatScreen(serviceOrder: arg);
         });
+      case Routes.supportChatRoute:
+        return MaterialPageRoute(builder: (_) {
+          final arg = settings.arguments as Sender;
+          return SupportChatScreen(sender: arg);
+        });
       case Routes.addProductRoute:
         return MaterialPageRoute(builder: (_) => const AddProductScreen());
       case Routes.productsRoute:
         return MaterialPageRoute(builder: (_) => const ProductScreen());
+      case Routes.supportRoute:
+        return MaterialPageRoute(builder: (_) => const SupportScreen());
       case Routes.newsRoute:
         return MaterialPageRoute(builder: (_) => const NewsScreen());
       case Routes.addNewsRoute:

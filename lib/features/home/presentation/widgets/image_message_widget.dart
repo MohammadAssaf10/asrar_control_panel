@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/values_manager.dart';
-import '../../domain/entities/message.dart';
+import '../../../chat/domain/entities/message.dart';
 import 'image_network.dart';
 
 class ImageMessageWidget extends StatelessWidget {

@@ -12,6 +12,7 @@ class FireBaseCollection {
   static String aboutUs = "aboutUs";
   static String termsOfUse = "termsOfUse";
   static String messages = "messages";
+  static String supportChat = "supportChat";
 }
 
 enum OrderStatus { inProgress, pending, finished, canceled }

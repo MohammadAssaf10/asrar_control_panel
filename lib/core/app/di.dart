@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -6,6 +7,8 @@ import '../../features/auth/data/data_sources/auth_prefs.dart';
 import '../../features/auth/data/repository/firebase_auth_repository.dart';
 import '../../features/auth/domain/repository/auth_repository.dart';
 
+import '../../features/chat/data/repository/support_chat_repository_impl.dart';
+import '../../features/chat/domain/repository/support_chat_repository.dart';
 import '../../features/home/data/repositories/about_us_repository_impl.dart';
 import '../../features/home/data/repositories/ad_image_repository_impl.dart';
 import '../../features/home/data/repositories/company_repository_impl.dart';
@@ -17,6 +20,7 @@ import '../../features/home/data/repositories/shop_repository_impl.dart';
 import '../../features/home/data/repositories/storage_file_repository_impl.dart';
 import '../../features/home/data/repositories/subscription_repository_impl.dart';
 import '../../features/home/data/repositories/terms_of_use_repository_impl.dart';
+import '../../features/chat/domain/entities/message.dart';
 import '../../features/home/domain/repositories/about_us_repository.dart';
 import '../../features/home/domain/repositories/ad_image_repository.dart';
 import '../../features/home/domain/repositories/company_repository.dart';
@@ -64,6 +68,8 @@ Future<void> initAppModule() async {
       .registerLazySingleton<AboutUsRepository>(() => AboutUsRepositoryImpl());
   instance.registerLazySingleton<TermsOfUseRepository>(
       () => TermsOfUseRepositoryImpl());
+  instance.registerLazySingleton<SupportChatRepository>(
+      () => SupportChatRepositoryImpl(firestore: FirebaseFirestore.instance));
 }
 
 void initAuthenticationModule() {
@@ -71,4 +77,14 @@ void initAuthenticationModule() {
     instance
         .registerLazySingleton<AuthRepository>(() => FirebaseAuthRepository());
   }
+}
+
+void initSupportChatModule(Sender sender) {
+  if (instance.isRegistered<SupportChatRepositoryImpl>()) {
+    instance.unregister<SupportChatRepositoryImpl>();
+  }
+  instance.registerFactory<SupportChatRepositoryImpl>(() {
+    return SupportChatRepositoryImpl(
+        sender: sender, firestore: FirebaseFirestore.instance);
+  });
 }

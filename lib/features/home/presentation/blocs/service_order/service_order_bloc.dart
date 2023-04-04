@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../core/app/di.dart';
-import '../../../domain/entities/message.dart';
+import '../../../../chat/domain/entities/message.dart';
 import '../../../domain/entities/service_order.dart';
 import '../../../domain/repositories/service_repository.dart';
 

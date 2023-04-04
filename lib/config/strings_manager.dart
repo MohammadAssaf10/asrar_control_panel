@@ -138,7 +138,11 @@ class AppStrings {
   static const String requestCanceled = "request_canceled";
   static const String requestAccepted = "request_accepted";
   static const String status = "status";
-
+  static const String support = "support";
+  static const String selectImageSource = "select_image_source";
+  static const String camera = "camera";
+  static const String gallery = "gallery";
+  static const String permissionsMessage = "permissions_message";
   static const String deleteCompanies = "delete_companies";
   static const String companies = "companies";
   static const String noServices = "no_Services";

@@ -4,12 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../config/values_manager.dart';
-import '../../../domain/entities/message.dart';
+import '../../../../chat/presentation/function/function.dart';
 import '../../../domain/entities/service_order.dart';
 import '../../blocs/service_order/service_order_bloc.dart';
 import '../../widgets/error_view.dart';
 import '../../widgets/loading_view.dart';
-import '../../widgets/message_widget.dart';
+import '../../../../chat/presentation/widgets/message_widget.dart';
 
 class ServiceOrderChatScreen extends StatelessWidget {
   ServiceOrderChatScreen({super.key, required this.serviceOrder});
@@ -78,14 +78,4 @@ class ServiceOrderChatScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-bool isPreviousFromTheSameSender(List<Message> message, int index) {
-  if (index == message.length - 1) {
-    return false;
-  } else if (message[index].details.sender ==
-      message[index + 1].details.sender) {
-    return true;
-  }
-  return false;
 }

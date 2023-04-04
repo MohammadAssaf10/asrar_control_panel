@@ -132,8 +132,11 @@
   "service_orders_chat": "Service Order Chat",
   "customer": "Customer",
   "employee": "Employee",
-
-
+  "support": "Support",
+  "select_image_source": "Select Image Source",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "permissions_message": "You Do Not Have Permissions",
   "please_enter_all_required_data": "Please enter all required data",
 
   "isRejected": "isRejected",

@@ -30,7 +30,6 @@
   "new_password": "كلمة السر الجديدة",
   "we_send_you_an_email_please_check_your_email_address": "لقد قمنا بارسال رسالة لك تحقق من بريدك الالكتروني",
   "access to control panel": "الدخول الى لوحة التحكم",
-
   "asrar": "اسرار",
   "home": "البيت",
   "profile": "حسابي",
@@ -53,7 +52,6 @@
   "delete_image": "حذف صور",
   "photos": "الصور",
   "deleted_successfully": "تمت الحذف بنجاح",
-
   "photo_gallery": "معرض الصور",
   "long_press_on_the_image_to_delete": "اضغط مطولاً على الصورة للحذف",
   "no_pictures": "لا يوجد صور",
@@ -133,12 +131,14 @@
   "service_orders_chat": "دردشة طلبات الخدمات",
   "customer": "العميل",
   "employee": "الموظف",
-
-
+  "support": "الدعم",
+  "select_image_source": "حدد مصدر الصورة",
+  "camera": "الكاميرا",
+  "gallery": "المعرض",
   "please_enter_all_required_data": "الرجاء إدخال جميع البيانات المطلوبة",
-
-  "isRejected":  "محظور",
-  "canWork":  "العمل / ايقاف العمل",
+  "isRejected": "محظور",
+  "permissions_message": "ليس لديك صلاحية",
+  "canWork": "العمل / ايقاف العمل",
   "employeeManagement": "ادارة الموظفين",
   "newsManagement": " ادارة الاخبار",
   "addsManagement": " ادارة الاعلانات",
@@ -147,11 +147,8 @@
   "coursesManagement": " ادارة الدورات",
   "storeManagement": " ادارة المتجر",
   "technicalSupport": " الدعم الفني ",
-
   "save": "حفظ",
   "cancel": "الغاء",
-
   "delete_companies": "حذف شركة",
   "no_Services": "لا توجد خدمات"
-
 }

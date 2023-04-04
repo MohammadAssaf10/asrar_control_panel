@@ -25,7 +25,7 @@ manageDialog(BuildContext context, AuthenticationState state) {
     SchedulerBinding.instance.addPostFrameCallback((_) {
       dismissDialog(context);
       // TODO: navigate to main view
-      Navigator.pushReplacementNamed(context, Routes.splashRoute);
+      Navigator.pushReplacementNamed(context, Routes.homeRoute);
     });
   } 
   else if (state is ResetPasswordRequestSuccess) {

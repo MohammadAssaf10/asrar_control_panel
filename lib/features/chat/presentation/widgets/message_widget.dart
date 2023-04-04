@@ -1,13 +1,14 @@
-import 'package:asrar_control_panel/features/home/presentation/widgets/text_message_widget.dart';
-import 'package:asrar_control_panel/features/home/presentation/widgets/voice_message.dart';
+import 'package:asrar_control_panel/features/chat/presentation/widgets/text_message_widget.dart';
+import 'package:asrar_control_panel/features/chat/presentation/widgets/voice_message.dart';
 
+import '../function/function.dart';
 import '../../domain/entities/message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../config/color_manager.dart';
 import '../../../../../config/values_manager.dart';
-import 'image_message_widget.dart';
+import '../../../home/presentation/widgets/image_message_widget.dart';
 
 class MessageWidget extends StatelessWidget {
   MessageWidget(
@@ -80,4 +81,3 @@ class MessageTypeDirector extends StatelessWidget {
     }
   }
 }
-Color getMessageColor(bool v) => v ? ColorManager.lightGreen : ColorManager.white;

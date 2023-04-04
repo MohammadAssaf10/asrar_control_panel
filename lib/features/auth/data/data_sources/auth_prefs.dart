@@ -50,6 +50,18 @@ class AuthPreferences {
         !isRejected();
   }
 
+  void setUserLoggedIn() {
+    _sharedPreferences.setBool(kIsUserLoggedInKey, true);
+  }
+
+  void setUserLoggedOut() {
+    _sharedPreferences.setBool(kIsUserLoggedInKey, false);
+  }
+
+  bool userLoggedIn() {
+    return (_sharedPreferences.getBool(kIsUserLoggedInKey) ?? false);
+  }
+
   bool storeManagement() {
     return (_sharedPreferences.getBool(kStoreManagement) ?? false) &&
         canWork() &&

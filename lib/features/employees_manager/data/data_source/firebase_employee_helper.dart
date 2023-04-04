@@ -27,7 +27,7 @@ class FireBaseEmployeeHelper {
   Future<void> updateEmployee(Employee employee) async {
     await _firestore
         .collection(employeeCollectionPath)
-        .doc(employee.email)
+        .doc(employee.employeeID)
         .set(employee.toMap());
   }
 
